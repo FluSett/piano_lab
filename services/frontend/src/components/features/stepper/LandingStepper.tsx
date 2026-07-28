@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Upload, Mic, ArrowRight, X } from 'lucide-react';
 import { useToast } from '@/components/ui/ToastProvider';
@@ -16,6 +16,7 @@ export const LandingStepper: React.FC = () => {
   const router = useRouter();
   const { showToast } = useToast();
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [presets, setPresets] = useState<PresetPiece[]>([]);
   const [selectedPreset, setSelectedPreset] = useState<string>('');
   const [audioFile, setAudioFile] = useState<File | null>(null);
@@ -23,6 +24,7 @@ export const LandingStepper: React.FC = () => {
   const [isLiveRecord, setIsLiveRecord] = useState<boolean>(false);
   const [isPartialPerformance, setIsPartialPerformance] = useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
 
   React.useEffect(() => {
     let isMounted = true;
@@ -63,44 +65,74 @@ export const LandingStepper: React.FC = () => {
     };
   }, []);
 
+  const validateAndProcessFile = (file: File): boolean => {
+    const extension = '.' + (file.name.split('.').pop()?.toLowerCase() || '');
+    const isAllowedExt = ALLOWED_AUDIO_EXTENSIONS.includes(extension);
+    const isAudioMime = file.type.startsWith('audio/') || file.type === '';
+
+    if (!isAllowedExt || !isAudioMime) {
+      showToast({
+        title: 'UNSUPPORTED FILE TYPE',
+        message: `Please select a valid audio file (${ALLOWED_AUDIO_EXTENSIONS.join(', ')}).`,
+        type: 'error',
+        durationMs: 5000,
+      });
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      return false;
+    }
+
+    if (file.size > MAX_FILE_SIZE_BYTES) {
+      showToast({
+        title: 'FILE TOO LARGE',
+        message: 'Audio clip exceeds maximum allowed size of 50MB.',
+        type: 'error',
+        durationMs: 5000,
+      });
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      return false;
+    }
+
+    setAudioFile(file);
+    setRestoredFileName(file.name);
+    setIsLiveRecord(false);
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('piano_lab_audio_name', file.name);
+      sessionStorage.setItem('piano_lab_is_live_mic', 'false');
+      sessionStorage.setItem('piano_lab_file_chosen', 'true');
+    }
+    return true;
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      const extension = '.' + (file.name.split('.').pop()?.toLowerCase() || '');
-      const isAllowedExt = ALLOWED_AUDIO_EXTENSIONS.includes(extension);
-      const isAudioMime = file.type.startsWith('audio/') || file.type === '';
-
-      if (!isAllowedExt || !isAudioMime) {
-        showToast({
-          title: 'UNSUPPORTED FILE TYPE',
-          message: `Please select a valid audio file (${ALLOWED_AUDIO_EXTENSIONS.join(', ')}).`,
-          type: 'error',
-          durationMs: 5000,
-        });
-        e.target.value = '';
-        return;
-      }
-
-      if (file.size > MAX_FILE_SIZE_BYTES) {
-        showToast({
-          title: 'FILE TOO LARGE',
-          message: 'Audio clip exceeds maximum allowed size of 50MB.',
-          type: 'error',
-          durationMs: 5000,
-        });
-        e.target.value = '';
-        return;
-      }
-
-      setAudioFile(file);
-      setRestoredFileName(file.name);
-      setIsLiveRecord(false);
-      if (typeof window !== 'undefined') {
-        sessionStorage.setItem('piano_lab_audio_name', file.name);
-        sessionStorage.setItem('piano_lab_is_live_mic', 'false');
-        sessionStorage.setItem('piano_lab_file_chosen', 'true');
-      }
+      validateAndProcessFile(e.target.files[0]);
+      e.target.value = '';
     }
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!isDragging) setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      validateAndProcessFile(e.dataTransfer.files[0]);
+    }
+  };
+
+  const handleContainerClick = () => {
+    fileInputRef.current?.click();
   };
 
   const handleClearFile = async (e: React.MouseEvent) => {
@@ -108,6 +140,7 @@ export const LandingStepper: React.FC = () => {
     e.stopPropagation();
     setAudioFile(null);
     setRestoredFileName(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
     await clearAudioBlob();
     if (typeof window !== 'undefined') {
       sessionStorage.removeItem('piano_lab_audio_name');
@@ -399,8 +432,19 @@ export const LandingStepper: React.FC = () => {
           {/* Audio Input & Excerpt Settings Tray */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Audio File Dropzone */}
-            <div className="p-4 rounded-lg border border-dashed border-[#C4C0B6] hover:border-[#111113] bg-white transition-all flex flex-col justify-between h-28 group relative">
+            <div
+              onClick={handleContainerClick}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              className={`p-4 rounded-lg border-2 border-dashed transition-all flex flex-col justify-between h-28 group relative cursor-pointer select-none ${
+                isDragging
+                  ? 'border-[#C84B31] bg-[#FFF5F2] shadow-md'
+                  : 'border-[#C4C0B6] hover:border-[#111113] bg-white'
+              }`}
+            >
               <input
+                ref={fileInputRef}
                 id="audio-file-input"
                 type="file"
                 accept=".wav,.mp3,.ogg,.flac,.m4a,.aac,.wma,audio/wav,audio/mpeg,audio/mp3,audio/ogg,audio/flac,audio/aac,audio/x-m4a,audio/wma"
@@ -408,17 +452,14 @@ export const LandingStepper: React.FC = () => {
                 className="hidden"
               />
               <div className="flex items-center justify-between">
-                <label
-                  htmlFor="audio-file-input"
-                  className="text-[10px] font-mono font-bold tracking-wider text-[#8C887B] uppercase flex items-center gap-1.5 cursor-pointer"
-                >
+                <div className="text-[10px] font-mono font-bold tracking-wider text-[#8C887B] uppercase flex items-center gap-1.5 pointer-events-none">
                   <span>02 / AUDIO CLIP</span>
                   {currentDisplayFileName && (
                     <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[9px] font-bold">
                       SELECTED
                     </span>
                   )}
-                </label>
+                </div>
                 <div className="flex items-center gap-1.5">
                   {currentDisplayFileName && (
                     <button
@@ -430,19 +471,19 @@ export const LandingStepper: React.FC = () => {
                       <X className="w-3.5 h-3.5" />
                     </button>
                   )}
-                  <label htmlFor="audio-file-input" className="cursor-pointer">
-                    <Upload className="w-4 h-4 text-[#C84B31] group-hover:scale-110 transition-transform" />
-                  </label>
+                  <Upload className="w-4 h-4 text-[#C84B31] group-hover:scale-110 transition-transform pointer-events-none" />
                 </div>
               </div>
-              <label htmlFor="audio-file-input" className="truncate pr-2 cursor-pointer">
+              <div className="truncate pr-2 pointer-events-none">
                 <span className="font-bold text-xs text-[#111113] block truncate">
-                  {currentDisplayFileName || 'Drop WAV / MP3 or click'}
+                  {isDragging
+                    ? 'Drop audio file here...'
+                    : currentDisplayFileName || 'Drop WAV / MP3 or click'}
                 </span>
                 <span className="text-[10px] font-mono text-[#8C887B] block">
                   {currentDisplayFileName ? 'Click to replace audio clip' : 'Max 50MB audio clip'}
                 </span>
-              </label>
+              </div>
             </div>
 
             {/* Live Mic & Partial Toggle Box */}
