@@ -98,7 +98,8 @@ An all-in-one studio layout featuring synchronous audio playback, visual feedbac
 ### 2. Python AI Engine (`services/ai-engine/`)
 - **Process Pool Manager (`src/core/pool.py`):** `ProcessPoolExecutor` lifecycle manager supporting CPU core affinity pinning.
 - **Memory & CUDA Flushing (`src/core/memory.py`):** Hooks executing `gc.collect()` and `torch.cuda.empty_cache()` after every AMT transcription task.
-- **Isolated Process Workers (`src/workers/amt_worker.py`):** Top-level standalone process worker function preventing GIL contention and memory leaks.
+- **Isolated DSP & AMT Process Workers (`src/workers/amt_worker.py`):** Top-level standalone process worker function executing Short-Time Fourier Transform (STFT) spectral peak analysis (`scipy.signal.stft`), attack re-strike detection for repeated notes, and MIDI pitch conversion ($f \rightarrow \text{MIDI}$) on PCM WAV audio buffers.
+- **1-to-1 Symbolic Alignment & Scoring Engine (`src/services/alignment.py`):** Adaptive sequence alignment engine featuring Dynamic Anchor-Based Shift Tracking (EMA rubato tracking with decay on missed events), $F_\beta$ precision-weighted pitch accuracy scoring, target-normalized rhythm accuracy, zero-allocation 99th-percentile pure Python outlier trimming, and strict excerpt windowing $[t_{\text{first\_note}}, t_{\text{last\_note}}]$.
 - **Modular Route Controllers (`src/api/v1/`):** Separated `health.py`, `analyze.py`, and `coach.py` endpoints unified by `src/api/router.py`.
 
 ---

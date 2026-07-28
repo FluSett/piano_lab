@@ -84,3 +84,21 @@ To guarantee 100% reproducible builds and eliminate breaking changes:
 
 - **STRICT ZERO SUPPRESSION**: Never suppress, mask, swallow, hide, ignore, or bypass errors, warnings, linter diagnostics, or compiler failures using suppression comments (`# type: ignore`, `@ts-ignore`, `@eslint-disable`, `# noqa`), configuration flags (`warn_unused_ignores = false`), silent try/except fallbacks, or dummy test assertions.
 - **ROOT CAUSE RESOLUTION**: All diagnostics, type mismatches, missing module declarations, syntax errors, and missing imports MUST be resolved directly at their source in application code, type definitions, package dependencies, or environment paths.
+
+---
+
+## 10. Senior Audio & DSP Engineering Protocol
+
+When analyzing audio/MIDI pipeline issues, AMT (Automatic Music Transcription) performance, streaming alignment algorithms, or music evaluation logic, ALWAYS structure technical responses into:
+
+1. **Diagnosis & Root Cause Analysis**:
+   - Quantify mathematical flaws, metric distortions, and DSP edge cases with explicit formulas and numerical values.
+   - Disambiguate alignment search errors (e.g. onset window drift, DTW plateaus) from scoring metric errors (e.g. unnormalized precision vs recall).
+2. **Critical Evaluation of Solutions**:
+   - Evaluate proposed algorithms (DTW, HMMs, EMA shift tracking, IOI matching) against real-world polyphonic piano constraints (sustain pedal resonance, overtones), computational complexity ($\mathcal{O}$-notation), and real-time streaming latency bounds.
+   - Explicitly highlight non-viable approaches with technical proofs rather than accepting flaws.
+3. **Concrete Architectural Fixes**:
+   - Point directly to modified file paths and line ranges ([filename](file:///path/to/file#L10-L20)). Never output full file contents, long code blocks, or diff blocks in chat responses.
+   - Enforce target-normalized formulas to eliminate false-positive score floors.
+
+
