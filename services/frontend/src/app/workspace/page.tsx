@@ -19,7 +19,13 @@ export default function WorkspacePage() {
 
   const [refTitle, setRefTitle] = useState<string>('');
   const [audioName, setAudioName] = useState<string>('');
-  const [isPartial, setIsPartial] = useState<boolean>(true);
+  const [isPartial, setIsPartial] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const storedPartial = sessionStorage.getItem('piano_lab_is_partial');
+      if (storedPartial !== null) return storedPartial === 'true';
+    }
+    return true;
+  });
 
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
@@ -44,9 +50,12 @@ export default function WorkspacePage() {
     const timeoutId = setTimeout(() => controller.abort(), appConfig.analysisTimeoutMs);
 
     try {
+      const storedPartial = typeof window !== 'undefined' ? sessionStorage.getItem('piano_lab_is_partial') : null;
+      const effectiveIsPartial = storedPartial !== null ? storedPartial === 'true' : isPartial;
+
       const formData = new FormData();
       formData.append('referenceId', sessionStorage.getItem('piano_lab_reference_id') || appConfig.defaultReferenceId);
-      formData.append('isPartialPerformance', String(isPartial));
+      formData.append('isPartialPerformance', String(effectiveIsPartial));
 
       const storedBlob = await getAudioBlob();
       if (!storedBlob) {

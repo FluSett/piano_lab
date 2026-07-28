@@ -22,7 +22,13 @@ export const LandingStepper: React.FC = () => {
   const [audioFile, setAudioFile] = useState<File | null>(null);
   const [restoredFileName, setRestoredFileName] = useState<string | null>(null);
   const [isLiveRecord, setIsLiveRecord] = useState<boolean>(false);
-  const [isPartialPerformance, setIsPartialPerformance] = useState<boolean>(true);
+  const [isPartialPerformance, setIsPartialPerformance] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const storedPartial = sessionStorage.getItem('piano_lab_is_partial');
+      if (storedPartial !== null) return storedPartial === 'true';
+    }
+    return true;
+  });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
