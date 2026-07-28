@@ -3,13 +3,18 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Upload, Mic, ArrowRight, X } from 'lucide-react';
+import { useToast } from '@/components/ui/ToastProvider';
 import { MvpBadge } from '@/components/ui/MvpBadge';
 import { PresetPiece } from '@/types';
 import { saveAudioBlob, getAudioBlob, clearAudioBlob } from '@/utils/audioStorage';
 import { appConfig } from '@/config/appConfig';
 
+const ALLOWED_AUDIO_EXTENSIONS = ['.wav', '.mp3', '.ogg', '.flac', '.m4a', '.aac', '.wma'];
+const MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024;
+
 export const LandingStepper: React.FC = () => {
   const router = useRouter();
+  const { showToast } = useToast();
 
   const [presets, setPresets] = useState<PresetPiece[]>([]);
   const [selectedPreset, setSelectedPreset] = useState<string>('');
@@ -61,6 +66,32 @@ export const LandingStepper: React.FC = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
+      const extension = '.' + (file.name.split('.').pop()?.toLowerCase() || '');
+      const isAllowedExt = ALLOWED_AUDIO_EXTENSIONS.includes(extension);
+      const isAudioMime = file.type.startsWith('audio/') || file.type === '';
+
+      if (!isAllowedExt || !isAudioMime) {
+        showToast({
+          title: 'UNSUPPORTED FILE TYPE',
+          message: `Please select a valid audio file (${ALLOWED_AUDIO_EXTENSIONS.join(', ')}).`,
+          type: 'error',
+          durationMs: 5000,
+        });
+        e.target.value = '';
+        return;
+      }
+
+      if (file.size > MAX_FILE_SIZE_BYTES) {
+        showToast({
+          title: 'FILE TOO LARGE',
+          message: 'Audio clip exceeds maximum allowed size of 50MB.',
+          type: 'error',
+          durationMs: 5000,
+        });
+        e.target.value = '';
+        return;
+      }
+
       setAudioFile(file);
       setRestoredFileName(file.name);
       setIsLiveRecord(false);
@@ -368,17 +399,26 @@ export const LandingStepper: React.FC = () => {
           {/* Audio Input & Excerpt Settings Tray */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Audio File Dropzone */}
-            <label className="p-4 rounded-lg border border-dashed border-[#C4C0B6] hover:border-[#111113] bg-white cursor-pointer transition-all flex flex-col justify-between h-28 group relative">
-              <input type="file" accept="audio/*" onChange={handleFileChange} className="hidden" />
+            <div className="p-4 rounded-lg border border-dashed border-[#C4C0B6] hover:border-[#111113] bg-white transition-all flex flex-col justify-between h-28 group relative">
+              <input
+                id="audio-file-input"
+                type="file"
+                accept=".wav,.mp3,.ogg,.flac,.m4a,.aac,.wma,audio/wav,audio/mpeg,audio/mp3,audio/ogg,audio/flac,audio/aac,audio/x-m4a,audio/wma"
+                onChange={handleFileChange}
+                className="hidden"
+              />
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold tracking-wider text-[#8C887B] uppercase flex items-center gap-1.5">
+                <label
+                  htmlFor="audio-file-input"
+                  className="text-[10px] font-mono font-bold tracking-wider text-[#8C887B] uppercase flex items-center gap-1.5 cursor-pointer"
+                >
                   <span>02 / AUDIO CLIP</span>
                   {currentDisplayFileName && (
                     <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[9px] font-bold">
                       SELECTED
                     </span>
                   )}
-                </span>
+                </label>
                 <div className="flex items-center gap-1.5">
                   {currentDisplayFileName && (
                     <button
@@ -390,18 +430,20 @@ export const LandingStepper: React.FC = () => {
                       <X className="w-3.5 h-3.5" />
                     </button>
                   )}
-                  <Upload className="w-4 h-4 text-[#C84B31] group-hover:scale-110 transition-transform" />
+                  <label htmlFor="audio-file-input" className="cursor-pointer">
+                    <Upload className="w-4 h-4 text-[#C84B31] group-hover:scale-110 transition-transform" />
+                  </label>
                 </div>
               </div>
-              <div className="truncate pr-2">
+              <label htmlFor="audio-file-input" className="truncate pr-2 cursor-pointer">
                 <span className="font-bold text-xs text-[#111113] block truncate">
                   {currentDisplayFileName || 'Drop WAV / MP3 or click'}
                 </span>
-                <span className="text-[10px] font-mono text-[#8C887B]">
+                <span className="text-[10px] font-mono text-[#8C887B] block">
                   {currentDisplayFileName ? 'Click to replace audio clip' : 'Max 50MB audio clip'}
                 </span>
-              </div>
-            </label>
+              </label>
+            </div>
 
             {/* Live Mic & Partial Toggle Box */}
             <div className="p-4 rounded-lg border border-[#E2DFD7] bg-white flex flex-col justify-between h-28 space-y-2">
