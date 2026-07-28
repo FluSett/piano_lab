@@ -36,7 +36,7 @@ export const AICoachPanel: React.FC<AICoachPanelProps> = ({ performanceData }) =
       id: 'msg-1',
       sender: 'coach',
       text: getInitialText(performanceData),
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      timestamp: 'Studio AI',
     },
   ]);
 

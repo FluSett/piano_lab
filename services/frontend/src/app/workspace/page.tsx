@@ -17,25 +17,9 @@ export default function WorkspacePage() {
   const router = useRouter();
   const { showToast } = useToast();
 
-  const [refTitle, setRefTitle] = useState<string>(() => {
-    if (typeof window !== 'undefined') {
-      return sessionStorage.getItem('piano_lab_reference_title') || '';
-    }
-    return '';
-  });
-  const [audioName] = useState<string>(() => {
-    if (typeof window !== 'undefined') {
-      return sessionStorage.getItem('piano_lab_audio_name') || '';
-    }
-    return '';
-  });
-  const [isPartial] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
-      const val = sessionStorage.getItem('piano_lab_is_partial');
-      return val === null ? true : val === 'true';
-    }
-    return true;
-  });
+  const [refTitle, setRefTitle] = useState<string>('');
+  const [audioName, setAudioName] = useState<string>('');
+  const [isPartial, setIsPartial] = useState<boolean>(true);
 
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
@@ -148,7 +132,15 @@ export default function WorkspacePage() {
         return;
       }
 
-      if (!refTitle) {
+      const storedAudioName = sessionStorage.getItem('piano_lab_audio_name') || '';
+      const storedRefTitle = sessionStorage.getItem('piano_lab_reference_title') || '';
+      const storedPartial = sessionStorage.getItem('piano_lab_is_partial');
+
+      if (storedAudioName) setAudioName(storedAudioName);
+      if (storedRefTitle) setRefTitle(storedRefTitle);
+      if (storedPartial !== null) setIsPartial(storedPartial === 'true');
+
+      if (!refTitle && !storedRefTitle) {
         fetch(`${appConfig.apiUrl}/presets`)
           .then((res) => (res.ok ? res.json() : []))
           .then((presets) => {
