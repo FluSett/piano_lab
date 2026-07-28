@@ -79,6 +79,11 @@ export const AICoachPanel: React.FC<AICoachPanelProps> = ({ performanceData }) =
     setMessages((prev) => [...prev, userMsg]);
     setIsSending(true);
 
+    const chatHistory = messages.map((m) => ({
+      sender: m.sender,
+      text: m.text,
+    }));
+
     try {
       const res = await fetch(`${appConfig.apiUrl}/coach/chat`, {
         method: 'POST',
@@ -87,6 +92,7 @@ export const AICoachPanel: React.FC<AICoachPanelProps> = ({ performanceData }) =
           sessionId: performanceData?.sessionId || 'sess-default',
           userMessage: userText,
           recentPerformanceData: performanceData,
+          chatHistory,
         }),
       });
 
@@ -104,7 +110,14 @@ export const AICoachPanel: React.FC<AICoachPanelProps> = ({ performanceData }) =
         throw new Error('Failed to contact coach');
       }
     } catch {
-      const isOffTopic = !userText.toLowerCase().includes('piano') && !userText.toLowerCase().includes('note') && !userText.toLowerCase().includes('measure');
+      const isOffTopic =
+        messages.length <= 1 &&
+        !userText.toLowerCase().includes('piano') &&
+        !userText.toLowerCase().includes('note') &&
+        !userText.toLowerCase().includes('measure') &&
+        !userText.toLowerCase().includes('timing') &&
+        !userText.toLowerCase().includes('rhythm') &&
+        !userText.toLowerCase().includes('pitch');
       const fallbackMsg: CoachMessage = {
         id: `coach-${Date.now()}`,
         sender: 'coach',

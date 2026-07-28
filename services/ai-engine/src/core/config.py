@@ -14,7 +14,7 @@ class Settings(BaseModel):
     coach_config_path: str = os.getenv("COACH_CONFIG_PATH", "config/coach_config.json")
     default_reference_id: str = os.getenv("DEFAULT_REFERENCE_ID", "pirates-of-the-caribbean")
     gemini_temperature: float = float(os.getenv("GEMINI_TEMPERATURE", "0.7"))
-    gemini_max_tokens: int = int(os.getenv("GEMINI_MAX_TOKENS", "300"))
+    gemini_max_tokens: int = int(os.getenv("GEMINI_MAX_TOKENS", "500"))
     pitch_accuracy_threshold: float = float(os.getenv("PITCH_ACCURACY_THRESHOLD", "90.0"))
     placeholder_api_key: str = "your_gemini_api_key_here"
 

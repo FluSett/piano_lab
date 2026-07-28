@@ -1,6 +1,7 @@
 from src.domain.schemas import (
     AnalysisResult,
     BaseSchema,
+    CoachChatMessage,
     CoachRequest,
     CoachResponse,
     HealthCheckResponse,
@@ -11,6 +12,7 @@ from src.domain.schemas import (
 __all__ = [
     "AnalysisResult",
     "BaseSchema",
+    "CoachChatMessage",
     "CoachRequest",
     "CoachResponse",
     "HealthCheckResponse",

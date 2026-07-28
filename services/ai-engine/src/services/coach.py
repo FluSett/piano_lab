@@ -50,12 +50,14 @@ class AICoachService:
         )
 
         self._genai_client = None
+        self._genai_types = None
 
         if self.api_key and self.api_key != settings.placeholder_api_key:
             try:
                 import importlib
 
                 genai_module = importlib.import_module("google.genai")
+                self._genai_types = importlib.import_module("google.genai.types")
                 self._genai_client = genai_module.Client(api_key=self.api_key)
 
                 logger.info(f"Initialized Google GenAI client with model {self.model_name}")
@@ -65,7 +67,13 @@ class AICoachService:
     def generate_coach_response(self, request: CoachRequest) -> CoachResponse:
         user_text = request.user_message.strip()
 
-        is_piano_related = any(kw in user_text.lower() for kw in self.piano_keywords)
+        has_history = len(request.chat_history) > 0
+        has_perf = request.recent_performance_data is not None
+        is_piano_related = (
+            has_history
+            or has_perf
+            or any(kw in user_text.lower() for kw in self.piano_keywords)
+        )
         if not is_piano_related:
             return CoachResponse(
                 reply_message=self.off_topic_message,
@@ -89,25 +97,35 @@ class AICoachService:
                 f"- Rhythm Accuracy: {perf.rhythm_accuracy}%\n"
                 f"- Partial Performance Excerpt: {perf.is_partial_performance}\n"
                 f"- Evaluated Notes: {len(perf.evaluated_notes)}\n"
-                f"- Missed Measures: {suggested_measures}\n"
+                f"- Missed Measures: {suggested_measures}\n\n"
             )
 
-        if self._genai_client is not None:
+        history_str = ""
+        if request.chat_history:
+            history_lines = [
+                f"{msg.sender.upper()}: {msg.text}" for msg in request.chat_history[-6:]
+            ]
+            history_str = "Recent Conversation Context:\n" + "\n".join(history_lines) + "\n\n"
+
+        if self._genai_client is not None and self._genai_types is not None:
             try:
-                prompt = f"{context_str}\nStudent Question: {user_text}"
+                prompt = f"{context_str}{history_str}Student Question: {user_text}"
+                gen_config = self._genai_types.GenerateContentConfig(
+                    system_instruction=self.system_instruction,
+                    temperature=settings.gemini_temperature,
+                    max_output_tokens=settings.gemini_max_tokens,
+                )
                 response = self._genai_client.models.generate_content(
                     model=self.model_name,
                     contents=prompt,
-                    config={
-                        "system_instruction": self.system_instruction,
-                        "temperature": settings.gemini_temperature,
-                        "max_output_tokens": settings.gemini_max_tokens,
-                    },
+                    config=gen_config,
                 )
                 if response and response.text:
+                    reply = response.text.strip()
+                    is_off_topic_reply = self.off_topic_message in reply
                     return CoachResponse(
-                        reply_message=response.text.strip(),
-                        is_off_topic=False,
+                        reply_message=reply,
+                        is_off_topic=is_off_topic_reply,
                         suggested_measures=suggested_measures,
                     )
             except Exception as e:

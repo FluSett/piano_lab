@@ -220,13 +220,25 @@
           "coachSummary": { "type": "string", "example": "Great work on the left-hand arpeggios!" }
         }
       },
+      "CoachChatMessage": {
+        "type": "object",
+        "required": ["sender", "text"],
+        "properties": {
+          "sender": { "type": "string", "enum": ["user", "coach"] },
+          "text": { "type": "string" }
+        }
+      },
       "CoachRequest": {
         "type": "object",
         "required": ["userMessage"],
         "properties": {
           "sessionId": { "type": "string" },
           "userMessage": { "type": "string", "example": "How can I improve my timing in Measure 4?" },
-          "recentPerformanceData": { "$ref": "#/components/schemas/AnalysisResult" }
+          "recentPerformanceData": { "$ref": "#/components/schemas/AnalysisResult" },
+          "chatHistory": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CoachChatMessage" }
+          }
         }
       },
       "CoachResponse": {

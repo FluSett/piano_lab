@@ -51,10 +51,16 @@ class AnalysisResult(BaseSchema):
     coach_summary: str
 
 
+class CoachChatMessage(BaseSchema):
+    sender: Literal["user", "coach"]
+    text: str
+
+
 class CoachRequest(BaseSchema):
     session_id: str | None = None
     user_message: str
     recent_performance_data: AnalysisResult | None = None
+    chat_history: list[CoachChatMessage] = Field(default_factory=list)
 
 
 class CoachResponse(BaseSchema):

@@ -49,6 +49,18 @@ export interface CoachMessage {
   timestamp: string;
 }
 
+export interface CoachChatMessage {
+  sender: 'user' | 'coach';
+  text: string;
+}
+
+export interface CoachRequest {
+  sessionId?: string;
+  userMessage: string;
+  recentPerformanceData?: AnalysisResult | null;
+  chatHistory?: CoachChatMessage[];
+}
+
 export interface SetupSessionState {
   referenceId: string;
   referenceTitle: string;
