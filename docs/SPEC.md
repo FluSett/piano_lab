@@ -30,8 +30,10 @@ Located at `src/components/features/stepper/LandingStepper.tsx`, this sleek land
    * Dynamically fetches reference pieces from Go API Gateway `/api/v1/presets` with clean fallback defaults (*He's a Pirate*, *Bohemian Rhapsody*, *Je te laisserai des mots*).
    * **Session State Retention:** When returning to `/` from the workspace, user selections (selected preset piece, audio file name, excerpt setting, live mic choice) are restored from `sessionStorage` instead of resetting to defaults.
 
-2. **Step 2: Upload Performance Audio & IndexedDB Storage (`src/utils/audioStorage.ts`):**
+2. **Step 2: Upload Performance Audio, Audio Dropzone & IndexedDB Storage (`src/utils/audioStorage.ts`):**
    * Accepts `.wav`, `.mp3`, and `.m4a` files or allows live microphone recording toggle.
+   * **Full-Surface Click Activation:** The dropzone encapsulates a hidden `<input type="file" id="audio-file-input" accept="audio/wav, audio/mpeg, audio/mp3, audio/x-m4a, audio/m4a, .wav, .mp3, .m4a" />` wrapped in `<label htmlFor="audio-file-input">` elements covering the icon, text labels, and padding for 100% reliable click-to-browse file dialog activation.
+   * **Instant Clear & Replace Control:** Provides a dedicated clear button (`X` icon) permitting immediate removal or replacement of selected performance audio without resetting reference score selections.
    * Persists selected audio file blobs to IndexedDB (`saveAudioBlob`) so client-side page transitions preserve the exact performance audio payload.
 
 3. **Step 3: Partial Performance Configuration:**
@@ -67,6 +69,7 @@ An all-in-one studio layout featuring synchronous audio playback, visual feedbac
 └───────────────────────────────────────────────────┴────────────────────┘
 ```
 
+* **SSR Hydration Safety:** Workspace state restoration (`sessionStorage`) is deferred to client-side `useEffect` hooks, eliminating SSR vs client initial state divergence. Initial AI Coach message timestamp uses static `"Studio AI"` label to prevent hydration mismatches.
 * **Zero Hardcoding & Centralized Configuration (`src/config/appConfig.ts`):** All API URLs, WebSocket endpoints, reference IDs, timeouts, pixel speeds, piano key ranges, and default durations are driven strictly by the centralized `appConfig` module and environment variables. Inline hardcoded magic numbers, fallback strings, and timeouts are completely eliminated across all UI components and hooks.
 * **Studio Loading Overlay & Retry Mechanism:** During analysis, an animated Studio Loading Card displays live status (*"Transcribing audio pitch & onset events with neural AI Engine..."*). If analysis times out or fails, a dedicated Studio Error Card provides detailed diagnostics alongside **RETRY STUDIO ANALYSIS** and **SELECT ANOTHER PIECE** action controls.
 * **Synchronous Audio Player (`src/hooks/useAudioPlayer.ts`):** Plays the user's performance audio file aloud (`HTMLAudioElement`), driving `currentTime` and actual audio `duration` directly from the user's file. Includes audio volume slider control, mute/unmute toggle with dynamic volume icons, Web Audio API fallback, and smooth `requestAnimationFrame` timing.
@@ -76,8 +79,9 @@ An all-in-one studio layout featuring synchronous audio playback, visual feedbac
 * **Timeline Status History Matrix Grid (`src/components/features/timeline/TimelineHistory.tsx`):** High-density responsive square tile matrix grid (`grid-cols-4 sm:grid-cols-6 md:grid-cols-8`) allowing 30-50+ events to be visible simultaneously at a glance. Pressing any square tile pauses audio playback (`pauseAudio`) to prevent seeking race conditions, seeks to the event timestamp (`seek`), and expands the tile into a 2x2 detail view (`#46`) with full metrics (MIDI pitch, velocity, timing offset, status badge). Highlights the exact clicked note or last played note (item `#1` at start). Pressing Play or resuming playback automatically collapses expanded cards so auto-follow streams through compact square tiles.
 * **Interactive AI Piano Coach Panel (`src/components/features/coach/AICoachPanel.tsx`):**
   * Powered by Google GenAI (`gemini-2.5-flash`).
-  * **100% Dynamic GenAI Response Generation:** Student questions are processed directly by the Google GenAI model (`gemini-2.5-flash`), passing student performance metrics (overall score, pitch accuracy, rhythm accuracy, evaluated notes count, missed measures, excerpt window mode) to generate personalized coaching guidance. *Conditionally opened/rendered only after audio analysis completes successfully with data.*
-  * **Context Awareness, Off-Topic Guardrail & API Key Requirement:** Politely declines non-piano questions. If `GEMINI_API_KEY` is not set in `.env`, transparently notifies the user to configure `GEMINI_API_KEY` to activate live AI coaching.
+  * **100% Dynamic GenAI Response Generation & Multi-Turn Context (`chatHistory`):** Student questions and full conversation context (`chatHistory`) are processed directly by Google GenAI (`gemini-2.5-flash`), passing student performance metrics (overall score, pitch accuracy, rhythm accuracy, evaluated notes count, missed measures, excerpt window mode) to generate personalized coaching guidance.
+  * **Compact Pedagogue Structuring (`config/coach_config.json`):** System prompt constraints enforce concise, focused response length (100–150 words max) structured with clear headings or bullet points to prevent response truncation or open-ended narrative rambling.
+  * **Refined Domain Follow-up Guardrails & API Key Requirement:** Intelligent guardrail filter permits follow-up questions on music theory, piano techniques, tempo/dynamics, and previous AI advice while politely declining non-piano topics. If `GEMINI_API_KEY` is omitted, transparently notifies the user to configure `GEMINI_API_KEY` to activate live AI coaching.
 * **Web Worker Audio Parser (`src/workers/audioParser.worker.ts`):** Offloads heavy audio buffer decoding and metadata calculation off the main UI thread.
 
 ---
@@ -100,6 +104,7 @@ An all-in-one studio layout featuring synchronous audio playback, visual feedbac
 - **Memory & CUDA Flushing (`src/core/memory.py`):** Hooks executing `gc.collect()` and `torch.cuda.empty_cache()` after every AMT transcription task.
 - **Isolated DSP & AMT Process Workers (`src/workers/amt_worker.py`):** Top-level standalone process worker function executing Short-Time Fourier Transform (STFT) spectral peak analysis (`scipy.signal.stft`), attack re-strike detection for repeated notes, and MIDI pitch conversion ($f \rightarrow \text{MIDI}$) on PCM WAV audio buffers.
 - **1-to-1 Symbolic Alignment & Scoring Engine (`src/services/alignment.py`):** Adaptive sequence alignment engine featuring Dynamic Anchor-Based Shift Tracking (EMA rubato tracking with decay on missed events), $F_\beta$ precision-weighted pitch accuracy scoring, target-normalized rhythm accuracy, zero-allocation 99th-percentile pure Python outlier trimming, and strict excerpt windowing $[t_{\text{first\_note}}, t_{\text{last\_note}}]$.
+- **Configurable AI Pedagogue Engine (`config/coach_config.json`, `src/services/coach.py`):** Multi-turn conversation context history parser, system prompt configuration manager, response length/structure enforcer, and domain-specific follow-up guardrails.
 - **Modular Route Controllers (`src/api/v1/`):** Separated `health.py`, `analyze.py`, and `coach.py` endpoints unified by `src/api/router.py`.
 
 ---
