@@ -28,9 +28,9 @@ export const VirtualPiano: React.FC<VirtualPianoProps> = ({
   });
 
   return (
-    <div className="w-full bg-[#1c1c1f] border-t border-[#2a2a2e]">
+    <div className="w-full bg-[#1c1c1f] border-t border-[#2a2a2e] overflow-hidden">
       <div
-        className="relative h-24 select-none"
+        className="relative h-24 select-none overflow-hidden"
         style={{ width: `${width}px` }}
       >
         {keyList.map((bounds) => {

@@ -2,84 +2,85 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Upload, Mic, ArrowRight } from 'lucide-react';
+import { Upload, Mic, ArrowRight, X } from 'lucide-react';
 import { MvpBadge } from '@/components/ui/MvpBadge';
 import { PresetPiece } from '@/types';
-import { saveAudioBlob } from '@/utils/audioStorage';
+import { saveAudioBlob, getAudioBlob, clearAudioBlob } from '@/utils/audioStorage';
 import { appConfig } from '@/config/appConfig';
-
-const DEFAULT_PRESETS: PresetPiece[] = [
-  {
-    id: 'pirates-of-the-caribbean',
-    title: "He's a Pirate",
-    composer: 'Klaus Badelt / Hans Zimmer',
-    difficulty: 'Intermediate',
-    noteCount: 1255,
-    durationSeconds: 77.6,
-  },
-  {
-    id: 'queen-bohemian-rhapsody',
-    title: 'Bohemian Rhapsody',
-    composer: 'Queen',
-    difficulty: 'Advanced',
-    noteCount: 5925,
-    durationSeconds: 1007.0,
-  },
-  {
-    id: 'je-te-laisserai-des-mots',
-    title: 'Je te laisserai des mots',
-    composer: 'Patrick Watson',
-    difficulty: 'Beginner',
-    noteCount: 830,
-    durationSeconds: 143.8,
-  },
-];
 
 export const LandingStepper: React.FC = () => {
   const router = useRouter();
 
-  const [presets, setPresets] = useState<PresetPiece[]>(DEFAULT_PRESETS);
-  const [selectedPreset, setSelectedPreset] = useState<string>(DEFAULT_PRESETS[0].id);
+  const [presets, setPresets] = useState<PresetPiece[]>([]);
+  const [selectedPreset, setSelectedPreset] = useState<string>('');
   const [audioFile, setAudioFile] = useState<File | null>(null);
+  const [restoredFileName, setRestoredFileName] = useState<string | null>(null);
   const [isLiveRecord, setIsLiveRecord] = useState<boolean>(false);
   const [isPartialPerformance, setIsPartialPerformance] = useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   React.useEffect(() => {
+    let isMounted = true;
     fetch(`${appConfig.apiUrl}/presets`)
       .then((res) => {
         if (res.ok) return res.json();
         throw new Error('Failed to fetch presets');
       })
       .then((data: PresetPiece[]) => {
-        if (Array.isArray(data) && data.length > 0) {
+        if (isMounted && Array.isArray(data) && data.length > 0) {
           setPresets(data);
+          const storedRef = typeof window !== 'undefined' ? sessionStorage.getItem('piano_lab_reference_id') : null;
+          if (storedRef && data.some((p) => p.id === storedRef)) {
+            setSelectedPreset(storedRef);
+          } else {
+            setSelectedPreset(data[0].id);
+          }
         }
       })
       .catch((err) => {
-        console.warn('Could not load remote presets, using defaults:', err);
+        console.error('Failed to load dynamic presets from API Gateway:', err);
       });
 
     if (typeof window !== 'undefined') {
-      const storedRef = sessionStorage.getItem('piano_lab_reference_id');
       const storedName = sessionStorage.getItem('piano_lab_audio_name');
       const storedPartial = sessionStorage.getItem('piano_lab_is_partial');
       const storedMic = sessionStorage.getItem('piano_lab_is_live_mic');
-      if (storedRef) setSelectedPreset(storedRef);
-      if (storedName === 'Live_Mic_Recording.wav' || storedMic === 'true') setIsLiveRecord(true);
+      if (storedName === 'Live_Mic_Recording.wav' || storedMic === 'true') {
+        setIsLiveRecord(true);
+      } else if (storedName) {
+        setRestoredFileName(storedName);
+      }
       if (storedPartial !== null) setIsPartialPerformance(storedPartial === 'true');
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setAudioFile(file);
+      setRestoredFileName(file.name);
       setIsLiveRecord(false);
       if (typeof window !== 'undefined') {
         sessionStorage.setItem('piano_lab_audio_name', file.name);
         sessionStorage.setItem('piano_lab_is_live_mic', 'false');
+        sessionStorage.setItem('piano_lab_file_chosen', 'true');
       }
+    }
+  };
+
+  const handleClearFile = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setAudioFile(null);
+    setRestoredFileName(null);
+    await clearAudioBlob();
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('piano_lab_audio_name');
+      sessionStorage.removeItem('piano_lab_file_chosen');
     }
   };
 
@@ -88,70 +89,105 @@ export const LandingStepper: React.FC = () => {
     setIsLiveRecord(nextState);
     if (nextState) {
       setAudioFile(null);
+      setRestoredFileName(null);
       if (typeof window !== 'undefined') {
         sessionStorage.setItem('piano_lab_audio_name', 'Live_Mic_Recording.wav');
         sessionStorage.setItem('piano_lab_is_live_mic', 'true');
+        sessionStorage.setItem('piano_lab_file_chosen', 'true');
       }
     } else if (!audioFile && typeof window !== 'undefined') {
       sessionStorage.removeItem('piano_lab_audio_name');
       sessionStorage.removeItem('piano_lab_is_live_mic');
+      sessionStorage.removeItem('piano_lab_file_chosen');
     }
   };
 
-function createSampleWavBlob(durationSec: number = 5): Blob {
-  const sampleRate = 22050;
-  const numChannels = 1;
-  const numSamples = Math.floor(sampleRate * Math.min(durationSec, 30));
-  const dataSize = numSamples * 2;
-  const buffer = new ArrayBuffer(44 + dataSize);
-  const view = new DataView(buffer);
+  function createSampleWavBlob(durationSec: number = 10): Blob {
+    const sampleRate = 44100;
+    const numChannels = 1;
+    const duration = Math.min(Math.max(durationSec, 6), 20);
+    const numSamples = Math.floor(sampleRate * duration);
+    const dataSize = numSamples * 2;
+    const buffer = new ArrayBuffer(44 + dataSize);
+    const view = new DataView(buffer);
 
-  view.setUint32(0, 0x52494646, false);
-  view.setUint32(4, 36 + dataSize, true);
-  view.setUint32(8, 0x57415645, false);
+    view.setUint32(0, 0x52494646, false);
+    view.setUint32(4, 36 + dataSize, true);
+    view.setUint32(8, 0x57415645, false);
 
-  view.setUint32(12, 0x666d7420, false);
-  view.setUint32(16, 16, true);
-  view.setUint16(20, 1, true);
-  view.setUint16(22, numChannels, true);
-  view.setUint32(24, sampleRate, true);
-  view.setUint32(28, sampleRate * numChannels * 2, true);
-  view.setUint16(32, numChannels * 2, true);
-  view.setUint16(34, 16, true);
+    view.setUint32(12, 0x666d7420, false);
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, numChannels, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, sampleRate * numChannels * 2, true);
+    view.setUint16(32, numChannels * 2, true);
+    view.setUint16(34, 16, true);
 
-  view.setUint32(36, 0x64617461, false);
-  view.setUint32(40, dataSize, true);
+    view.setUint32(36, 0x64617461, false);
+    view.setUint32(40, dataSize, true);
 
-  const freq = 440;
-  for (let i = 0; i < numSamples; i++) {
-    const sample = Math.sin((2 * Math.PI * freq * i) / sampleRate) * 0.15 * 32767;
-    view.setInt16(44 + i * 2, sample, true);
+    const scalePitches = [60, 62, 64, 65, 67, 69, 71, 72];
+    const noteLenSec = 0.50;
+    const noteSamples = Math.floor(sampleRate * noteLenSec);
+
+    for (let i = 0; i < numSamples; i++) {
+      const noteIdx = Math.floor(i / noteSamples) % scalePitches.length;
+      const pitch = scalePitches[noteIdx];
+      const freq = 440 * Math.pow(2, (pitch - 69) / 12);
+
+      const tInNote = (i % noteSamples) / sampleRate;
+      const env = Math.exp(-3.5 * tInNote);
+
+      const val =
+        (Math.sin(2 * Math.PI * freq * tInNote) * 0.6 +
+         Math.sin(2 * Math.PI * 2 * freq * tInNote) * 0.25 +
+         Math.sin(2 * Math.PI * 3 * freq * tInNote) * 0.15) *
+        env *
+        0.3;
+
+      const sampleInt = Math.floor(Math.max(-32768, Math.min(32767, val * 32767)));
+      view.setInt16(44 + i * 2, sampleInt, true);
+    }
+
+    return new Blob([buffer], { type: 'audio/wav' });
   }
 
-  return new Blob([buffer], { type: 'audio/wav' });
-}
+  const canStartAnalysis = Boolean(audioFile || restoredFileName || isLiveRecord);
 
   const handleStartAnalysis = async () => {
+    if (!canStartAnalysis) return;
     setIsSubmitting(true);
     try {
       const chosen = presets.find((p) => p.id === selectedPreset);
 
       if (audioFile) {
         await saveAudioBlob(audioFile);
+      } else if (restoredFileName && !isLiveRecord) {
+        const existingBlob = await getAudioBlob();
+        if (!existingBlob) {
+          const sampleBlob = createSampleWavBlob(chosen?.durationSeconds || 15);
+          await saveAudioBlob(sampleBlob);
+        }
       } else {
         const sampleBlob = createSampleWavBlob(chosen?.durationSeconds || 15);
         await saveAudioBlob(sampleBlob);
       }
 
-      sessionStorage.setItem('piano_lab_reference_id', selectedPreset);
+      const activeName = audioFile
+        ? audioFile.name
+        : restoredFileName && !isLiveRecord
+        ? restoredFileName
+        : isLiveRecord
+        ? 'Live_Mic_Recording.wav'
+        : `${selectedPreset || appConfig.defaultReferenceId}.wav`;
+
+      sessionStorage.setItem('piano_lab_reference_id', selectedPreset || appConfig.defaultReferenceId);
       sessionStorage.setItem('piano_lab_reference_title', chosen?.title || "He's a Pirate");
       sessionStorage.setItem('piano_lab_is_partial', String(isPartialPerformance));
       sessionStorage.setItem('piano_lab_file_chosen', 'true');
       sessionStorage.setItem('piano_lab_analysis_submitted', 'true');
-      sessionStorage.setItem(
-        'piano_lab_audio_name',
-        audioFile ? audioFile.name : isLiveRecord ? 'Live_Mic_Recording.wav' : `${selectedPreset}.wav`
-      );
+      sessionStorage.setItem('piano_lab_audio_name', activeName);
 
       setTimeout(() => {
         router.push('/workspace');
@@ -162,14 +198,27 @@ function createSampleWavBlob(durationSec: number = 5): Blob {
     }
   };
 
-  const activePresetIndex = presets.findIndex((p) => p.id === selectedPreset);
-  const activePreset = presets[activePresetIndex] || presets[0];
+  const activePresetIndex = Math.max(0, presets.findIndex((p) => p.id === selectedPreset));
+  const activePreset = presets[activePresetIndex] || {
+    id: selectedPreset || appConfig.defaultReferenceId,
+    title: 'Loading target piece...',
+    composer: 'Piano Lab Gateway',
+    difficulty: 'Preset',
+    noteCount: 0,
+    durationSeconds: 0,
+  };
 
   const formatMinSec = (sec: number) => {
     const m = Math.floor(sec / 60);
     const s = Math.floor(sec % 60);
     return `${m}:${s < 10 ? '0' : ''}${s}`;
   };
+
+  const currentDisplayFileName = audioFile
+    ? audioFile.name
+    : restoredFileName && !isLiveRecord
+    ? restoredFileName
+    : null;
 
   return (
     <div className="w-full space-y-10 py-2">
@@ -248,7 +297,6 @@ function createSampleWavBlob(durationSec: number = 5): Blob {
 
         {/* Right Column: High-Impact Typography & Controls */}
         <div className="lg:col-span-7 space-y-8">
-
           {/* Main Title Block */}
           <div>
             <MvpBadge size="md" className="mb-3" />
@@ -267,66 +315,91 @@ function createSampleWavBlob(durationSec: number = 5): Blob {
               <span>DURATION</span>
             </div>
 
-            <div className="space-y-2">
-              {presets.map((preset, index) => {
-                const isSelected = selectedPreset === preset.id;
-                return (
-                  <div
-                    key={preset.id}
-                    onClick={() => setSelectedPreset(preset.id)}
-                    className={`p-3.5 rounded-lg border transition-all cursor-pointer flex items-center justify-between group ${
-                      isSelected
-                        ? 'bg-[#111113] text-[#F6F4F0] border-[#111113] shadow-md'
-                        : 'bg-white text-[#111113] border-[#E2DFD7] hover:border-[#C84B31]'
-                    }`}
-                  >
-                    <div className="flex items-center gap-4">
-                      <span
-                        className={`font-mono font-bold text-xs ${
-                          isSelected ? 'text-[#C84B31]' : 'text-[#8C887B]'
-                        }`}
-                      >
-                        0{index + 1}
-                      </span>
-                      <div>
-                        <div className="font-bold text-sm tracking-tight">{preset.title}</div>
-                        <div
-                          className={`text-xs font-mono uppercase ${
-                            isSelected ? 'text-[#A1A1AA]' : 'text-[#6B6B70]'
+            <div className={`space-y-2 ${presets.length > 3 ? 'max-h-[225px] overflow-y-auto pr-1 custom-scrollbar' : ''}`}>
+              {presets.length === 0 ? (
+                <div className="p-4 rounded-lg border border-[#E2DFD7] bg-white text-center font-mono text-xs text-[#8C887B] animate-pulse">
+                  FETCHING DYNAMIC PRESETS FROM API GATEWAY...
+                </div>
+              ) : (
+                presets.map((preset, index) => {
+                  const isSelected = selectedPreset === preset.id;
+                  return (
+                    <div
+                      key={preset.id}
+                      onClick={() => setSelectedPreset(preset.id)}
+                      className={`p-3.5 rounded-lg border transition-all cursor-pointer flex items-center justify-between group ${
+                        isSelected
+                          ? 'bg-[#111113] text-[#F6F4F0] border-[#111113] shadow-md'
+                          : 'bg-white text-[#111113] border-[#E2DFD7] hover:border-[#C84B31]'
+                      }`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <span
+                          className={`font-mono font-bold text-xs ${
+                            isSelected ? 'text-[#C84B31]' : 'text-[#8C887B]'
                           }`}
                         >
-                          {preset.composer} • {preset.difficulty}
+                          0{index + 1}
+                        </span>
+                        <div>
+                          <div className="font-bold text-sm tracking-tight">{preset.title}</div>
+                          <div
+                            className={`text-xs font-mono uppercase ${
+                              isSelected ? 'text-[#A1A1AA]' : 'text-[#6B6B70]'
+                            }`}
+                          >
+                            {preset.composer} • {preset.difficulty}
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="flex items-center gap-4">
-                      <span className="font-mono text-xs font-bold">
-                        {formatMinSec(preset.durationSeconds)}
-                      </span>
+                      <div className="flex items-center gap-4">
+                        <span className="font-mono text-xs font-bold">
+                          {formatMinSec(preset.durationSeconds)}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              )}
             </div>
           </div>
 
           {/* Audio Input & Excerpt Settings Tray */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Audio File Dropzone */}
-            <label className="p-4 rounded-lg border border-dashed border-[#C4C0B6] hover:border-[#111113] bg-white cursor-pointer transition-all flex flex-col justify-between h-28 group">
+            <label className="p-4 rounded-lg border border-dashed border-[#C4C0B6] hover:border-[#111113] bg-white cursor-pointer transition-all flex flex-col justify-between h-28 group relative">
               <input type="file" accept="audio/*" onChange={handleFileChange} className="hidden" />
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold tracking-wider text-[#8C887B] uppercase">
-                  02 / AUDIO CLIP
+                <span className="text-[10px] font-mono font-bold tracking-wider text-[#8C887B] uppercase flex items-center gap-1.5">
+                  <span>02 / AUDIO CLIP</span>
+                  {currentDisplayFileName && (
+                    <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[9px] font-bold">
+                      SELECTED
+                    </span>
+                  )}
                 </span>
-                <Upload className="w-4 h-4 text-[#C84B31] group-hover:scale-110 transition-transform" />
+                <div className="flex items-center gap-1.5">
+                  {currentDisplayFileName && (
+                    <button
+                      type="button"
+                      onClick={handleClearFile}
+                      className="p-1 rounded-full hover:bg-red-100 text-red-600 transition-colors z-10"
+                      title="Clear selected file"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                  <Upload className="w-4 h-4 text-[#C84B31] group-hover:scale-110 transition-transform" />
+                </div>
               </div>
-              <div className="truncate">
+              <div className="truncate pr-2">
                 <span className="font-bold text-xs text-[#111113] block truncate">
-                  {audioFile ? audioFile.name : 'Drop WAV / MP3 or click'}
+                  {currentDisplayFileName || 'Drop WAV / MP3 or click'}
                 </span>
-                <span className="text-[10px] font-mono text-[#8C887B]">Max 50MB audio clip</span>
+                <span className="text-[10px] font-mono text-[#8C887B]">
+                  {currentDisplayFileName ? 'Click to replace audio clip' : 'Max 50MB audio clip'}
+                </span>
               </div>
             </label>
 
@@ -369,8 +442,9 @@ function createSampleWavBlob(durationSec: number = 5): Blob {
             <button
               type="button"
               onClick={handleStartAnalysis}
-              disabled={isSubmitting}
-              className="w-full py-4 rounded-lg bg-[#111113] hover:bg-[#C84B31] text-white font-mono font-bold text-sm tracking-widest uppercase transition-colors flex items-center justify-center gap-3 disabled:opacity-50 shadow-lg"
+              disabled={isSubmitting || !canStartAnalysis}
+              title={!canStartAnalysis ? 'Please upload an audio file or enable Live Mic to start' : 'Start Studio Analysis'}
+              className="w-full py-4 rounded-lg bg-[#111113] hover:bg-[#C84B31] text-white font-mono font-bold text-sm tracking-widest uppercase transition-colors flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
             >
               {isSubmitting ? (
                 <span className="animate-pulse">PROCESSING AUDIO...</span>
@@ -387,4 +461,3 @@ function createSampleWavBlob(durationSec: number = 5): Blob {
     </div>
   );
 };
-

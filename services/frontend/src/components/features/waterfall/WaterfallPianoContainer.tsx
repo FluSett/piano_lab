@@ -21,28 +21,38 @@ export const WaterfallPianoContainer: React.FC<WaterfallPianoContainerProps> = (
     const el = containerRef.current;
     if (!el) return;
 
+    let animFrameId: number;
+
     const updateWidth = () => {
       const measured = el.clientWidth;
       if (measured > 0) {
-        setContainerWidth(Math.max(measured, 960));
+        setContainerWidth((prev) => {
+          // Threshold check to eliminate ResizeObserver width feedback loop and layout jumping
+          if (Math.abs(measured - prev) >= 8) {
+            return measured;
+          }
+          return prev;
+        });
       }
     };
 
     updateWidth();
 
     const resizeObserver = new ResizeObserver(() => {
-      updateWidth();
+      cancelAnimationFrame(animFrameId);
+      animFrameId = requestAnimationFrame(updateWidth);
     });
 
     resizeObserver.observe(el);
     return () => {
+      cancelAnimationFrame(animFrameId);
       resizeObserver.disconnect();
     };
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full overflow-x-auto bg-[#1c1c1f]">
-      <div className="mx-auto" style={{ width: `${containerWidth}px` }}>
+    <div ref={containerRef} className="w-full overflow-x-auto overflow-y-hidden select-none bg-[#1c1c1f]">
+      <div className="mx-auto overflow-y-hidden" style={{ width: `${containerWidth}px` }}>
         <WaterfallCanvas
           notes={notes}
           currentTime={currentTime}

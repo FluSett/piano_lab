@@ -10,7 +10,7 @@ import { AICoachPanel } from '@/components/features/coach/AICoachPanel';
 import { useAudioPlayer } from '@/hooks/useAudioPlayer';
 import { useWebSocket } from '@/hooks/useWebSocket';
 import { useToast } from '@/components/ui/ToastProvider';
-import { getAudioBlob } from '@/utils/audioStorage';
+import { getAudioBlob, clearAudioBlob } from '@/utils/audioStorage';
 import { appConfig } from '@/config/appConfig';
 
 export default function WorkspacePage() {
@@ -87,6 +87,20 @@ export default function WorkspacePage() {
         const data: AnalysisResult = await res.json();
         setAnalysis(data);
         setIsAnalyzing(false);
+
+        if (data.overallScore === 0 && data.pitchAccuracy === 0 && data.rhythmAccuracy === 0) {
+          showToast({
+            title: '0% ACCURACY DETECTED',
+            message: 'No valid pitch matches were found in audio recording. Resetting session to record clean audio...',
+            type: 'error',
+            durationMs: 7000,
+          });
+          setTimeout(() => {
+            sessionStorage.clear();
+            clearAudioBlob();
+            router.push('/');
+          }, 2500);
+        }
       } else {
         const errText = await res.text().catch(() => '');
         throw new Error(errText || `Server responded with status ${res.status}`);
@@ -110,7 +124,7 @@ export default function WorkspacePage() {
         durationMs: 6000,
       });
     }
-  }, [audioName, isPartial, showToast]);
+  }, [audioName, isPartial, router, showToast]);
 
   const handleRetryAnalysis = () => {
     hasAnalyzedRef.current = false;
@@ -159,8 +173,12 @@ export default function WorkspacePage() {
     };
   }, [audioUrl]);
 
-  const handleResetSession = () => {
+  const [isResetting, setIsResetting] = useState<boolean>(false);
+
+  const handleResetSession = async () => {
+    setIsResetting(true);
     sessionStorage.clear();
+    await clearAudioBlob();
     router.push('/');
   };
 
@@ -201,9 +219,20 @@ export default function WorkspacePage() {
 
         <button
           onClick={handleResetSession}
-          className="px-4 py-2.5 rounded-lg bg-[#111113] hover:bg-[#C84B31] text-[#F6F4F0] text-xs font-mono font-bold uppercase transition-colors flex items-center gap-2 shadow-sm"
+          disabled={isResetting}
+          className="px-4 py-2.5 rounded-lg bg-[#111113] hover:bg-[#C84B31] text-[#F6F4F0] text-xs font-mono font-bold uppercase transition-colors flex items-center gap-2 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <RotateCcw className="w-3.5 h-3.5" /> RESET SESSION
+          {isResetting ? (
+            <>
+              <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <span>RESETTING...</span>
+            </>
+          ) : (
+            <>
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>RESET SESSION</span>
+            </>
+          )}
         </button>
       </div>
 
