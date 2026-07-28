@@ -1,25 +1,17 @@
 import asyncio
 
-import torch
-
-from src.core.pool import process_pool_manager
 from src.workers.amt_worker import NoteEventTuple, raw_audio_transcribe_worker
 
 
 class TranscriptionService:
-    """Service wrapping ProcessPoolExecutor execution for acoustic model transcription."""
+    """Service executing acoustic model transcription in thread pool."""
 
     async def transcribe_audio_async(self, audio_bytes: bytes) -> list[NoteEventTuple]:
         """
-        Offloads heavy transcription task to a bounded process pool executor
-        so FastAPI main event loop is never blocked.
+        Offloads transcription task to thread pool so FastAPI main event loop is never blocked
+        and process pool IPC deadlocks inside Docker containers are completely eliminated.
         """
-        loop = torch.hub.asyncio.get_event_loop() if hasattr(torch.hub, "asyncio") else None
-        if loop is None:
-            loop = asyncio.get_running_loop()
-
-        executor = process_pool_manager.executor
-        return await loop.run_in_executor(executor, raw_audio_transcribe_worker, audio_bytes)
+        return await asyncio.to_thread(raw_audio_transcribe_worker, audio_bytes)
 
     def shutdown(self) -> None:
-        process_pool_manager.shutdown(wait=True)
+        pass
