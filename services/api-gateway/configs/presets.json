@@ -1,0 +1,26 @@
+[
+  {
+    "id": "pirates-of-the-caribbean",
+    "title": "He's a Pirate",
+    "composer": "Klaus Badelt / Hans Zimmer",
+    "difficulty": "Intermediate",
+    "noteCount": 1255,
+    "durationSeconds": 77.6
+  },
+  {
+    "id": "queen-bohemian-rhapsody",
+    "title": "Bohemian Rhapsody",
+    "composer": "Queen",
+    "difficulty": "Advanced",
+    "noteCount": 5925,
+    "durationSeconds": 1007.0
+  },
+  {
+    "id": "je-te-laisserai-des-mots",
+    "title": "Je te laisserai des mots",
+    "composer": "Patrick Watson",
+    "difficulty": "Beginner",
+    "noteCount": 830,
+    "durationSeconds": 143.8
+  }
+]

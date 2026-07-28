@@ -1,0 +1,4982 @@
+[
+  {
+    "pitch": 43,
+    "onset": 0.0,
+    "offset": 0.469,
+    "measure": 1
+  },
+  {
+    "pitch": 71,
+    "onset": 0.0,
+    "offset": 0.969,
+    "measure": 1
+  },
+  {
+    "pitch": 50,
+    "onset": 0.5,
+    "offset": 0.969,
+    "measure": 1
+  },
+  {
+    "pitch": 59,
+    "onset": 0.5,
+    "offset": 0.969,
+    "measure": 1
+  },
+  {
+    "pitch": 50,
+    "onset": 1.0,
+    "offset": 1.469,
+    "measure": 1
+  },
+  {
+    "pitch": 59,
+    "onset": 1.0,
+    "offset": 1.469,
+    "measure": 1
+  },
+  {
+    "pitch": 69,
+    "onset": 1.25,
+    "offset": 1.469,
+    "measure": 1
+  },
+  {
+    "pitch": 50,
+    "onset": 1.5,
+    "offset": 1.969,
+    "measure": 1
+  },
+  {
+    "pitch": 67,
+    "onset": 1.5,
+    "offset": 2.469,
+    "measure": 1
+  },
+  {
+    "pitch": 55,
+    "onset": 2.0,
+    "offset": 2.469,
+    "measure": 2
+  },
+  {
+    "pitch": 59,
+    "onset": 2.0,
+    "offset": 2.469,
+    "measure": 2
+  },
+  {
+    "pitch": 55,
+    "onset": 2.5,
+    "offset": 2.969,
+    "measure": 2
+  },
+  {
+    "pitch": 59,
+    "onset": 2.5,
+    "offset": 2.969,
+    "measure": 2
+  },
+  {
+    "pitch": 64,
+    "onset": 2.75,
+    "offset": 2.969,
+    "measure": 2
+  },
+  {
+    "pitch": 43,
+    "onset": 3.0,
+    "offset": 3.469,
+    "measure": 2
+  },
+  {
+    "pitch": 62,
+    "onset": 3.0,
+    "offset": 4.344,
+    "measure": 2
+  },
+  {
+    "pitch": 50,
+    "onset": 3.5,
+    "offset": 3.969,
+    "measure": 2
+  },
+  {
+    "pitch": 59,
+    "onset": 3.5,
+    "offset": 3.969,
+    "measure": 2
+  },
+  {
+    "pitch": 50,
+    "onset": 4.0,
+    "offset": 4.469,
+    "measure": 3
+  },
+  {
+    "pitch": 59,
+    "onset": 4.0,
+    "offset": 4.469,
+    "measure": 3
+  },
+  {
+    "pitch": 50,
+    "onset": 4.5,
+    "offset": 4.969,
+    "measure": 3
+  },
+  {
+    "pitch": 71,
+    "onset": 4.5,
+    "offset": 4.969,
+    "measure": 3
+  },
+  {
+    "pitch": 55,
+    "onset": 5.0,
+    "offset": 5.469,
+    "measure": 3
+  },
+  {
+    "pitch": 59,
+    "onset": 5.0,
+    "offset": 5.469,
+    "measure": 3
+  },
+  {
+    "pitch": 76,
+    "onset": 5.0,
+    "offset": 5.469,
+    "measure": 3
+  },
+  {
+    "pitch": 55,
+    "onset": 5.5,
+    "offset": 5.969,
+    "measure": 3
+  },
+  {
+    "pitch": 59,
+    "onset": 5.5,
+    "offset": 5.969,
+    "measure": 3
+  },
+  {
+    "pitch": 74,
+    "onset": 5.5,
+    "offset": 5.719,
+    "measure": 3
+  },
+  {
+    "pitch": 73,
+    "onset": 5.75,
+    "offset": 5.969,
+    "measure": 3
+  },
+  {
+    "pitch": 43,
+    "onset": 6.0,
+    "offset": 6.469,
+    "measure": 4
+  },
+  {
+    "pitch": 74,
+    "onset": 6.0,
+    "offset": 7.344,
+    "measure": 4
+  },
+  {
+    "pitch": 50,
+    "onset": 6.5,
+    "offset": 6.969,
+    "measure": 4
+  },
+  {
+    "pitch": 59,
+    "onset": 6.5,
+    "offset": 6.969,
+    "measure": 4
+  },
+  {
+    "pitch": 50,
+    "onset": 7.0,
+    "offset": 7.469,
+    "measure": 4
+  },
+  {
+    "pitch": 59,
+    "onset": 7.0,
+    "offset": 7.469,
+    "measure": 4
+  },
+  {
+    "pitch": 50,
+    "onset": 7.5,
+    "offset": 7.969,
+    "measure": 4
+  },
+  {
+    "pitch": 55,
+    "onset": 8.0,
+    "offset": 8.469,
+    "measure": 5
+  },
+  {
+    "pitch": 59,
+    "onset": 8.0,
+    "offset": 8.469,
+    "measure": 5
+  },
+  {
+    "pitch": 55,
+    "onset": 8.5,
+    "offset": 8.969,
+    "measure": 5
+  },
+  {
+    "pitch": 59,
+    "onset": 8.5,
+    "offset": 8.969,
+    "measure": 5
+  },
+  {
+    "pitch": 43,
+    "onset": 9.0,
+    "offset": 9.469,
+    "measure": 5
+  },
+  {
+    "pitch": 50,
+    "onset": 9.5,
+    "offset": 9.969,
+    "measure": 5
+  },
+  {
+    "pitch": 59,
+    "onset": 9.5,
+    "offset": 9.969,
+    "measure": 5
+  },
+  {
+    "pitch": 50,
+    "onset": 10.0,
+    "offset": 10.469,
+    "measure": 6
+  },
+  {
+    "pitch": 59,
+    "onset": 10.0,
+    "offset": 10.469,
+    "measure": 6
+  },
+  {
+    "pitch": 50,
+    "onset": 10.5,
+    "offset": 10.969,
+    "measure": 6
+  },
+  {
+    "pitch": 71,
+    "onset": 10.5,
+    "offset": 10.969,
+    "measure": 6
+  },
+  {
+    "pitch": 55,
+    "onset": 11.0,
+    "offset": 11.469,
+    "measure": 6
+  },
+  {
+    "pitch": 59,
+    "onset": 11.0,
+    "offset": 11.469,
+    "measure": 6
+  },
+  {
+    "pitch": 76,
+    "onset": 11.0,
+    "offset": 11.469,
+    "measure": 6
+  },
+  {
+    "pitch": 55,
+    "onset": 11.5,
+    "offset": 11.969,
+    "measure": 6
+  },
+  {
+    "pitch": 59,
+    "onset": 11.5,
+    "offset": 11.969,
+    "measure": 6
+  },
+  {
+    "pitch": 73,
+    "onset": 11.5,
+    "offset": 11.969,
+    "measure": 6
+  },
+  {
+    "pitch": 47,
+    "onset": 12.0,
+    "offset": 12.469,
+    "measure": 7
+  },
+  {
+    "pitch": 74,
+    "onset": 12.0,
+    "offset": 12.969,
+    "measure": 7
+  },
+  {
+    "pitch": 54,
+    "onset": 12.5,
+    "offset": 12.969,
+    "measure": 7
+  },
+  {
+    "pitch": 62,
+    "onset": 12.5,
+    "offset": 12.969,
+    "measure": 7
+  },
+  {
+    "pitch": 54,
+    "onset": 13.0,
+    "offset": 13.469,
+    "measure": 7
+  },
+  {
+    "pitch": 62,
+    "onset": 13.0,
+    "offset": 13.469,
+    "measure": 7
+  },
+  {
+    "pitch": 73,
+    "onset": 13.0,
+    "offset": 13.219,
+    "measure": 7
+  },
+  {
+    "pitch": 74,
+    "onset": 13.25,
+    "offset": 13.469,
+    "measure": 7
+  },
+  {
+    "pitch": 45,
+    "onset": 13.5,
+    "offset": 13.969,
+    "measure": 7
+  },
+  {
+    "pitch": 73,
+    "onset": 13.5,
+    "offset": 14.469,
+    "measure": 7
+  },
+  {
+    "pitch": 52,
+    "onset": 14.0,
+    "offset": 14.469,
+    "measure": 8
+  },
+  {
+    "pitch": 61,
+    "onset": 14.0,
+    "offset": 14.469,
+    "measure": 8
+  },
+  {
+    "pitch": 52,
+    "onset": 14.5,
+    "offset": 14.969,
+    "measure": 8
+  },
+  {
+    "pitch": 61,
+    "onset": 14.5,
+    "offset": 14.969,
+    "measure": 8
+  },
+  {
+    "pitch": 71,
+    "onset": 14.75,
+    "offset": 14.969,
+    "measure": 8
+  },
+  {
+    "pitch": 43,
+    "onset": 15.0,
+    "offset": 15.469,
+    "measure": 8
+  },
+  {
+    "pitch": 73,
+    "onset": 15.0,
+    "offset": 15.219,
+    "measure": 8
+  },
+  {
+    "pitch": 71,
+    "onset": 15.25,
+    "offset": 16.344,
+    "measure": 8
+  },
+  {
+    "pitch": 50,
+    "onset": 15.5,
+    "offset": 15.969,
+    "measure": 8
+  },
+  {
+    "pitch": 59,
+    "onset": 15.5,
+    "offset": 15.969,
+    "measure": 8
+  },
+  {
+    "pitch": 50,
+    "onset": 16.0,
+    "offset": 16.469,
+    "measure": 9
+  },
+  {
+    "pitch": 59,
+    "onset": 16.0,
+    "offset": 16.469,
+    "measure": 9
+  },
+  {
+    "pitch": 43,
+    "onset": 16.5,
+    "offset": 16.969,
+    "measure": 9
+  },
+  {
+    "pitch": 71,
+    "onset": 16.5,
+    "offset": 16.969,
+    "measure": 9
+  },
+  {
+    "pitch": 50,
+    "onset": 17.0,
+    "offset": 17.469,
+    "measure": 9
+  },
+  {
+    "pitch": 59,
+    "onset": 17.0,
+    "offset": 17.469,
+    "measure": 9
+  },
+  {
+    "pitch": 76,
+    "onset": 17.0,
+    "offset": 17.719,
+    "measure": 9
+  },
+  {
+    "pitch": 45,
+    "onset": 17.5,
+    "offset": 17.969,
+    "measure": 9
+  },
+  {
+    "pitch": 71,
+    "onset": 17.75,
+    "offset": 17.969,
+    "measure": 9
+  },
+  {
+    "pitch": 47,
+    "onset": 18.0,
+    "offset": 18.469,
+    "measure": 10
+  },
+  {
+    "pitch": 74,
+    "onset": 18.0,
+    "offset": 18.969,
+    "measure": 10
+  },
+  {
+    "pitch": 54,
+    "onset": 18.5,
+    "offset": 18.969,
+    "measure": 10
+  },
+  {
+    "pitch": 62,
+    "onset": 18.5,
+    "offset": 18.969,
+    "measure": 10
+  },
+  {
+    "pitch": 54,
+    "onset": 19.0,
+    "offset": 19.469,
+    "measure": 10
+  },
+  {
+    "pitch": 62,
+    "onset": 19.0,
+    "offset": 19.469,
+    "measure": 10
+  },
+  {
+    "pitch": 73,
+    "onset": 19.0,
+    "offset": 19.219,
+    "measure": 10
+  },
+  {
+    "pitch": 74,
+    "onset": 19.25,
+    "offset": 19.469,
+    "measure": 10
+  },
+  {
+    "pitch": 45,
+    "onset": 19.5,
+    "offset": 19.969,
+    "measure": 10
+  },
+  {
+    "pitch": 73,
+    "onset": 19.5,
+    "offset": 20.469,
+    "measure": 10
+  },
+  {
+    "pitch": 52,
+    "onset": 20.0,
+    "offset": 20.469,
+    "measure": 11
+  },
+  {
+    "pitch": 61,
+    "onset": 20.0,
+    "offset": 20.469,
+    "measure": 11
+  },
+  {
+    "pitch": 52,
+    "onset": 20.5,
+    "offset": 20.969,
+    "measure": 11
+  },
+  {
+    "pitch": 61,
+    "onset": 20.5,
+    "offset": 20.969,
+    "measure": 11
+  },
+  {
+    "pitch": 71,
+    "onset": 20.75,
+    "offset": 20.969,
+    "measure": 11
+  },
+  {
+    "pitch": 43,
+    "onset": 21.0,
+    "offset": 21.469,
+    "measure": 11
+  },
+  {
+    "pitch": 73,
+    "onset": 21.0,
+    "offset": 21.219,
+    "measure": 11
+  },
+  {
+    "pitch": 71,
+    "onset": 21.25,
+    "offset": 22.344,
+    "measure": 11
+  },
+  {
+    "pitch": 50,
+    "onset": 21.5,
+    "offset": 21.969,
+    "measure": 11
+  },
+  {
+    "pitch": 59,
+    "onset": 21.5,
+    "offset": 21.969,
+    "measure": 11
+  },
+  {
+    "pitch": 50,
+    "onset": 22.0,
+    "offset": 22.469,
+    "measure": 12
+  },
+  {
+    "pitch": 59,
+    "onset": 22.0,
+    "offset": 22.469,
+    "measure": 12
+  },
+  {
+    "pitch": 43,
+    "onset": 22.5,
+    "offset": 22.969,
+    "measure": 12
+  },
+  {
+    "pitch": 71,
+    "onset": 22.5,
+    "offset": 22.969,
+    "measure": 12
+  },
+  {
+    "pitch": 50,
+    "onset": 23.0,
+    "offset": 23.469,
+    "measure": 12
+  },
+  {
+    "pitch": 59,
+    "onset": 23.0,
+    "offset": 23.469,
+    "measure": 12
+  },
+  {
+    "pitch": 74,
+    "onset": 23.0,
+    "offset": 23.469,
+    "measure": 12
+  },
+  {
+    "pitch": 45,
+    "onset": 23.5,
+    "offset": 23.969,
+    "measure": 12
+  },
+  {
+    "pitch": 76,
+    "onset": 23.5,
+    "offset": 23.969,
+    "measure": 12
+  },
+  {
+    "pitch": 47,
+    "onset": 24.0,
+    "offset": 24.469,
+    "measure": 13
+  },
+  {
+    "pitch": 78,
+    "onset": 24.0,
+    "offset": 24.469,
+    "measure": 13
+  },
+  {
+    "pitch": 54,
+    "onset": 24.5,
+    "offset": 24.969,
+    "measure": 13
+  },
+  {
+    "pitch": 62,
+    "onset": 24.5,
+    "offset": 24.969,
+    "measure": 13
+  },
+  {
+    "pitch": 54,
+    "onset": 25.0,
+    "offset": 25.469,
+    "measure": 13
+  },
+  {
+    "pitch": 62,
+    "onset": 25.0,
+    "offset": 25.469,
+    "measure": 13
+  },
+  {
+    "pitch": 76,
+    "onset": 25.0,
+    "offset": 25.219,
+    "measure": 13
+  },
+  {
+    "pitch": 74,
+    "onset": 25.25,
+    "offset": 25.469,
+    "measure": 13
+  },
+  {
+    "pitch": 45,
+    "onset": 25.5,
+    "offset": 25.969,
+    "measure": 13
+  },
+  {
+    "pitch": 76,
+    "onset": 25.5,
+    "offset": 25.719,
+    "measure": 13
+  },
+  {
+    "pitch": 78,
+    "onset": 25.75,
+    "offset": 25.969,
+    "measure": 13
+  },
+  {
+    "pitch": 52,
+    "onset": 26.0,
+    "offset": 26.469,
+    "measure": 14
+  },
+  {
+    "pitch": 61,
+    "onset": 26.0,
+    "offset": 26.469,
+    "measure": 14
+  },
+  {
+    "pitch": 76,
+    "onset": 26.0,
+    "offset": 26.469,
+    "measure": 14
+  },
+  {
+    "pitch": 52,
+    "onset": 26.5,
+    "offset": 26.969,
+    "measure": 14
+  },
+  {
+    "pitch": 61,
+    "onset": 26.5,
+    "offset": 26.969,
+    "measure": 14
+  },
+  {
+    "pitch": 74,
+    "onset": 26.5,
+    "offset": 26.719,
+    "measure": 14
+  },
+  {
+    "pitch": 43,
+    "onset": 27.0,
+    "offset": 27.469,
+    "measure": 14
+  },
+  {
+    "pitch": 76,
+    "onset": 27.0,
+    "offset": 27.219,
+    "measure": 14
+  },
+  {
+    "pitch": 74,
+    "onset": 27.25,
+    "offset": 27.469,
+    "measure": 14
+  },
+  {
+    "pitch": 50,
+    "onset": 27.5,
+    "offset": 27.969,
+    "measure": 14
+  },
+  {
+    "pitch": 59,
+    "onset": 27.5,
+    "offset": 27.969,
+    "measure": 14
+  },
+  {
+    "pitch": 50,
+    "onset": 28.0,
+    "offset": 28.469,
+    "measure": 15
+  },
+  {
+    "pitch": 59,
+    "onset": 28.0,
+    "offset": 28.469,
+    "measure": 15
+  },
+  {
+    "pitch": 43,
+    "onset": 28.5,
+    "offset": 28.969,
+    "measure": 15
+  },
+  {
+    "pitch": 50,
+    "onset": 29.0,
+    "offset": 29.469,
+    "measure": 15
+  },
+  {
+    "pitch": 59,
+    "onset": 29.0,
+    "offset": 29.469,
+    "measure": 15
+  },
+  {
+    "pitch": 74,
+    "onset": 29.0,
+    "offset": 29.719,
+    "measure": 15
+  },
+  {
+    "pitch": 50,
+    "onset": 29.5,
+    "offset": 29.969,
+    "measure": 15
+  },
+  {
+    "pitch": 59,
+    "onset": 29.5,
+    "offset": 29.969,
+    "measure": 15
+  },
+  {
+    "pitch": 76,
+    "onset": 29.75,
+    "offset": 29.969,
+    "measure": 15
+  },
+  {
+    "pitch": 38,
+    "onset": 30.0,
+    "offset": 30.469,
+    "measure": 16
+  },
+  {
+    "pitch": 74,
+    "onset": 30.0,
+    "offset": 30.969,
+    "measure": 16
+  },
+  {
+    "pitch": 45,
+    "onset": 30.5,
+    "offset": 30.969,
+    "measure": 16
+  },
+  {
+    "pitch": 54,
+    "onset": 30.5,
+    "offset": 30.969,
+    "measure": 16
+  },
+  {
+    "pitch": 45,
+    "onset": 31.0,
+    "offset": 31.469,
+    "measure": 16
+  },
+  {
+    "pitch": 54,
+    "onset": 31.0,
+    "offset": 31.469,
+    "measure": 16
+  },
+  {
+    "pitch": 45,
+    "onset": 31.5,
+    "offset": 31.969,
+    "measure": 16
+  },
+  {
+    "pitch": 54,
+    "onset": 32.0,
+    "offset": 32.469,
+    "measure": 17
+  },
+  {
+    "pitch": 57,
+    "onset": 32.0,
+    "offset": 32.469,
+    "measure": 17
+  },
+  {
+    "pitch": 54,
+    "onset": 32.5,
+    "offset": 32.969,
+    "measure": 17
+  },
+  {
+    "pitch": 57,
+    "onset": 32.5,
+    "offset": 32.969,
+    "measure": 17
+  },
+  {
+    "pitch": 42,
+    "onset": 33.0,
+    "offset": 33.469,
+    "measure": 17
+  },
+  {
+    "pitch": 49,
+    "onset": 33.5,
+    "offset": 33.969,
+    "measure": 17
+  },
+  {
+    "pitch": 58,
+    "onset": 33.5,
+    "offset": 33.969,
+    "measure": 17
+  },
+  {
+    "pitch": 49,
+    "onset": 34.0,
+    "offset": 34.469,
+    "measure": 18
+  },
+  {
+    "pitch": 58,
+    "onset": 34.0,
+    "offset": 34.469,
+    "measure": 18
+  },
+  {
+    "pitch": 43,
+    "onset": 34.5,
+    "offset": 34.969,
+    "measure": 18
+  },
+  {
+    "pitch": 50,
+    "onset": 35.0,
+    "offset": 35.469,
+    "measure": 18
+  },
+  {
+    "pitch": 59,
+    "onset": 35.0,
+    "offset": 35.469,
+    "measure": 18
+  },
+  {
+    "pitch": 50,
+    "onset": 35.5,
+    "offset": 35.969,
+    "measure": 18
+  },
+  {
+    "pitch": 59,
+    "onset": 35.5,
+    "offset": 35.969,
+    "measure": 18
+  },
+  {
+    "pitch": 47,
+    "onset": 36.0,
+    "offset": 36.469,
+    "measure": 19
+  },
+  {
+    "pitch": 59,
+    "onset": 36.0,
+    "offset": 36.219,
+    "measure": 19
+  },
+  {
+    "pitch": 69,
+    "onset": 36.0,
+    "offset": 36.219,
+    "measure": 19
+  },
+  {
+    "pitch": 62,
+    "onset": 36.25,
+    "offset": 36.469,
+    "measure": 19
+  },
+  {
+    "pitch": 66,
+    "onset": 36.25,
+    "offset": 36.469,
+    "measure": 19
+  },
+  {
+    "pitch": 50,
+    "onset": 36.5,
+    "offset": 36.969,
+    "measure": 19
+  },
+  {
+    "pitch": 54,
+    "onset": 36.5,
+    "offset": 36.969,
+    "measure": 19
+  },
+  {
+    "pitch": 59,
+    "onset": 36.5,
+    "offset": 36.719,
+    "measure": 19
+  },
+  {
+    "pitch": 69,
+    "onset": 36.5,
+    "offset": 36.719,
+    "measure": 19
+  },
+  {
+    "pitch": 62,
+    "onset": 36.75,
+    "offset": 36.969,
+    "measure": 19
+  },
+  {
+    "pitch": 66,
+    "onset": 36.75,
+    "offset": 36.969,
+    "measure": 19
+  },
+  {
+    "pitch": 50,
+    "onset": 37.0,
+    "offset": 37.469,
+    "measure": 19
+  },
+  {
+    "pitch": 54,
+    "onset": 37.0,
+    "offset": 37.469,
+    "measure": 19
+  },
+  {
+    "pitch": 59,
+    "onset": 37.0,
+    "offset": 37.219,
+    "measure": 19
+  },
+  {
+    "pitch": 69,
+    "onset": 37.0,
+    "offset": 37.219,
+    "measure": 19
+  },
+  {
+    "pitch": 62,
+    "onset": 37.25,
+    "offset": 37.469,
+    "measure": 19
+  },
+  {
+    "pitch": 66,
+    "onset": 37.25,
+    "offset": 37.469,
+    "measure": 19
+  },
+  {
+    "pitch": 45,
+    "onset": 37.5,
+    "offset": 37.969,
+    "measure": 19
+  },
+  {
+    "pitch": 57,
+    "onset": 37.5,
+    "offset": 37.719,
+    "measure": 19
+  },
+  {
+    "pitch": 69,
+    "onset": 37.5,
+    "offset": 37.719,
+    "measure": 19
+  },
+  {
+    "pitch": 61,
+    "onset": 37.75,
+    "offset": 37.969,
+    "measure": 19
+  },
+  {
+    "pitch": 66,
+    "onset": 37.75,
+    "offset": 37.969,
+    "measure": 19
+  },
+  {
+    "pitch": 49,
+    "onset": 38.0,
+    "offset": 38.469,
+    "measure": 20
+  },
+  {
+    "pitch": 54,
+    "onset": 38.0,
+    "offset": 38.469,
+    "measure": 20
+  },
+  {
+    "pitch": 57,
+    "onset": 38.0,
+    "offset": 38.219,
+    "measure": 20
+  },
+  {
+    "pitch": 69,
+    "onset": 38.0,
+    "offset": 38.219,
+    "measure": 20
+  },
+  {
+    "pitch": 62,
+    "onset": 38.25,
+    "offset": 38.469,
+    "measure": 20
+  },
+  {
+    "pitch": 66,
+    "onset": 38.25,
+    "offset": 38.469,
+    "measure": 20
+  },
+  {
+    "pitch": 49,
+    "onset": 38.5,
+    "offset": 38.969,
+    "measure": 20
+  },
+  {
+    "pitch": 54,
+    "onset": 38.5,
+    "offset": 38.969,
+    "measure": 20
+  },
+  {
+    "pitch": 57,
+    "onset": 38.5,
+    "offset": 38.719,
+    "measure": 20
+  },
+  {
+    "pitch": 69,
+    "onset": 38.5,
+    "offset": 38.719,
+    "measure": 20
+  },
+  {
+    "pitch": 62,
+    "onset": 38.75,
+    "offset": 38.969,
+    "measure": 20
+  },
+  {
+    "pitch": 66,
+    "onset": 38.75,
+    "offset": 38.969,
+    "measure": 20
+  },
+  {
+    "pitch": 43,
+    "onset": 39.0,
+    "offset": 39.469,
+    "measure": 20
+  },
+  {
+    "pitch": 59,
+    "onset": 39.0,
+    "offset": 39.219,
+    "measure": 20
+  },
+  {
+    "pitch": 69,
+    "onset": 39.0,
+    "offset": 39.219,
+    "measure": 20
+  },
+  {
+    "pitch": 62,
+    "onset": 39.25,
+    "offset": 39.469,
+    "measure": 20
+  },
+  {
+    "pitch": 66,
+    "onset": 39.25,
+    "offset": 39.469,
+    "measure": 20
+  },
+  {
+    "pitch": 50,
+    "onset": 39.5,
+    "offset": 39.969,
+    "measure": 20
+  },
+  {
+    "pitch": 54,
+    "onset": 39.5,
+    "offset": 39.969,
+    "measure": 20
+  },
+  {
+    "pitch": 59,
+    "onset": 39.5,
+    "offset": 39.719,
+    "measure": 20
+  },
+  {
+    "pitch": 69,
+    "onset": 39.5,
+    "offset": 39.719,
+    "measure": 20
+  },
+  {
+    "pitch": 62,
+    "onset": 39.75,
+    "offset": 39.969,
+    "measure": 20
+  },
+  {
+    "pitch": 66,
+    "onset": 39.75,
+    "offset": 39.969,
+    "measure": 20
+  },
+  {
+    "pitch": 50,
+    "onset": 40.0,
+    "offset": 40.469,
+    "measure": 21
+  },
+  {
+    "pitch": 54,
+    "onset": 40.0,
+    "offset": 40.469,
+    "measure": 21
+  },
+  {
+    "pitch": 59,
+    "onset": 40.0,
+    "offset": 40.219,
+    "measure": 21
+  },
+  {
+    "pitch": 69,
+    "onset": 40.0,
+    "offset": 40.219,
+    "measure": 21
+  },
+  {
+    "pitch": 62,
+    "onset": 40.25,
+    "offset": 40.469,
+    "measure": 21
+  },
+  {
+    "pitch": 66,
+    "onset": 40.25,
+    "offset": 40.469,
+    "measure": 21
+  },
+  {
+    "pitch": 43,
+    "onset": 40.5,
+    "offset": 40.969,
+    "measure": 21
+  },
+  {
+    "pitch": 57,
+    "onset": 40.5,
+    "offset": 40.719,
+    "measure": 21
+  },
+  {
+    "pitch": 69,
+    "onset": 40.5,
+    "offset": 40.719,
+    "measure": 21
+  },
+  {
+    "pitch": 61,
+    "onset": 40.75,
+    "offset": 40.969,
+    "measure": 21
+  },
+  {
+    "pitch": 66,
+    "onset": 40.75,
+    "offset": 40.969,
+    "measure": 21
+  },
+  {
+    "pitch": 50,
+    "onset": 41.0,
+    "offset": 41.469,
+    "measure": 21
+  },
+  {
+    "pitch": 54,
+    "onset": 41.0,
+    "offset": 41.469,
+    "measure": 21
+  },
+  {
+    "pitch": 57,
+    "onset": 41.0,
+    "offset": 41.219,
+    "measure": 21
+  },
+  {
+    "pitch": 69,
+    "onset": 41.0,
+    "offset": 41.219,
+    "measure": 21
+  },
+  {
+    "pitch": 62,
+    "onset": 41.25,
+    "offset": 41.469,
+    "measure": 21
+  },
+  {
+    "pitch": 66,
+    "onset": 41.25,
+    "offset": 41.469,
+    "measure": 21
+  },
+  {
+    "pitch": 50,
+    "onset": 41.5,
+    "offset": 41.969,
+    "measure": 21
+  },
+  {
+    "pitch": 54,
+    "onset": 41.5,
+    "offset": 41.969,
+    "measure": 21
+  },
+  {
+    "pitch": 57,
+    "onset": 41.5,
+    "offset": 41.719,
+    "measure": 21
+  },
+  {
+    "pitch": 69,
+    "onset": 41.5,
+    "offset": 41.719,
+    "measure": 21
+  },
+  {
+    "pitch": 62,
+    "onset": 41.75,
+    "offset": 41.969,
+    "measure": 21
+  },
+  {
+    "pitch": 66,
+    "onset": 41.75,
+    "offset": 41.969,
+    "measure": 21
+  },
+  {
+    "pitch": 47,
+    "onset": 42.0,
+    "offset": 42.469,
+    "measure": 22
+  },
+  {
+    "pitch": 59,
+    "onset": 42.0,
+    "offset": 42.219,
+    "measure": 22
+  },
+  {
+    "pitch": 69,
+    "onset": 42.0,
+    "offset": 42.219,
+    "measure": 22
+  },
+  {
+    "pitch": 62,
+    "onset": 42.25,
+    "offset": 42.469,
+    "measure": 22
+  },
+  {
+    "pitch": 66,
+    "onset": 42.25,
+    "offset": 42.469,
+    "measure": 22
+  },
+  {
+    "pitch": 50,
+    "onset": 42.5,
+    "offset": 42.969,
+    "measure": 22
+  },
+  {
+    "pitch": 54,
+    "onset": 42.5,
+    "offset": 42.969,
+    "measure": 22
+  },
+  {
+    "pitch": 59,
+    "onset": 42.5,
+    "offset": 42.719,
+    "measure": 22
+  },
+  {
+    "pitch": 69,
+    "onset": 42.5,
+    "offset": 42.719,
+    "measure": 22
+  },
+  {
+    "pitch": 62,
+    "onset": 42.75,
+    "offset": 42.969,
+    "measure": 22
+  },
+  {
+    "pitch": 66,
+    "onset": 42.75,
+    "offset": 42.969,
+    "measure": 22
+  },
+  {
+    "pitch": 50,
+    "onset": 43.0,
+    "offset": 43.469,
+    "measure": 22
+  },
+  {
+    "pitch": 54,
+    "onset": 43.0,
+    "offset": 43.469,
+    "measure": 22
+  },
+  {
+    "pitch": 59,
+    "onset": 43.0,
+    "offset": 43.219,
+    "measure": 22
+  },
+  {
+    "pitch": 69,
+    "onset": 43.0,
+    "offset": 43.219,
+    "measure": 22
+  },
+  {
+    "pitch": 62,
+    "onset": 43.25,
+    "offset": 43.469,
+    "measure": 22
+  },
+  {
+    "pitch": 66,
+    "onset": 43.25,
+    "offset": 43.469,
+    "measure": 22
+  },
+  {
+    "pitch": 45,
+    "onset": 43.5,
+    "offset": 43.969,
+    "measure": 22
+  },
+  {
+    "pitch": 57,
+    "onset": 43.5,
+    "offset": 43.719,
+    "measure": 22
+  },
+  {
+    "pitch": 69,
+    "onset": 43.5,
+    "offset": 43.719,
+    "measure": 22
+  },
+  {
+    "pitch": 61,
+    "onset": 43.75,
+    "offset": 43.969,
+    "measure": 22
+  },
+  {
+    "pitch": 66,
+    "onset": 43.75,
+    "offset": 43.969,
+    "measure": 22
+  },
+  {
+    "pitch": 49,
+    "onset": 44.0,
+    "offset": 44.469,
+    "measure": 23
+  },
+  {
+    "pitch": 54,
+    "onset": 44.0,
+    "offset": 44.469,
+    "measure": 23
+  },
+  {
+    "pitch": 57,
+    "onset": 44.0,
+    "offset": 44.219,
+    "measure": 23
+  },
+  {
+    "pitch": 69,
+    "onset": 44.0,
+    "offset": 44.219,
+    "measure": 23
+  },
+  {
+    "pitch": 62,
+    "onset": 44.25,
+    "offset": 44.469,
+    "measure": 23
+  },
+  {
+    "pitch": 66,
+    "onset": 44.25,
+    "offset": 44.469,
+    "measure": 23
+  },
+  {
+    "pitch": 49,
+    "onset": 44.5,
+    "offset": 44.969,
+    "measure": 23
+  },
+  {
+    "pitch": 54,
+    "onset": 44.5,
+    "offset": 44.969,
+    "measure": 23
+  },
+  {
+    "pitch": 57,
+    "onset": 44.5,
+    "offset": 44.719,
+    "measure": 23
+  },
+  {
+    "pitch": 69,
+    "onset": 44.5,
+    "offset": 44.719,
+    "measure": 23
+  },
+  {
+    "pitch": 62,
+    "onset": 44.75,
+    "offset": 44.969,
+    "measure": 23
+  },
+  {
+    "pitch": 66,
+    "onset": 44.75,
+    "offset": 44.969,
+    "measure": 23
+  },
+  {
+    "pitch": 43,
+    "onset": 45.0,
+    "offset": 45.469,
+    "measure": 23
+  },
+  {
+    "pitch": 59,
+    "onset": 45.0,
+    "offset": 45.219,
+    "measure": 23
+  },
+  {
+    "pitch": 69,
+    "onset": 45.0,
+    "offset": 45.219,
+    "measure": 23
+  },
+  {
+    "pitch": 62,
+    "onset": 45.25,
+    "offset": 45.469,
+    "measure": 23
+  },
+  {
+    "pitch": 66,
+    "onset": 45.25,
+    "offset": 45.469,
+    "measure": 23
+  },
+  {
+    "pitch": 50,
+    "onset": 45.5,
+    "offset": 45.969,
+    "measure": 23
+  },
+  {
+    "pitch": 54,
+    "onset": 45.5,
+    "offset": 45.969,
+    "measure": 23
+  },
+  {
+    "pitch": 59,
+    "onset": 45.5,
+    "offset": 45.719,
+    "measure": 23
+  },
+  {
+    "pitch": 69,
+    "onset": 45.5,
+    "offset": 45.719,
+    "measure": 23
+  },
+  {
+    "pitch": 62,
+    "onset": 45.75,
+    "offset": 45.969,
+    "measure": 23
+  },
+  {
+    "pitch": 66,
+    "onset": 45.75,
+    "offset": 45.969,
+    "measure": 23
+  },
+  {
+    "pitch": 50,
+    "onset": 46.0,
+    "offset": 46.469,
+    "measure": 24
+  },
+  {
+    "pitch": 54,
+    "onset": 46.0,
+    "offset": 46.469,
+    "measure": 24
+  },
+  {
+    "pitch": 59,
+    "onset": 46.0,
+    "offset": 46.219,
+    "measure": 24
+  },
+  {
+    "pitch": 69,
+    "onset": 46.0,
+    "offset": 46.219,
+    "measure": 24
+  },
+  {
+    "pitch": 62,
+    "onset": 46.25,
+    "offset": 46.469,
+    "measure": 24
+  },
+  {
+    "pitch": 66,
+    "onset": 46.25,
+    "offset": 46.469,
+    "measure": 24
+  },
+  {
+    "pitch": 43,
+    "onset": 46.5,
+    "offset": 46.969,
+    "measure": 24
+  },
+  {
+    "pitch": 57,
+    "onset": 46.5,
+    "offset": 46.719,
+    "measure": 24
+  },
+  {
+    "pitch": 69,
+    "onset": 46.5,
+    "offset": 46.719,
+    "measure": 24
+  },
+  {
+    "pitch": 61,
+    "onset": 46.75,
+    "offset": 46.969,
+    "measure": 24
+  },
+  {
+    "pitch": 66,
+    "onset": 46.75,
+    "offset": 46.969,
+    "measure": 24
+  },
+  {
+    "pitch": 50,
+    "onset": 47.0,
+    "offset": 47.469,
+    "measure": 24
+  },
+  {
+    "pitch": 54,
+    "onset": 47.0,
+    "offset": 47.469,
+    "measure": 24
+  },
+  {
+    "pitch": 57,
+    "onset": 47.0,
+    "offset": 47.219,
+    "measure": 24
+  },
+  {
+    "pitch": 69,
+    "onset": 47.0,
+    "offset": 47.219,
+    "measure": 24
+  },
+  {
+    "pitch": 62,
+    "onset": 47.25,
+    "offset": 47.469,
+    "measure": 24
+  },
+  {
+    "pitch": 66,
+    "onset": 47.25,
+    "offset": 47.469,
+    "measure": 24
+  },
+  {
+    "pitch": 50,
+    "onset": 47.5,
+    "offset": 47.969,
+    "measure": 24
+  },
+  {
+    "pitch": 54,
+    "onset": 47.5,
+    "offset": 47.969,
+    "measure": 24
+  },
+  {
+    "pitch": 57,
+    "onset": 47.5,
+    "offset": 47.719,
+    "measure": 24
+  },
+  {
+    "pitch": 69,
+    "onset": 47.5,
+    "offset": 47.719,
+    "measure": 24
+  },
+  {
+    "pitch": 62,
+    "onset": 47.75,
+    "offset": 47.969,
+    "measure": 24
+  },
+  {
+    "pitch": 66,
+    "onset": 47.75,
+    "offset": 47.969,
+    "measure": 24
+  },
+  {
+    "pitch": 38,
+    "onset": 48.0,
+    "offset": 48.469,
+    "measure": 25
+  },
+  {
+    "pitch": 57,
+    "onset": 48.0,
+    "offset": 48.219,
+    "measure": 25
+  },
+  {
+    "pitch": 69,
+    "onset": 48.0,
+    "offset": 48.219,
+    "measure": 25
+  },
+  {
+    "pitch": 62,
+    "onset": 48.25,
+    "offset": 48.469,
+    "measure": 25
+  },
+  {
+    "pitch": 66,
+    "onset": 48.25,
+    "offset": 48.469,
+    "measure": 25
+  },
+  {
+    "pitch": 45,
+    "onset": 48.5,
+    "offset": 48.969,
+    "measure": 25
+  },
+  {
+    "pitch": 50,
+    "onset": 48.5,
+    "offset": 48.969,
+    "measure": 25
+  },
+  {
+    "pitch": 54,
+    "onset": 48.5,
+    "offset": 48.969,
+    "measure": 25
+  },
+  {
+    "pitch": 57,
+    "onset": 48.5,
+    "offset": 48.719,
+    "measure": 25
+  },
+  {
+    "pitch": 69,
+    "onset": 48.5,
+    "offset": 48.719,
+    "measure": 25
+  },
+  {
+    "pitch": 62,
+    "onset": 48.75,
+    "offset": 48.969,
+    "measure": 25
+  },
+  {
+    "pitch": 66,
+    "onset": 48.75,
+    "offset": 48.969,
+    "measure": 25
+  },
+  {
+    "pitch": 45,
+    "onset": 49.0,
+    "offset": 49.469,
+    "measure": 25
+  },
+  {
+    "pitch": 50,
+    "onset": 49.0,
+    "offset": 49.469,
+    "measure": 25
+  },
+  {
+    "pitch": 54,
+    "onset": 49.0,
+    "offset": 49.469,
+    "measure": 25
+  },
+  {
+    "pitch": 57,
+    "onset": 49.0,
+    "offset": 49.219,
+    "measure": 25
+  },
+  {
+    "pitch": 69,
+    "onset": 49.0,
+    "offset": 49.219,
+    "measure": 25
+  },
+  {
+    "pitch": 62,
+    "onset": 49.25,
+    "offset": 49.469,
+    "measure": 25
+  },
+  {
+    "pitch": 66,
+    "onset": 49.25,
+    "offset": 49.469,
+    "measure": 25
+  },
+  {
+    "pitch": 38,
+    "onset": 49.5,
+    "offset": 49.969,
+    "measure": 25
+  },
+  {
+    "pitch": 57,
+    "onset": 49.5,
+    "offset": 49.719,
+    "measure": 25
+  },
+  {
+    "pitch": 69,
+    "onset": 49.5,
+    "offset": 49.719,
+    "measure": 25
+  },
+  {
+    "pitch": 62,
+    "onset": 49.75,
+    "offset": 49.969,
+    "measure": 25
+  },
+  {
+    "pitch": 66,
+    "onset": 49.75,
+    "offset": 49.969,
+    "measure": 25
+  },
+  {
+    "pitch": 45,
+    "onset": 50.0,
+    "offset": 50.469,
+    "measure": 26
+  },
+  {
+    "pitch": 50,
+    "onset": 50.0,
+    "offset": 50.469,
+    "measure": 26
+  },
+  {
+    "pitch": 54,
+    "onset": 50.0,
+    "offset": 50.469,
+    "measure": 26
+  },
+  {
+    "pitch": 57,
+    "onset": 50.0,
+    "offset": 50.219,
+    "measure": 26
+  },
+  {
+    "pitch": 69,
+    "onset": 50.0,
+    "offset": 50.219,
+    "measure": 26
+  },
+  {
+    "pitch": 62,
+    "onset": 50.25,
+    "offset": 50.469,
+    "measure": 26
+  },
+  {
+    "pitch": 66,
+    "onset": 50.25,
+    "offset": 50.469,
+    "measure": 26
+  },
+  {
+    "pitch": 45,
+    "onset": 50.5,
+    "offset": 50.969,
+    "measure": 26
+  },
+  {
+    "pitch": 50,
+    "onset": 50.5,
+    "offset": 50.969,
+    "measure": 26
+  },
+  {
+    "pitch": 54,
+    "onset": 50.5,
+    "offset": 50.969,
+    "measure": 26
+  },
+  {
+    "pitch": 57,
+    "onset": 50.5,
+    "offset": 50.719,
+    "measure": 26
+  },
+  {
+    "pitch": 69,
+    "onset": 50.5,
+    "offset": 50.719,
+    "measure": 26
+  },
+  {
+    "pitch": 62,
+    "onset": 50.75,
+    "offset": 50.969,
+    "measure": 26
+  },
+  {
+    "pitch": 66,
+    "onset": 50.75,
+    "offset": 50.969,
+    "measure": 26
+  },
+  {
+    "pitch": 42,
+    "onset": 51.0,
+    "offset": 51.469,
+    "measure": 26
+  },
+  {
+    "pitch": 58,
+    "onset": 51.0,
+    "offset": 51.219,
+    "measure": 26
+  },
+  {
+    "pitch": 70,
+    "onset": 51.0,
+    "offset": 51.219,
+    "measure": 26
+  },
+  {
+    "pitch": 62,
+    "onset": 51.25,
+    "offset": 51.469,
+    "measure": 26
+  },
+  {
+    "pitch": 66,
+    "onset": 51.25,
+    "offset": 51.469,
+    "measure": 26
+  },
+  {
+    "pitch": 46,
+    "onset": 51.5,
+    "offset": 51.969,
+    "measure": 26
+  },
+  {
+    "pitch": 49,
+    "onset": 51.5,
+    "offset": 51.969,
+    "measure": 26
+  },
+  {
+    "pitch": 54,
+    "onset": 51.5,
+    "offset": 51.969,
+    "measure": 26
+  },
+  {
+    "pitch": 58,
+    "onset": 51.5,
+    "offset": 51.719,
+    "measure": 26
+  },
+  {
+    "pitch": 70,
+    "onset": 51.5,
+    "offset": 51.719,
+    "measure": 26
+  },
+  {
+    "pitch": 62,
+    "onset": 51.75,
+    "offset": 51.969,
+    "measure": 26
+  },
+  {
+    "pitch": 66,
+    "onset": 51.75,
+    "offset": 51.969,
+    "measure": 26
+  },
+  {
+    "pitch": 46,
+    "onset": 52.0,
+    "offset": 52.469,
+    "measure": 27
+  },
+  {
+    "pitch": 49,
+    "onset": 52.0,
+    "offset": 52.469,
+    "measure": 27
+  },
+  {
+    "pitch": 54,
+    "onset": 52.0,
+    "offset": 52.469,
+    "measure": 27
+  },
+  {
+    "pitch": 58,
+    "onset": 52.0,
+    "offset": 52.219,
+    "measure": 27
+  },
+  {
+    "pitch": 70,
+    "onset": 52.0,
+    "offset": 52.219,
+    "measure": 27
+  },
+  {
+    "pitch": 62,
+    "onset": 52.25,
+    "offset": 52.469,
+    "measure": 27
+  },
+  {
+    "pitch": 66,
+    "onset": 52.25,
+    "offset": 52.469,
+    "measure": 27
+  },
+  {
+    "pitch": 43,
+    "onset": 52.5,
+    "offset": 52.969,
+    "measure": 27
+  },
+  {
+    "pitch": 57,
+    "onset": 52.5,
+    "offset": 52.719,
+    "measure": 27
+  },
+  {
+    "pitch": 71,
+    "onset": 52.5,
+    "offset": 52.719,
+    "measure": 27
+  },
+  {
+    "pitch": 62,
+    "onset": 52.75,
+    "offset": 52.969,
+    "measure": 27
+  },
+  {
+    "pitch": 67,
+    "onset": 52.75,
+    "offset": 52.969,
+    "measure": 27
+  },
+  {
+    "pitch": 47,
+    "onset": 53.0,
+    "offset": 53.469,
+    "measure": 27
+  },
+  {
+    "pitch": 50,
+    "onset": 53.0,
+    "offset": 53.469,
+    "measure": 27
+  },
+  {
+    "pitch": 55,
+    "onset": 53.0,
+    "offset": 53.469,
+    "measure": 27
+  },
+  {
+    "pitch": 57,
+    "onset": 53.0,
+    "offset": 53.219,
+    "measure": 27
+  },
+  {
+    "pitch": 71,
+    "onset": 53.0,
+    "offset": 53.219,
+    "measure": 27
+  },
+  {
+    "pitch": 62,
+    "onset": 53.25,
+    "offset": 53.469,
+    "measure": 27
+  },
+  {
+    "pitch": 67,
+    "onset": 53.25,
+    "offset": 53.469,
+    "measure": 27
+  },
+  {
+    "pitch": 47,
+    "onset": 53.5,
+    "offset": 53.969,
+    "measure": 27
+  },
+  {
+    "pitch": 50,
+    "onset": 53.5,
+    "offset": 53.969,
+    "measure": 27
+  },
+  {
+    "pitch": 55,
+    "onset": 53.5,
+    "offset": 53.969,
+    "measure": 27
+  },
+  {
+    "pitch": 57,
+    "onset": 53.5,
+    "offset": 53.719,
+    "measure": 27
+  },
+  {
+    "pitch": 71,
+    "onset": 53.5,
+    "offset": 53.719,
+    "measure": 27
+  },
+  {
+    "pitch": 62,
+    "onset": 53.75,
+    "offset": 53.969,
+    "measure": 27
+  },
+  {
+    "pitch": 67,
+    "onset": 53.75,
+    "offset": 53.969,
+    "measure": 27
+  },
+  {
+    "pitch": 47,
+    "onset": 54.0,
+    "offset": 55.344,
+    "measure": 28
+  },
+  {
+    "pitch": 59,
+    "onset": 54.5,
+    "offset": 55.469,
+    "measure": 28
+  },
+  {
+    "pitch": 62,
+    "onset": 54.5,
+    "offset": 55.469,
+    "measure": 28
+  },
+  {
+    "pitch": 66,
+    "onset": 54.5,
+    "offset": 55.469,
+    "measure": 28
+  },
+  {
+    "pitch": 45,
+    "onset": 55.5,
+    "offset": 56.844,
+    "measure": 28
+  },
+  {
+    "pitch": 57,
+    "onset": 56.0,
+    "offset": 56.969,
+    "measure": 29
+  },
+  {
+    "pitch": 61,
+    "onset": 56.0,
+    "offset": 56.969,
+    "measure": 29
+  },
+  {
+    "pitch": 64,
+    "onset": 56.0,
+    "offset": 56.969,
+    "measure": 29
+  },
+  {
+    "pitch": 43,
+    "onset": 57.0,
+    "offset": 58.344,
+    "measure": 29
+  },
+  {
+    "pitch": 55,
+    "onset": 57.5,
+    "offset": 58.469,
+    "measure": 29
+  },
+  {
+    "pitch": 59,
+    "onset": 57.5,
+    "offset": 58.469,
+    "measure": 29
+  },
+  {
+    "pitch": 62,
+    "onset": 57.5,
+    "offset": 58.469,
+    "measure": 29
+  },
+  {
+    "pitch": 43,
+    "onset": 58.5,
+    "offset": 59.469,
+    "measure": 30
+  },
+  {
+    "pitch": 55,
+    "onset": 59.0,
+    "offset": 59.969,
+    "measure": 30
+  },
+  {
+    "pitch": 59,
+    "onset": 59.0,
+    "offset": 59.969,
+    "measure": 30
+  },
+  {
+    "pitch": 62,
+    "onset": 59.0,
+    "offset": 59.969,
+    "measure": 30
+  },
+  {
+    "pitch": 45,
+    "onset": 59.5,
+    "offset": 59.969,
+    "measure": 30
+  },
+  {
+    "pitch": 38,
+    "onset": 60.0,
+    "offset": 62.844,
+    "measure": 31
+  },
+  {
+    "pitch": 50,
+    "onset": 60.0,
+    "offset": 62.844,
+    "measure": 31
+  },
+  {
+    "pitch": 54,
+    "onset": 60.0,
+    "offset": 62.844,
+    "measure": 31
+  },
+  {
+    "pitch": 57,
+    "onset": 60.0,
+    "offset": 62.844,
+    "measure": 31
+  },
+  {
+    "pitch": 42,
+    "onset": 63.0,
+    "offset": 65.844,
+    "measure": 32
+  },
+  {
+    "pitch": 54,
+    "onset": 63.0,
+    "offset": 65.844,
+    "measure": 32
+  },
+  {
+    "pitch": 58,
+    "onset": 63.0,
+    "offset": 65.844,
+    "measure": 32
+  },
+  {
+    "pitch": 61,
+    "onset": 63.0,
+    "offset": 65.844,
+    "measure": 32
+  },
+  {
+    "pitch": 67,
+    "onset": 65.5,
+    "offset": 65.719,
+    "measure": 33
+  },
+  {
+    "pitch": 69,
+    "onset": 65.75,
+    "offset": 65.969,
+    "measure": 33
+  },
+  {
+    "pitch": 43,
+    "onset": 66.0,
+    "offset": 66.469,
+    "measure": 34
+  },
+  {
+    "pitch": 71,
+    "onset": 66.0,
+    "offset": 66.969,
+    "measure": 34
+  },
+  {
+    "pitch": 50,
+    "onset": 66.5,
+    "offset": 66.969,
+    "measure": 34
+  },
+  {
+    "pitch": 59,
+    "onset": 66.5,
+    "offset": 66.969,
+    "measure": 34
+  },
+  {
+    "pitch": 50,
+    "onset": 67.0,
+    "offset": 67.469,
+    "measure": 34
+  },
+  {
+    "pitch": 59,
+    "onset": 67.0,
+    "offset": 67.469,
+    "measure": 34
+  },
+  {
+    "pitch": 69,
+    "onset": 67.25,
+    "offset": 67.469,
+    "measure": 34
+  },
+  {
+    "pitch": 50,
+    "onset": 67.5,
+    "offset": 67.969,
+    "measure": 34
+  },
+  {
+    "pitch": 67,
+    "onset": 67.5,
+    "offset": 68.469,
+    "measure": 34
+  },
+  {
+    "pitch": 55,
+    "onset": 68.0,
+    "offset": 68.469,
+    "measure": 35
+  },
+  {
+    "pitch": 59,
+    "onset": 68.0,
+    "offset": 68.469,
+    "measure": 35
+  },
+  {
+    "pitch": 55,
+    "onset": 68.5,
+    "offset": 68.969,
+    "measure": 35
+  },
+  {
+    "pitch": 59,
+    "onset": 68.5,
+    "offset": 68.969,
+    "measure": 35
+  },
+  {
+    "pitch": 64,
+    "onset": 68.75,
+    "offset": 68.969,
+    "measure": 35
+  },
+  {
+    "pitch": 43,
+    "onset": 69.0,
+    "offset": 69.469,
+    "measure": 35
+  },
+  {
+    "pitch": 62,
+    "onset": 69.0,
+    "offset": 70.344,
+    "measure": 35
+  },
+  {
+    "pitch": 50,
+    "onset": 69.5,
+    "offset": 69.969,
+    "measure": 35
+  },
+  {
+    "pitch": 59,
+    "onset": 69.5,
+    "offset": 69.969,
+    "measure": 35
+  },
+  {
+    "pitch": 50,
+    "onset": 70.0,
+    "offset": 70.469,
+    "measure": 36
+  },
+  {
+    "pitch": 59,
+    "onset": 70.0,
+    "offset": 70.469,
+    "measure": 36
+  },
+  {
+    "pitch": 50,
+    "onset": 70.5,
+    "offset": 70.969,
+    "measure": 36
+  },
+  {
+    "pitch": 71,
+    "onset": 70.5,
+    "offset": 70.969,
+    "measure": 36
+  },
+  {
+    "pitch": 55,
+    "onset": 71.0,
+    "offset": 71.469,
+    "measure": 36
+  },
+  {
+    "pitch": 59,
+    "onset": 71.0,
+    "offset": 71.469,
+    "measure": 36
+  },
+  {
+    "pitch": 76,
+    "onset": 71.0,
+    "offset": 71.469,
+    "measure": 36
+  },
+  {
+    "pitch": 55,
+    "onset": 71.5,
+    "offset": 71.969,
+    "measure": 36
+  },
+  {
+    "pitch": 59,
+    "onset": 71.5,
+    "offset": 71.969,
+    "measure": 36
+  },
+  {
+    "pitch": 74,
+    "onset": 71.5,
+    "offset": 71.719,
+    "measure": 36
+  },
+  {
+    "pitch": 73,
+    "onset": 71.75,
+    "offset": 71.969,
+    "measure": 36
+  },
+  {
+    "pitch": 43,
+    "onset": 72.0,
+    "offset": 72.469,
+    "measure": 37
+  },
+  {
+    "pitch": 74,
+    "onset": 72.0,
+    "offset": 73.344,
+    "measure": 37
+  },
+  {
+    "pitch": 50,
+    "onset": 72.5,
+    "offset": 72.969,
+    "measure": 37
+  },
+  {
+    "pitch": 59,
+    "onset": 72.5,
+    "offset": 72.969,
+    "measure": 37
+  },
+  {
+    "pitch": 50,
+    "onset": 73.0,
+    "offset": 73.469,
+    "measure": 37
+  },
+  {
+    "pitch": 59,
+    "onset": 73.0,
+    "offset": 73.469,
+    "measure": 37
+  },
+  {
+    "pitch": 50,
+    "onset": 73.5,
+    "offset": 73.969,
+    "measure": 37
+  },
+  {
+    "pitch": 55,
+    "onset": 74.0,
+    "offset": 74.469,
+    "measure": 38
+  },
+  {
+    "pitch": 59,
+    "onset": 74.0,
+    "offset": 74.469,
+    "measure": 38
+  },
+  {
+    "pitch": 55,
+    "onset": 74.5,
+    "offset": 74.969,
+    "measure": 38
+  },
+  {
+    "pitch": 59,
+    "onset": 74.5,
+    "offset": 74.969,
+    "measure": 38
+  },
+  {
+    "pitch": 43,
+    "onset": 75.0,
+    "offset": 75.469,
+    "measure": 38
+  },
+  {
+    "pitch": 50,
+    "onset": 75.5,
+    "offset": 75.969,
+    "measure": 38
+  },
+  {
+    "pitch": 59,
+    "onset": 75.5,
+    "offset": 75.969,
+    "measure": 38
+  },
+  {
+    "pitch": 50,
+    "onset": 76.0,
+    "offset": 76.469,
+    "measure": 39
+  },
+  {
+    "pitch": 59,
+    "onset": 76.0,
+    "offset": 76.469,
+    "measure": 39
+  },
+  {
+    "pitch": 50,
+    "onset": 76.5,
+    "offset": 76.969,
+    "measure": 39
+  },
+  {
+    "pitch": 71,
+    "onset": 76.5,
+    "offset": 76.969,
+    "measure": 39
+  },
+  {
+    "pitch": 55,
+    "onset": 77.0,
+    "offset": 77.469,
+    "measure": 39
+  },
+  {
+    "pitch": 59,
+    "onset": 77.0,
+    "offset": 77.469,
+    "measure": 39
+  },
+  {
+    "pitch": 76,
+    "onset": 77.0,
+    "offset": 77.469,
+    "measure": 39
+  },
+  {
+    "pitch": 55,
+    "onset": 77.5,
+    "offset": 77.969,
+    "measure": 39
+  },
+  {
+    "pitch": 59,
+    "onset": 77.5,
+    "offset": 77.969,
+    "measure": 39
+  },
+  {
+    "pitch": 74,
+    "onset": 77.5,
+    "offset": 77.719,
+    "measure": 39
+  },
+  {
+    "pitch": 73,
+    "onset": 77.75,
+    "offset": 77.969,
+    "measure": 39
+  },
+  {
+    "pitch": 47,
+    "onset": 78.0,
+    "offset": 78.469,
+    "measure": 40
+  },
+  {
+    "pitch": 74,
+    "onset": 78.0,
+    "offset": 78.969,
+    "measure": 40
+  },
+  {
+    "pitch": 54,
+    "onset": 78.5,
+    "offset": 78.969,
+    "measure": 40
+  },
+  {
+    "pitch": 62,
+    "onset": 78.5,
+    "offset": 78.969,
+    "measure": 40
+  },
+  {
+    "pitch": 54,
+    "onset": 79.0,
+    "offset": 79.469,
+    "measure": 40
+  },
+  {
+    "pitch": 62,
+    "onset": 79.0,
+    "offset": 79.469,
+    "measure": 40
+  },
+  {
+    "pitch": 73,
+    "onset": 79.0,
+    "offset": 79.219,
+    "measure": 40
+  },
+  {
+    "pitch": 74,
+    "onset": 79.25,
+    "offset": 79.469,
+    "measure": 40
+  },
+  {
+    "pitch": 45,
+    "onset": 79.5,
+    "offset": 79.969,
+    "measure": 40
+  },
+  {
+    "pitch": 73,
+    "onset": 79.5,
+    "offset": 80.469,
+    "measure": 40
+  },
+  {
+    "pitch": 52,
+    "onset": 80.0,
+    "offset": 80.469,
+    "measure": 41
+  },
+  {
+    "pitch": 61,
+    "onset": 80.0,
+    "offset": 80.469,
+    "measure": 41
+  },
+  {
+    "pitch": 52,
+    "onset": 80.5,
+    "offset": 80.969,
+    "measure": 41
+  },
+  {
+    "pitch": 61,
+    "onset": 80.5,
+    "offset": 80.969,
+    "measure": 41
+  },
+  {
+    "pitch": 71,
+    "onset": 80.75,
+    "offset": 80.969,
+    "measure": 41
+  },
+  {
+    "pitch": 43,
+    "onset": 81.0,
+    "offset": 81.469,
+    "measure": 41
+  },
+  {
+    "pitch": 73,
+    "onset": 81.0,
+    "offset": 81.219,
+    "measure": 41
+  },
+  {
+    "pitch": 71,
+    "onset": 81.25,
+    "offset": 82.344,
+    "measure": 41
+  },
+  {
+    "pitch": 50,
+    "onset": 81.5,
+    "offset": 81.969,
+    "measure": 41
+  },
+  {
+    "pitch": 59,
+    "onset": 81.5,
+    "offset": 81.969,
+    "measure": 41
+  },
+  {
+    "pitch": 50,
+    "onset": 82.0,
+    "offset": 82.469,
+    "measure": 42
+  },
+  {
+    "pitch": 59,
+    "onset": 82.0,
+    "offset": 82.469,
+    "measure": 42
+  },
+  {
+    "pitch": 43,
+    "onset": 82.5,
+    "offset": 82.969,
+    "measure": 42
+  },
+  {
+    "pitch": 71,
+    "onset": 82.5,
+    "offset": 82.969,
+    "measure": 42
+  },
+  {
+    "pitch": 50,
+    "onset": 83.0,
+    "offset": 83.469,
+    "measure": 42
+  },
+  {
+    "pitch": 59,
+    "onset": 83.0,
+    "offset": 83.469,
+    "measure": 42
+  },
+  {
+    "pitch": 76,
+    "onset": 83.0,
+    "offset": 83.719,
+    "measure": 42
+  },
+  {
+    "pitch": 45,
+    "onset": 83.5,
+    "offset": 83.969,
+    "measure": 42
+  },
+  {
+    "pitch": 76,
+    "onset": 83.75,
+    "offset": 83.969,
+    "measure": 42
+  },
+  {
+    "pitch": 47,
+    "onset": 84.0,
+    "offset": 84.469,
+    "measure": 43
+  },
+  {
+    "pitch": 76,
+    "onset": 84.0,
+    "offset": 84.969,
+    "measure": 43
+  },
+  {
+    "pitch": 54,
+    "onset": 84.5,
+    "offset": 84.969,
+    "measure": 43
+  },
+  {
+    "pitch": 62,
+    "onset": 84.5,
+    "offset": 84.969,
+    "measure": 43
+  },
+  {
+    "pitch": 54,
+    "onset": 85.0,
+    "offset": 85.469,
+    "measure": 43
+  },
+  {
+    "pitch": 62,
+    "onset": 85.0,
+    "offset": 85.469,
+    "measure": 43
+  },
+  {
+    "pitch": 76,
+    "onset": 85.0,
+    "offset": 85.219,
+    "measure": 43
+  },
+  {
+    "pitch": 74,
+    "onset": 85.25,
+    "offset": 85.469,
+    "measure": 43
+  },
+  {
+    "pitch": 45,
+    "onset": 85.5,
+    "offset": 85.969,
+    "measure": 43
+  },
+  {
+    "pitch": 76,
+    "onset": 85.5,
+    "offset": 86.469,
+    "measure": 43
+  },
+  {
+    "pitch": 52,
+    "onset": 86.0,
+    "offset": 86.469,
+    "measure": 44
+  },
+  {
+    "pitch": 61,
+    "onset": 86.0,
+    "offset": 86.469,
+    "measure": 44
+  },
+  {
+    "pitch": 52,
+    "onset": 86.5,
+    "offset": 86.969,
+    "measure": 44
+  },
+  {
+    "pitch": 61,
+    "onset": 86.5,
+    "offset": 86.969,
+    "measure": 44
+  },
+  {
+    "pitch": 76,
+    "onset": 86.75,
+    "offset": 87.844,
+    "measure": 44
+  },
+  {
+    "pitch": 43,
+    "onset": 87.0,
+    "offset": 87.469,
+    "measure": 44
+  },
+  {
+    "pitch": 50,
+    "onset": 87.5,
+    "offset": 87.969,
+    "measure": 44
+  },
+  {
+    "pitch": 59,
+    "onset": 87.5,
+    "offset": 87.969,
+    "measure": 44
+  },
+  {
+    "pitch": 50,
+    "onset": 88.0,
+    "offset": 88.469,
+    "measure": 45
+  },
+  {
+    "pitch": 59,
+    "onset": 88.0,
+    "offset": 88.469,
+    "measure": 45
+  },
+  {
+    "pitch": 43,
+    "onset": 88.5,
+    "offset": 88.969,
+    "measure": 45
+  },
+  {
+    "pitch": 71,
+    "onset": 88.5,
+    "offset": 88.969,
+    "measure": 45
+  },
+  {
+    "pitch": 50,
+    "onset": 89.0,
+    "offset": 89.469,
+    "measure": 45
+  },
+  {
+    "pitch": 59,
+    "onset": 89.0,
+    "offset": 89.469,
+    "measure": 45
+  },
+  {
+    "pitch": 74,
+    "onset": 89.0,
+    "offset": 89.469,
+    "measure": 45
+  },
+  {
+    "pitch": 45,
+    "onset": 89.5,
+    "offset": 89.969,
+    "measure": 45
+  },
+  {
+    "pitch": 76,
+    "onset": 89.5,
+    "offset": 89.969,
+    "measure": 45
+  },
+  {
+    "pitch": 47,
+    "onset": 90.0,
+    "offset": 90.469,
+    "measure": 46
+  },
+  {
+    "pitch": 78,
+    "onset": 90.0,
+    "offset": 90.969,
+    "measure": 46
+  },
+  {
+    "pitch": 54,
+    "onset": 90.5,
+    "offset": 90.969,
+    "measure": 46
+  },
+  {
+    "pitch": 62,
+    "onset": 90.5,
+    "offset": 90.969,
+    "measure": 46
+  },
+  {
+    "pitch": 54,
+    "onset": 91.0,
+    "offset": 91.469,
+    "measure": 46
+  },
+  {
+    "pitch": 62,
+    "onset": 91.0,
+    "offset": 91.469,
+    "measure": 46
+  },
+  {
+    "pitch": 76,
+    "onset": 91.25,
+    "offset": 91.719,
+    "measure": 46
+  },
+  {
+    "pitch": 45,
+    "onset": 91.5,
+    "offset": 91.969,
+    "measure": 46
+  },
+  {
+    "pitch": 76,
+    "onset": 91.75,
+    "offset": 92.219,
+    "measure": 46
+  },
+  {
+    "pitch": 52,
+    "onset": 92.0,
+    "offset": 92.469,
+    "measure": 47
+  },
+  {
+    "pitch": 61,
+    "onset": 92.0,
+    "offset": 92.469,
+    "measure": 47
+  },
+  {
+    "pitch": 76,
+    "onset": 92.25,
+    "offset": 92.719,
+    "measure": 47
+  },
+  {
+    "pitch": 52,
+    "onset": 92.5,
+    "offset": 92.969,
+    "measure": 47
+  },
+  {
+    "pitch": 61,
+    "onset": 92.5,
+    "offset": 92.969,
+    "measure": 47
+  },
+  {
+    "pitch": 74,
+    "onset": 92.75,
+    "offset": 92.969,
+    "measure": 47
+  },
+  {
+    "pitch": 43,
+    "onset": 93.0,
+    "offset": 93.469,
+    "measure": 47
+  },
+  {
+    "pitch": 76,
+    "onset": 93.0,
+    "offset": 93.969,
+    "measure": 47
+  },
+  {
+    "pitch": 50,
+    "onset": 93.5,
+    "offset": 93.969,
+    "measure": 47
+  },
+  {
+    "pitch": 59,
+    "onset": 93.5,
+    "offset": 93.969,
+    "measure": 47
+  },
+  {
+    "pitch": 50,
+    "onset": 94.0,
+    "offset": 94.469,
+    "measure": 48
+  },
+  {
+    "pitch": 59,
+    "onset": 94.0,
+    "offset": 94.469,
+    "measure": 48
+  },
+  {
+    "pitch": 43,
+    "onset": 94.5,
+    "offset": 94.969,
+    "measure": 48
+  },
+  {
+    "pitch": 71,
+    "onset": 94.5,
+    "offset": 94.719,
+    "measure": 48
+  },
+  {
+    "pitch": 74,
+    "onset": 94.75,
+    "offset": 95.219,
+    "measure": 48
+  },
+  {
+    "pitch": 50,
+    "onset": 95.0,
+    "offset": 95.469,
+    "measure": 48
+  },
+  {
+    "pitch": 59,
+    "onset": 95.0,
+    "offset": 95.469,
+    "measure": 48
+  },
+  {
+    "pitch": 76,
+    "onset": 95.25,
+    "offset": 95.719,
+    "measure": 48
+  },
+  {
+    "pitch": 50,
+    "onset": 95.5,
+    "offset": 95.969,
+    "measure": 48
+  },
+  {
+    "pitch": 59,
+    "onset": 95.5,
+    "offset": 95.969,
+    "measure": 48
+  },
+  {
+    "pitch": 74,
+    "onset": 95.75,
+    "offset": 95.969,
+    "measure": 48
+  },
+  {
+    "pitch": 47,
+    "onset": 96.0,
+    "offset": 96.469,
+    "measure": 49
+  },
+  {
+    "pitch": 78,
+    "onset": 96.0,
+    "offset": 96.969,
+    "measure": 49
+  },
+  {
+    "pitch": 54,
+    "onset": 96.5,
+    "offset": 96.969,
+    "measure": 49
+  },
+  {
+    "pitch": 62,
+    "onset": 96.5,
+    "offset": 96.969,
+    "measure": 49
+  },
+  {
+    "pitch": 54,
+    "onset": 97.0,
+    "offset": 97.469,
+    "measure": 49
+  },
+  {
+    "pitch": 62,
+    "onset": 97.0,
+    "offset": 97.469,
+    "measure": 49
+  },
+  {
+    "pitch": 76,
+    "onset": 97.25,
+    "offset": 97.719,
+    "measure": 49
+  },
+  {
+    "pitch": 45,
+    "onset": 97.5,
+    "offset": 97.969,
+    "measure": 49
+  },
+  {
+    "pitch": 76,
+    "onset": 97.75,
+    "offset": 98.219,
+    "measure": 49
+  },
+  {
+    "pitch": 52,
+    "onset": 98.0,
+    "offset": 98.469,
+    "measure": 50
+  },
+  {
+    "pitch": 61,
+    "onset": 98.0,
+    "offset": 98.469,
+    "measure": 50
+  },
+  {
+    "pitch": 76,
+    "onset": 98.25,
+    "offset": 98.719,
+    "measure": 50
+  },
+  {
+    "pitch": 52,
+    "onset": 98.5,
+    "offset": 98.969,
+    "measure": 50
+  },
+  {
+    "pitch": 61,
+    "onset": 98.5,
+    "offset": 98.969,
+    "measure": 50
+  },
+  {
+    "pitch": 74,
+    "onset": 98.75,
+    "offset": 98.969,
+    "measure": 50
+  },
+  {
+    "pitch": 43,
+    "onset": 99.0,
+    "offset": 99.469,
+    "measure": 50
+  },
+  {
+    "pitch": 76,
+    "onset": 99.0,
+    "offset": 99.969,
+    "measure": 50
+  },
+  {
+    "pitch": 50,
+    "onset": 99.5,
+    "offset": 99.969,
+    "measure": 50
+  },
+  {
+    "pitch": 59,
+    "onset": 99.5,
+    "offset": 99.969,
+    "measure": 50
+  },
+  {
+    "pitch": 50,
+    "onset": 100.0,
+    "offset": 100.469,
+    "measure": 51
+  },
+  {
+    "pitch": 59,
+    "onset": 100.0,
+    "offset": 100.469,
+    "measure": 51
+  },
+  {
+    "pitch": 71,
+    "onset": 100.5,
+    "offset": 100.719,
+    "measure": 51
+  },
+  {
+    "pitch": 76,
+    "onset": 100.75,
+    "offset": 100.969,
+    "measure": 51
+  },
+  {
+    "pitch": 78,
+    "onset": 101.0,
+    "offset": 101.219,
+    "measure": 51
+  },
+  {
+    "pitch": 76,
+    "onset": 101.25,
+    "offset": 101.719,
+    "measure": 51
+  },
+  {
+    "pitch": 74,
+    "onset": 101.75,
+    "offset": 102.844,
+    "measure": 51
+  },
+  {
+    "pitch": 38,
+    "onset": 102.0,
+    "offset": 102.469,
+    "measure": 52
+  },
+  {
+    "pitch": 45,
+    "onset": 102.5,
+    "offset": 102.969,
+    "measure": 52
+  },
+  {
+    "pitch": 54,
+    "onset": 102.5,
+    "offset": 102.969,
+    "measure": 52
+  },
+  {
+    "pitch": 45,
+    "onset": 103.0,
+    "offset": 103.469,
+    "measure": 52
+  },
+  {
+    "pitch": 54,
+    "onset": 103.0,
+    "offset": 103.469,
+    "measure": 52
+  },
+  {
+    "pitch": 45,
+    "onset": 103.5,
+    "offset": 103.969,
+    "measure": 52
+  },
+  {
+    "pitch": 54,
+    "onset": 104.0,
+    "offset": 104.469,
+    "measure": 53
+  },
+  {
+    "pitch": 57,
+    "onset": 104.0,
+    "offset": 104.469,
+    "measure": 53
+  },
+  {
+    "pitch": 74,
+    "onset": 104.0,
+    "offset": 104.469,
+    "measure": 53
+  },
+  {
+    "pitch": 54,
+    "onset": 104.5,
+    "offset": 104.969,
+    "measure": 53
+  },
+  {
+    "pitch": 57,
+    "onset": 104.5,
+    "offset": 104.969,
+    "measure": 53
+  },
+  {
+    "pitch": 74,
+    "onset": 104.5,
+    "offset": 104.719,
+    "measure": 53
+  },
+  {
+    "pitch": 73,
+    "onset": 104.75,
+    "offset": 105.469,
+    "measure": 53
+  },
+  {
+    "pitch": 42,
+    "onset": 105.0,
+    "offset": 105.469,
+    "measure": 53
+  },
+  {
+    "pitch": 49,
+    "onset": 105.5,
+    "offset": 105.969,
+    "measure": 53
+  },
+  {
+    "pitch": 58,
+    "onset": 105.5,
+    "offset": 105.969,
+    "measure": 53
+  },
+  {
+    "pitch": 49,
+    "onset": 106.0,
+    "offset": 106.469,
+    "measure": 54
+  },
+  {
+    "pitch": 58,
+    "onset": 106.0,
+    "offset": 106.469,
+    "measure": 54
+  },
+  {
+    "pitch": 74,
+    "onset": 106.0,
+    "offset": 106.469,
+    "measure": 54
+  },
+  {
+    "pitch": 43,
+    "onset": 106.5,
+    "offset": 106.969,
+    "measure": 54
+  },
+  {
+    "pitch": 50,
+    "onset": 107.0,
+    "offset": 107.469,
+    "measure": 54
+  },
+  {
+    "pitch": 59,
+    "onset": 107.0,
+    "offset": 107.469,
+    "measure": 54
+  },
+  {
+    "pitch": 76,
+    "onset": 107.0,
+    "offset": 107.219,
+    "measure": 54
+  },
+  {
+    "pitch": 78,
+    "onset": 107.25,
+    "offset": 107.469,
+    "measure": 54
+  },
+  {
+    "pitch": 50,
+    "onset": 107.5,
+    "offset": 107.969,
+    "measure": 54
+  },
+  {
+    "pitch": 59,
+    "onset": 107.5,
+    "offset": 107.969,
+    "measure": 54
+  },
+  {
+    "pitch": 76,
+    "onset": 107.5,
+    "offset": 108.219,
+    "measure": 54
+  },
+  {
+    "pitch": 38,
+    "onset": 108.0,
+    "offset": 108.469,
+    "measure": 55
+  },
+  {
+    "pitch": 74,
+    "onset": 108.25,
+    "offset": 108.469,
+    "measure": 55
+  },
+  {
+    "pitch": 45,
+    "onset": 108.5,
+    "offset": 108.969,
+    "measure": 55
+  },
+  {
+    "pitch": 54,
+    "onset": 108.5,
+    "offset": 108.969,
+    "measure": 55
+  },
+  {
+    "pitch": 76,
+    "onset": 108.5,
+    "offset": 108.719,
+    "measure": 55
+  },
+  {
+    "pitch": 74,
+    "onset": 108.75,
+    "offset": 109.469,
+    "measure": 55
+  },
+  {
+    "pitch": 45,
+    "onset": 109.0,
+    "offset": 109.469,
+    "measure": 55
+  },
+  {
+    "pitch": 54,
+    "onset": 109.0,
+    "offset": 109.469,
+    "measure": 55
+  },
+  {
+    "pitch": 45,
+    "onset": 109.5,
+    "offset": 109.969,
+    "measure": 55
+  },
+  {
+    "pitch": 54,
+    "onset": 110.0,
+    "offset": 110.469,
+    "measure": 56
+  },
+  {
+    "pitch": 57,
+    "onset": 110.0,
+    "offset": 110.469,
+    "measure": 56
+  },
+  {
+    "pitch": 74,
+    "onset": 110.0,
+    "offset": 110.469,
+    "measure": 56
+  },
+  {
+    "pitch": 54,
+    "onset": 110.5,
+    "offset": 110.969,
+    "measure": 56
+  },
+  {
+    "pitch": 57,
+    "onset": 110.5,
+    "offset": 110.969,
+    "measure": 56
+  },
+  {
+    "pitch": 74,
+    "onset": 110.5,
+    "offset": 110.719,
+    "measure": 56
+  },
+  {
+    "pitch": 76,
+    "onset": 110.75,
+    "offset": 110.969,
+    "measure": 56
+  },
+  {
+    "pitch": 42,
+    "onset": 111.0,
+    "offset": 111.469,
+    "measure": 56
+  },
+  {
+    "pitch": 76,
+    "onset": 111.0,
+    "offset": 111.719,
+    "measure": 56
+  },
+  {
+    "pitch": 49,
+    "onset": 111.5,
+    "offset": 111.969,
+    "measure": 56
+  },
+  {
+    "pitch": 58,
+    "onset": 111.5,
+    "offset": 111.969,
+    "measure": 56
+  },
+  {
+    "pitch": 76,
+    "onset": 111.75,
+    "offset": 112.469,
+    "measure": 56
+  },
+  {
+    "pitch": 49,
+    "onset": 112.0,
+    "offset": 112.469,
+    "measure": 57
+  },
+  {
+    "pitch": 58,
+    "onset": 112.0,
+    "offset": 112.469,
+    "measure": 57
+  },
+  {
+    "pitch": 43,
+    "onset": 112.5,
+    "offset": 112.969,
+    "measure": 57
+  },
+  {
+    "pitch": 76,
+    "onset": 112.5,
+    "offset": 112.969,
+    "measure": 57
+  },
+  {
+    "pitch": 50,
+    "onset": 113.0,
+    "offset": 113.469,
+    "measure": 57
+  },
+  {
+    "pitch": 59,
+    "onset": 113.0,
+    "offset": 113.469,
+    "measure": 57
+  },
+  {
+    "pitch": 76,
+    "onset": 113.0,
+    "offset": 113.219,
+    "measure": 57
+  },
+  {
+    "pitch": 78,
+    "onset": 113.25,
+    "offset": 113.469,
+    "measure": 57
+  },
+  {
+    "pitch": 50,
+    "onset": 113.5,
+    "offset": 113.969,
+    "measure": 57
+  },
+  {
+    "pitch": 59,
+    "onset": 113.5,
+    "offset": 113.969,
+    "measure": 57
+  },
+  {
+    "pitch": 76,
+    "onset": 113.5,
+    "offset": 114.219,
+    "measure": 57
+  },
+  {
+    "pitch": 38,
+    "onset": 114.0,
+    "offset": 114.469,
+    "measure": 58
+  },
+  {
+    "pitch": 74,
+    "onset": 114.25,
+    "offset": 114.469,
+    "measure": 58
+  },
+  {
+    "pitch": 45,
+    "onset": 114.5,
+    "offset": 114.969,
+    "measure": 58
+  },
+  {
+    "pitch": 54,
+    "onset": 114.5,
+    "offset": 114.969,
+    "measure": 58
+  },
+  {
+    "pitch": 76,
+    "onset": 114.5,
+    "offset": 114.719,
+    "measure": 58
+  },
+  {
+    "pitch": 74,
+    "onset": 114.75,
+    "offset": 115.469,
+    "measure": 58
+  },
+  {
+    "pitch": 45,
+    "onset": 115.0,
+    "offset": 115.469,
+    "measure": 58
+  },
+  {
+    "pitch": 54,
+    "onset": 115.0,
+    "offset": 115.469,
+    "measure": 58
+  },
+  {
+    "pitch": 45,
+    "onset": 115.5,
+    "offset": 115.969,
+    "measure": 58
+  },
+  {
+    "pitch": 54,
+    "onset": 116.0,
+    "offset": 116.469,
+    "measure": 59
+  },
+  {
+    "pitch": 57,
+    "onset": 116.0,
+    "offset": 116.469,
+    "measure": 59
+  },
+  {
+    "pitch": 74,
+    "onset": 116.0,
+    "offset": 116.469,
+    "measure": 59
+  },
+  {
+    "pitch": 54,
+    "onset": 116.5,
+    "offset": 116.969,
+    "measure": 59
+  },
+  {
+    "pitch": 57,
+    "onset": 116.5,
+    "offset": 116.969,
+    "measure": 59
+  },
+  {
+    "pitch": 74,
+    "onset": 116.5,
+    "offset": 116.719,
+    "measure": 59
+  },
+  {
+    "pitch": 73,
+    "onset": 116.75,
+    "offset": 116.969,
+    "measure": 59
+  },
+  {
+    "pitch": 42,
+    "onset": 117.0,
+    "offset": 117.469,
+    "measure": 59
+  },
+  {
+    "pitch": 76,
+    "onset": 117.0,
+    "offset": 117.719,
+    "measure": 59
+  },
+  {
+    "pitch": 49,
+    "onset": 117.5,
+    "offset": 117.969,
+    "measure": 59
+  },
+  {
+    "pitch": 58,
+    "onset": 117.5,
+    "offset": 117.969,
+    "measure": 59
+  },
+  {
+    "pitch": 76,
+    "onset": 117.75,
+    "offset": 118.469,
+    "measure": 59
+  },
+  {
+    "pitch": 49,
+    "onset": 118.0,
+    "offset": 118.469,
+    "measure": 60
+  },
+  {
+    "pitch": 58,
+    "onset": 118.0,
+    "offset": 118.469,
+    "measure": 60
+  },
+  {
+    "pitch": 43,
+    "onset": 118.5,
+    "offset": 118.969,
+    "measure": 60
+  },
+  {
+    "pitch": 76,
+    "onset": 118.5,
+    "offset": 118.969,
+    "measure": 60
+  },
+  {
+    "pitch": 50,
+    "onset": 119.0,
+    "offset": 119.469,
+    "measure": 60
+  },
+  {
+    "pitch": 59,
+    "onset": 119.0,
+    "offset": 119.469,
+    "measure": 60
+  },
+  {
+    "pitch": 76,
+    "onset": 119.0,
+    "offset": 119.219,
+    "measure": 60
+  },
+  {
+    "pitch": 78,
+    "onset": 119.25,
+    "offset": 119.469,
+    "measure": 60
+  },
+  {
+    "pitch": 50,
+    "onset": 119.5,
+    "offset": 119.969,
+    "measure": 60
+  },
+  {
+    "pitch": 59,
+    "onset": 119.5,
+    "offset": 119.969,
+    "measure": 60
+  },
+  {
+    "pitch": 76,
+    "onset": 119.5,
+    "offset": 120.219,
+    "measure": 60
+  },
+  {
+    "pitch": 38,
+    "onset": 120.0,
+    "offset": 120.469,
+    "measure": 61
+  },
+  {
+    "pitch": 74,
+    "onset": 120.25,
+    "offset": 120.469,
+    "measure": 61
+  },
+  {
+    "pitch": 45,
+    "onset": 120.5,
+    "offset": 120.969,
+    "measure": 61
+  },
+  {
+    "pitch": 54,
+    "onset": 120.5,
+    "offset": 120.969,
+    "measure": 61
+  },
+  {
+    "pitch": 76,
+    "onset": 120.5,
+    "offset": 120.719,
+    "measure": 61
+  },
+  {
+    "pitch": 74,
+    "onset": 120.75,
+    "offset": 121.469,
+    "measure": 61
+  },
+  {
+    "pitch": 45,
+    "onset": 121.0,
+    "offset": 121.469,
+    "measure": 61
+  },
+  {
+    "pitch": 54,
+    "onset": 121.0,
+    "offset": 121.469,
+    "measure": 61
+  },
+  {
+    "pitch": 45,
+    "onset": 121.5,
+    "offset": 121.969,
+    "measure": 61
+  },
+  {
+    "pitch": 54,
+    "onset": 122.0,
+    "offset": 122.469,
+    "measure": 62
+  },
+  {
+    "pitch": 57,
+    "onset": 122.0,
+    "offset": 122.469,
+    "measure": 62
+  },
+  {
+    "pitch": 74,
+    "onset": 122.0,
+    "offset": 122.469,
+    "measure": 62
+  },
+  {
+    "pitch": 54,
+    "onset": 122.5,
+    "offset": 122.969,
+    "measure": 62
+  },
+  {
+    "pitch": 57,
+    "onset": 122.5,
+    "offset": 122.969,
+    "measure": 62
+  },
+  {
+    "pitch": 74,
+    "onset": 122.5,
+    "offset": 122.719,
+    "measure": 62
+  },
+  {
+    "pitch": 73,
+    "onset": 122.75,
+    "offset": 124.344,
+    "measure": 62
+  },
+  {
+    "pitch": 42,
+    "onset": 123.0,
+    "offset": 123.469,
+    "measure": 62
+  },
+  {
+    "pitch": 49,
+    "onset": 123.5,
+    "offset": 123.969,
+    "measure": 62
+  },
+  {
+    "pitch": 58,
+    "onset": 123.5,
+    "offset": 123.969,
+    "measure": 62
+  },
+  {
+    "pitch": 49,
+    "onset": 124.0,
+    "offset": 124.469,
+    "measure": 63
+  },
+  {
+    "pitch": 58,
+    "onset": 124.0,
+    "offset": 124.469,
+    "measure": 63
+  },
+  {
+    "pitch": 43,
+    "onset": 124.5,
+    "offset": 124.969,
+    "measure": 63
+  },
+  {
+    "pitch": 74,
+    "onset": 124.5,
+    "offset": 125.844,
+    "measure": 63
+  },
+  {
+    "pitch": 50,
+    "onset": 125.0,
+    "offset": 125.469,
+    "measure": 63
+  },
+  {
+    "pitch": 59,
+    "onset": 125.0,
+    "offset": 125.469,
+    "measure": 63
+  },
+  {
+    "pitch": 50,
+    "onset": 125.5,
+    "offset": 125.969,
+    "measure": 63
+  },
+  {
+    "pitch": 59,
+    "onset": 125.5,
+    "offset": 125.969,
+    "measure": 63
+  },
+  {
+    "pitch": 47,
+    "onset": 126.0,
+    "offset": 126.469,
+    "measure": 64
+  },
+  {
+    "pitch": 59,
+    "onset": 126.0,
+    "offset": 126.219,
+    "measure": 64
+  },
+  {
+    "pitch": 69,
+    "onset": 126.0,
+    "offset": 126.219,
+    "measure": 64
+  },
+  {
+    "pitch": 62,
+    "onset": 126.25,
+    "offset": 126.469,
+    "measure": 64
+  },
+  {
+    "pitch": 66,
+    "onset": 126.25,
+    "offset": 126.469,
+    "measure": 64
+  },
+  {
+    "pitch": 50,
+    "onset": 126.5,
+    "offset": 126.969,
+    "measure": 64
+  },
+  {
+    "pitch": 54,
+    "onset": 126.5,
+    "offset": 126.969,
+    "measure": 64
+  },
+  {
+    "pitch": 59,
+    "onset": 126.5,
+    "offset": 126.719,
+    "measure": 64
+  },
+  {
+    "pitch": 69,
+    "onset": 126.5,
+    "offset": 126.719,
+    "measure": 64
+  },
+  {
+    "pitch": 62,
+    "onset": 126.75,
+    "offset": 126.969,
+    "measure": 64
+  },
+  {
+    "pitch": 66,
+    "onset": 126.75,
+    "offset": 126.969,
+    "measure": 64
+  },
+  {
+    "pitch": 50,
+    "onset": 127.0,
+    "offset": 127.469,
+    "measure": 64
+  },
+  {
+    "pitch": 54,
+    "onset": 127.0,
+    "offset": 127.469,
+    "measure": 64
+  },
+  {
+    "pitch": 59,
+    "onset": 127.0,
+    "offset": 127.219,
+    "measure": 64
+  },
+  {
+    "pitch": 69,
+    "onset": 127.0,
+    "offset": 127.219,
+    "measure": 64
+  },
+  {
+    "pitch": 62,
+    "onset": 127.25,
+    "offset": 127.469,
+    "measure": 64
+  },
+  {
+    "pitch": 66,
+    "onset": 127.25,
+    "offset": 127.469,
+    "measure": 64
+  },
+  {
+    "pitch": 45,
+    "onset": 127.5,
+    "offset": 127.969,
+    "measure": 64
+  },
+  {
+    "pitch": 57,
+    "onset": 127.5,
+    "offset": 127.719,
+    "measure": 64
+  },
+  {
+    "pitch": 69,
+    "onset": 127.5,
+    "offset": 127.719,
+    "measure": 64
+  },
+  {
+    "pitch": 61,
+    "onset": 127.75,
+    "offset": 127.969,
+    "measure": 64
+  },
+  {
+    "pitch": 66,
+    "onset": 127.75,
+    "offset": 127.969,
+    "measure": 64
+  },
+  {
+    "pitch": 49,
+    "onset": 128.0,
+    "offset": 128.469,
+    "measure": 65
+  },
+  {
+    "pitch": 54,
+    "onset": 128.0,
+    "offset": 128.469,
+    "measure": 65
+  },
+  {
+    "pitch": 57,
+    "onset": 128.0,
+    "offset": 128.219,
+    "measure": 65
+  },
+  {
+    "pitch": 69,
+    "onset": 128.0,
+    "offset": 128.219,
+    "measure": 65
+  },
+  {
+    "pitch": 62,
+    "onset": 128.25,
+    "offset": 128.469,
+    "measure": 65
+  },
+  {
+    "pitch": 66,
+    "onset": 128.25,
+    "offset": 128.469,
+    "measure": 65
+  },
+  {
+    "pitch": 49,
+    "onset": 128.5,
+    "offset": 128.969,
+    "measure": 65
+  },
+  {
+    "pitch": 54,
+    "onset": 128.5,
+    "offset": 128.969,
+    "measure": 65
+  },
+  {
+    "pitch": 57,
+    "onset": 128.5,
+    "offset": 128.719,
+    "measure": 65
+  },
+  {
+    "pitch": 69,
+    "onset": 128.5,
+    "offset": 128.719,
+    "measure": 65
+  },
+  {
+    "pitch": 62,
+    "onset": 128.75,
+    "offset": 128.969,
+    "measure": 65
+  },
+  {
+    "pitch": 66,
+    "onset": 128.75,
+    "offset": 128.969,
+    "measure": 65
+  },
+  {
+    "pitch": 43,
+    "onset": 129.0,
+    "offset": 129.469,
+    "measure": 65
+  },
+  {
+    "pitch": 59,
+    "onset": 129.0,
+    "offset": 129.219,
+    "measure": 65
+  },
+  {
+    "pitch": 69,
+    "onset": 129.0,
+    "offset": 129.219,
+    "measure": 65
+  },
+  {
+    "pitch": 62,
+    "onset": 129.25,
+    "offset": 129.469,
+    "measure": 65
+  },
+  {
+    "pitch": 66,
+    "onset": 129.25,
+    "offset": 129.469,
+    "measure": 65
+  },
+  {
+    "pitch": 50,
+    "onset": 129.5,
+    "offset": 129.969,
+    "measure": 65
+  },
+  {
+    "pitch": 54,
+    "onset": 129.5,
+    "offset": 129.969,
+    "measure": 65
+  },
+  {
+    "pitch": 59,
+    "onset": 129.5,
+    "offset": 129.719,
+    "measure": 65
+  },
+  {
+    "pitch": 69,
+    "onset": 129.5,
+    "offset": 129.719,
+    "measure": 65
+  },
+  {
+    "pitch": 62,
+    "onset": 129.75,
+    "offset": 129.969,
+    "measure": 65
+  },
+  {
+    "pitch": 66,
+    "onset": 129.75,
+    "offset": 129.969,
+    "measure": 65
+  },
+  {
+    "pitch": 50,
+    "onset": 130.0,
+    "offset": 130.469,
+    "measure": 66
+  },
+  {
+    "pitch": 54,
+    "onset": 130.0,
+    "offset": 130.469,
+    "measure": 66
+  },
+  {
+    "pitch": 59,
+    "onset": 130.0,
+    "offset": 130.219,
+    "measure": 66
+  },
+  {
+    "pitch": 69,
+    "onset": 130.0,
+    "offset": 130.219,
+    "measure": 66
+  },
+  {
+    "pitch": 62,
+    "onset": 130.25,
+    "offset": 130.469,
+    "measure": 66
+  },
+  {
+    "pitch": 66,
+    "onset": 130.25,
+    "offset": 130.469,
+    "measure": 66
+  },
+  {
+    "pitch": 43,
+    "onset": 130.5,
+    "offset": 130.969,
+    "measure": 66
+  },
+  {
+    "pitch": 57,
+    "onset": 130.5,
+    "offset": 130.719,
+    "measure": 66
+  },
+  {
+    "pitch": 69,
+    "onset": 130.5,
+    "offset": 130.719,
+    "measure": 66
+  },
+  {
+    "pitch": 61,
+    "onset": 130.75,
+    "offset": 130.969,
+    "measure": 66
+  },
+  {
+    "pitch": 66,
+    "onset": 130.75,
+    "offset": 130.969,
+    "measure": 66
+  },
+  {
+    "pitch": 50,
+    "onset": 131.0,
+    "offset": 131.469,
+    "measure": 66
+  },
+  {
+    "pitch": 54,
+    "onset": 131.0,
+    "offset": 131.469,
+    "measure": 66
+  },
+  {
+    "pitch": 57,
+    "onset": 131.0,
+    "offset": 131.219,
+    "measure": 66
+  },
+  {
+    "pitch": 69,
+    "onset": 131.0,
+    "offset": 131.219,
+    "measure": 66
+  },
+  {
+    "pitch": 62,
+    "onset": 131.25,
+    "offset": 131.469,
+    "measure": 66
+  },
+  {
+    "pitch": 66,
+    "onset": 131.25,
+    "offset": 131.469,
+    "measure": 66
+  },
+  {
+    "pitch": 50,
+    "onset": 131.5,
+    "offset": 131.969,
+    "measure": 66
+  },
+  {
+    "pitch": 54,
+    "onset": 131.5,
+    "offset": 131.969,
+    "measure": 66
+  },
+  {
+    "pitch": 57,
+    "onset": 131.5,
+    "offset": 131.719,
+    "measure": 66
+  },
+  {
+    "pitch": 69,
+    "onset": 131.5,
+    "offset": 131.719,
+    "measure": 66
+  },
+  {
+    "pitch": 62,
+    "onset": 131.75,
+    "offset": 131.969,
+    "measure": 66
+  },
+  {
+    "pitch": 66,
+    "onset": 131.75,
+    "offset": 131.969,
+    "measure": 66
+  },
+  {
+    "pitch": 47,
+    "onset": 132.0,
+    "offset": 132.469,
+    "measure": 67
+  },
+  {
+    "pitch": 59,
+    "onset": 132.0,
+    "offset": 132.219,
+    "measure": 67
+  },
+  {
+    "pitch": 69,
+    "onset": 132.0,
+    "offset": 132.219,
+    "measure": 67
+  },
+  {
+    "pitch": 62,
+    "onset": 132.25,
+    "offset": 132.469,
+    "measure": 67
+  },
+  {
+    "pitch": 66,
+    "onset": 132.25,
+    "offset": 132.469,
+    "measure": 67
+  },
+  {
+    "pitch": 50,
+    "onset": 132.5,
+    "offset": 132.969,
+    "measure": 67
+  },
+  {
+    "pitch": 54,
+    "onset": 132.5,
+    "offset": 132.969,
+    "measure": 67
+  },
+  {
+    "pitch": 59,
+    "onset": 132.5,
+    "offset": 132.719,
+    "measure": 67
+  },
+  {
+    "pitch": 69,
+    "onset": 132.5,
+    "offset": 132.719,
+    "measure": 67
+  },
+  {
+    "pitch": 62,
+    "onset": 132.75,
+    "offset": 132.969,
+    "measure": 67
+  },
+  {
+    "pitch": 66,
+    "onset": 132.75,
+    "offset": 132.969,
+    "measure": 67
+  },
+  {
+    "pitch": 50,
+    "onset": 133.0,
+    "offset": 133.469,
+    "measure": 67
+  },
+  {
+    "pitch": 54,
+    "onset": 133.0,
+    "offset": 133.469,
+    "measure": 67
+  },
+  {
+    "pitch": 59,
+    "onset": 133.0,
+    "offset": 133.219,
+    "measure": 67
+  },
+  {
+    "pitch": 69,
+    "onset": 133.0,
+    "offset": 133.219,
+    "measure": 67
+  },
+  {
+    "pitch": 62,
+    "onset": 133.25,
+    "offset": 133.469,
+    "measure": 67
+  },
+  {
+    "pitch": 66,
+    "onset": 133.25,
+    "offset": 133.469,
+    "measure": 67
+  },
+  {
+    "pitch": 45,
+    "onset": 133.5,
+    "offset": 133.969,
+    "measure": 67
+  },
+  {
+    "pitch": 57,
+    "onset": 133.5,
+    "offset": 133.719,
+    "measure": 67
+  },
+  {
+    "pitch": 69,
+    "onset": 133.5,
+    "offset": 133.719,
+    "measure": 67
+  },
+  {
+    "pitch": 61,
+    "onset": 133.75,
+    "offset": 133.969,
+    "measure": 67
+  },
+  {
+    "pitch": 66,
+    "onset": 133.75,
+    "offset": 133.969,
+    "measure": 67
+  },
+  {
+    "pitch": 49,
+    "onset": 134.0,
+    "offset": 134.469,
+    "measure": 68
+  },
+  {
+    "pitch": 54,
+    "onset": 134.0,
+    "offset": 134.469,
+    "measure": 68
+  },
+  {
+    "pitch": 57,
+    "onset": 134.0,
+    "offset": 134.219,
+    "measure": 68
+  },
+  {
+    "pitch": 69,
+    "onset": 134.0,
+    "offset": 134.219,
+    "measure": 68
+  },
+  {
+    "pitch": 62,
+    "onset": 134.25,
+    "offset": 134.469,
+    "measure": 68
+  },
+  {
+    "pitch": 66,
+    "onset": 134.25,
+    "offset": 134.469,
+    "measure": 68
+  },
+  {
+    "pitch": 49,
+    "onset": 134.5,
+    "offset": 134.969,
+    "measure": 68
+  },
+  {
+    "pitch": 54,
+    "onset": 134.5,
+    "offset": 134.969,
+    "measure": 68
+  },
+  {
+    "pitch": 57,
+    "onset": 134.5,
+    "offset": 134.719,
+    "measure": 68
+  },
+  {
+    "pitch": 69,
+    "onset": 134.5,
+    "offset": 134.719,
+    "measure": 68
+  },
+  {
+    "pitch": 62,
+    "onset": 134.75,
+    "offset": 134.969,
+    "measure": 68
+  },
+  {
+    "pitch": 66,
+    "onset": 134.75,
+    "offset": 134.969,
+    "measure": 68
+  },
+  {
+    "pitch": 43,
+    "onset": 135.0,
+    "offset": 135.469,
+    "measure": 68
+  },
+  {
+    "pitch": 59,
+    "onset": 135.0,
+    "offset": 135.219,
+    "measure": 68
+  },
+  {
+    "pitch": 69,
+    "onset": 135.0,
+    "offset": 135.219,
+    "measure": 68
+  },
+  {
+    "pitch": 62,
+    "onset": 135.25,
+    "offset": 135.469,
+    "measure": 68
+  },
+  {
+    "pitch": 66,
+    "onset": 135.25,
+    "offset": 135.469,
+    "measure": 68
+  },
+  {
+    "pitch": 50,
+    "onset": 135.5,
+    "offset": 135.969,
+    "measure": 68
+  },
+  {
+    "pitch": 54,
+    "onset": 135.5,
+    "offset": 135.969,
+    "measure": 68
+  },
+  {
+    "pitch": 59,
+    "onset": 135.5,
+    "offset": 135.719,
+    "measure": 68
+  },
+  {
+    "pitch": 69,
+    "onset": 135.5,
+    "offset": 135.719,
+    "measure": 68
+  },
+  {
+    "pitch": 62,
+    "onset": 135.75,
+    "offset": 135.969,
+    "measure": 68
+  },
+  {
+    "pitch": 66,
+    "onset": 135.75,
+    "offset": 135.969,
+    "measure": 68
+  },
+  {
+    "pitch": 50,
+    "onset": 136.0,
+    "offset": 136.469,
+    "measure": 69
+  },
+  {
+    "pitch": 54,
+    "onset": 136.0,
+    "offset": 136.469,
+    "measure": 69
+  },
+  {
+    "pitch": 59,
+    "onset": 136.0,
+    "offset": 136.219,
+    "measure": 69
+  },
+  {
+    "pitch": 69,
+    "onset": 136.0,
+    "offset": 136.219,
+    "measure": 69
+  },
+  {
+    "pitch": 62,
+    "onset": 136.25,
+    "offset": 136.469,
+    "measure": 69
+  },
+  {
+    "pitch": 66,
+    "onset": 136.25,
+    "offset": 136.469,
+    "measure": 69
+  },
+  {
+    "pitch": 43,
+    "onset": 136.5,
+    "offset": 136.969,
+    "measure": 69
+  },
+  {
+    "pitch": 57,
+    "onset": 136.5,
+    "offset": 136.719,
+    "measure": 69
+  },
+  {
+    "pitch": 69,
+    "onset": 136.5,
+    "offset": 136.719,
+    "measure": 69
+  },
+  {
+    "pitch": 61,
+    "onset": 136.75,
+    "offset": 136.969,
+    "measure": 69
+  },
+  {
+    "pitch": 66,
+    "onset": 136.75,
+    "offset": 136.969,
+    "measure": 69
+  },
+  {
+    "pitch": 50,
+    "onset": 137.0,
+    "offset": 137.469,
+    "measure": 69
+  },
+  {
+    "pitch": 54,
+    "onset": 137.0,
+    "offset": 137.469,
+    "measure": 69
+  },
+  {
+    "pitch": 57,
+    "onset": 137.0,
+    "offset": 137.219,
+    "measure": 69
+  },
+  {
+    "pitch": 69,
+    "onset": 137.0,
+    "offset": 137.219,
+    "measure": 69
+  },
+  {
+    "pitch": 62,
+    "onset": 137.25,
+    "offset": 137.469,
+    "measure": 69
+  },
+  {
+    "pitch": 66,
+    "onset": 137.25,
+    "offset": 137.469,
+    "measure": 69
+  },
+  {
+    "pitch": 50,
+    "onset": 137.5,
+    "offset": 137.969,
+    "measure": 69
+  },
+  {
+    "pitch": 54,
+    "onset": 137.5,
+    "offset": 137.969,
+    "measure": 69
+  },
+  {
+    "pitch": 57,
+    "onset": 137.5,
+    "offset": 137.719,
+    "measure": 69
+  },
+  {
+    "pitch": 69,
+    "onset": 137.5,
+    "offset": 137.719,
+    "measure": 69
+  },
+  {
+    "pitch": 62,
+    "onset": 137.75,
+    "offset": 137.969,
+    "measure": 69
+  },
+  {
+    "pitch": 66,
+    "onset": 137.75,
+    "offset": 137.969,
+    "measure": 69
+  },
+  {
+    "pitch": 38,
+    "onset": 138.0,
+    "offset": 140.844,
+    "measure": 70
+  },
+  {
+    "pitch": 50,
+    "onset": 138.0,
+    "offset": 140.844,
+    "measure": 70
+  },
+  {
+    "pitch": 54,
+    "onset": 138.0,
+    "offset": 140.844,
+    "measure": 70
+  },
+  {
+    "pitch": 57,
+    "onset": 138.0,
+    "offset": 140.844,
+    "measure": 70
+  },
+  {
+    "pitch": 42,
+    "onset": 141.0,
+    "offset": 143.844,
+    "measure": 71
+  },
+  {
+    "pitch": 54,
+    "onset": 141.0,
+    "offset": 143.844,
+    "measure": 71
+  },
+  {
+    "pitch": 58,
+    "onset": 141.0,
+    "offset": 143.844,
+    "measure": 71
+  },
+  {
+    "pitch": 61,
+    "onset": 141.0,
+    "offset": 143.844,
+    "measure": 71
+  }
+]

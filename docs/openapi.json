@@ -1,0 +1,246 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Piano Lab API",
+    "description": "API Gateway and AI Engine contract for Piano Lab Audio-to-Score Assessment MVP",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api/v1",
+      "description": "Local API Gateway"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health Check",
+        "operationId": "getHealth",
+        "responses": {
+          "200": {
+            "description": "Service is healthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/presets": {
+      "get": {
+        "summary": "Get Preset Reference Songs",
+        "operationId": "getPresets",
+        "responses": {
+          "200": {
+            "description": "List of preset reference pieces",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PresetPiece"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analyze": {
+      "post": {
+        "summary": "Analyze Piano Performance Audio",
+        "operationId": "analyzeAudio",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "audioFile": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Student performance audio file (.wav, .mp3, .m4a)"
+                  },
+                  "referenceId": {
+                    "type": "string",
+                    "description": "Preset piece ID or uploaded reference MIDI ID"
+                  },
+                  "isPartialPerformance": {
+                    "type": "boolean",
+                    "description": "Whether performance is a partial excerpt of full song",
+                    "default": false
+                  }
+                },
+                "required": ["referenceId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Analysis result with note events, score, and alignment metrics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysisResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input parameters"
+          },
+          "429": {
+            "description": "Too Many Requests - Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal processing error"
+          }
+        }
+      }
+    },
+    "/coach/chat": {
+      "post": {
+        "summary": "Chat with Piano Lab AI Coach",
+        "operationId": "coachChat",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CoachRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "AI Coach response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CoachResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws": {
+      "get": {
+        "summary": "Real-time WebSocket Streaming",
+        "operationId": "streamAudioWS",
+        "responses": {
+          "101": {
+            "description": "WebSocket connection established"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HealthResponse": {
+        "type": "object",
+        "required": ["status", "timestamp", "service"],
+        "properties": {
+          "status": { "type": "string", "example": "ok" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "service": { "type": "string", "example": "piano-lab-api-gateway" }
+        }
+      },
+      "PresetPiece": {
+        "type": "object",
+        "required": ["id", "title", "composer", "difficulty", "noteCount", "durationSeconds"],
+        "properties": {
+          "id": { "type": "string", "example": "pirates-of-the-caribbean" },
+          "title": { "type": "string", "example": "He's a Pirate" },
+          "composer": { "type": "string", "example": "Klaus Badelt / Hans Zimmer" },
+
+          "difficulty": { "type": "string", "example": "Intermediate" },
+          "noteCount": { "type": "integer", "example": 1255 },
+          "durationSeconds": { "type": "number", "example": 77.6 }
+        }
+      },
+      "NoteEvent": {
+        "type": "object",
+        "required": ["id", "pitch", "noteName", "onset", "offset", "velocity", "status"],
+        "properties": {
+          "id": { "type": "string", "example": "note-101" },
+          "pitch": { "type": "integer", "example": 60 },
+          "noteName": { "type": "string", "example": "C4" },
+          "onset": { "type": "number", "example": 1.25 },
+          "offset": { "type": "number", "example": 1.75 },
+          "velocity": { "type": "integer", "example": 80 },
+          "status": {
+            "type": "string",
+            "enum": ["PERFECT", "GOOD", "OKAY", "MISSED", "WRONG_PITCH", "EXCLUDED"],
+            "example": "PERFECT"
+          },
+          "timingOffsetMs": { "type": "number", "example": 12.4 },
+          "measureNumber": { "type": "integer", "example": 2 }
+        }
+      },
+      "AnalysisResult": {
+        "type": "object",
+        "required": [
+          "sessionId",
+          "overallScore",
+          "pitchAccuracy",
+          "rhythmAccuracy",
+          "totalNotesPlayed",
+          "totalNotesTarget",
+          "firstNoteTimestamp",
+          "lastNoteTimestamp",
+          "isPartialPerformance",
+          "evaluatedNotes",
+          "coachSummary"
+        ],
+        "properties": {
+          "sessionId": { "type": "string", "example": "sess-99201" },
+          "overallScore": { "type": "number", "example": 92.5 },
+          "pitchAccuracy": { "type": "number", "example": 95.0 },
+          "rhythmAccuracy": { "type": "number", "example": 90.0 },
+          "totalNotesPlayed": { "type": "integer", "example": 120 },
+          "totalNotesTarget": { "type": "integer", "example": 150 },
+          "firstNoteTimestamp": { "type": "number", "example": 2.1 },
+          "lastNoteTimestamp": { "type": "number", "example": 28.4 },
+          "isPartialPerformance": { "type": "boolean", "example": true },
+          "evaluatedNotes": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/NoteEvent" }
+          },
+          "coachSummary": { "type": "string", "example": "Great work on the left-hand arpeggios!" }
+        }
+      },
+      "CoachRequest": {
+        "type": "object",
+        "required": ["userMessage"],
+        "properties": {
+          "sessionId": { "type": "string" },
+          "userMessage": { "type": "string", "example": "How can I improve my timing in Measure 4?" },
+          "recentPerformanceData": { "$ref": "#/components/schemas/AnalysisResult" }
+        }
+      },
+      "CoachResponse": {
+        "type": "object",
+        "required": ["replyMessage", "isOffTopic"],
+        "properties": {
+          "replyMessage": { "type": "string" },
+          "isOffTopic": { "type": "boolean", "example": false },
+          "suggestedMeasures": {
+            "type": "array",
+            "items": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

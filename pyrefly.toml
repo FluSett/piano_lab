@@ -1,0 +1,13 @@
+[tool.pyrefly]
+search-path = [
+  "services/ai-engine"
+]
+exclude = [
+  "*__pyrefly_virtual__*",
+  "**/*__pyrefly_virtual__*",
+  "*inmemory*",
+  "**/*inmemory*",
+  "**/*.md"
+]
+
+

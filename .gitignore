@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Build outputs
+dist/
+.next/
+bin/
+out/
+build/
+
+# Models & Caches
+*.onnx
+*.pt
+*.pth
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Audio & Temporary Uploads
+uploads/
+temp/
+*.wav
+*.mp3
+*.m4a
+
+# Environment & IDE
+.env
+.env.local
+.vscode/
+.idea/
+*.swp
+.DS_Store

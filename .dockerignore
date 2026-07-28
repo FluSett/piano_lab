@@ -1,0 +1,17 @@
+.git
+.gitignore
+.dockerignore
+node_modules
+.next
+venv
+.venv
+__pycache__
+*.pyc
+.idea
+.vscode
+dist
+bin
+uploads
+temp
+*.wav
+*.mp3
