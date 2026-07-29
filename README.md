@@ -10,8 +10,8 @@ An interactive, high-vertical-scaling Piano Audio-to-Score Assessment platform b
 
 Piano Lab is currently in **MVP (v1.0.0-mvp)** state. For full architectural details, user flows, navigation guards, scoring logic, and component specs, see **[docs/SPEC.md](docs/SPEC.md)**.
 
-- **Audio-to-Score Assessment**: Short-Time Fourier Transform (STFT) spectral peak transcription, repeated note re-strike detection, and Exponential Moving Average (EMA) rubato shift tracking.
-- **60fps Canvas Waterfall**: Off-thread audio buffer decoding via Web Workers (`audioParser.worker.ts`) and 1:1 pixel parity responsive keyboard integration.
+- **88-Key CQT Audio-to-Score Assessment**: 88-Key Constant-Q Transform (CQT) filterbank analysis ($A_0 = 27.5\text{ Hz}$ to $C_8 = 4186.0\text{ Hz}$), physics-based piano harmonic overtone subtraction ($2f_0, 3f_0, 4f_0, 5f_0$), Subsequence Dynamic Time Warping (DTW) rubato alignment, fair $F_\beta$ precision/recall scoring, and non-inflating excerpt windowing.
+- **Physical Modeling Piano Synthesizer**: Production physical modeling multi-harmonic piano audio synthesizer (`src/services/synth.py`) with dynamic `SynthConfig`, generating realistic piano sound clips for partial performance test suites (<30s and >30s) alongside negative bad play test cases.
 - **Full-Surface Audio Dropzone**: `.wav`/`.mp3`/`.m4a` file type filtering, hidden file input label wrapping (`<label htmlFor="audio-file-input">`) for 100% click-to-browse activation, and instant file reset controls.
 - **AI Pedagogue Coach**: Gemini-powered practice advisor with multi-turn conversation context retention (`chatHistory`), compact response structuring (`coach_config.json`), and refined music domain follow-up guardrails.
 - **High-Performance Architecture**: Go 1.26 API Gateway with runtime tuning (`GOMAXPROCS`), `sync.Pool` buffer allocators, and Python 3.13 NUMA process pool isolation.
@@ -24,7 +24,7 @@ Piano Lab is currently in **MVP (v1.0.0-mvp)** state. For full architectural det
 | :--- | :--- | :--- |
 | **Frontend** | Next.js 16.2.11, React 19, TypeScript 5.6.3 | 60fps Canvas Waterfall, Virtual 88-Key Piano, Web Worker Audio Buffer Parser (`audioParser.worker.ts`), Full-surface Audio Dropzone, SSR Hydration Safety |
 | **API Gateway** | Go 1.26 | `GOMAXPROCS` runtime tuning, bounded worker pool, `sync.Pool` buffer allocator, sharded token-bucket rate limiter, panic recovery |
-| **AI Engine** | Python 3.13, PyTorch 2.4, Google GenAI | `ProcessPoolExecutor` manager with CPU core pinning, PyTorch CUDA cache flushing, STFT Process AMT worker (`amt_worker.py`), Multi-turn Gemini AI Coach |
+| **AI Engine** | Python 3.13, PyTorch 2.4, Google GenAI | `ProcessPoolExecutor` manager with CPU core pinning, PyTorch CUDA cache flushing, 88-Key CQT Process AMT worker (`amt_worker.py`), Multi-turn Gemini AI Coach |
 | **Contract** | OpenAPI 3.0 (`docs/openapi.json`) | Strict `camelCase` field parity & universal cross-stack synchronization across all 3 services |
 
 ---
@@ -38,10 +38,12 @@ cp .env.example .env
 # 2. Start services via Docker Compose
 docker-compose up --build
 
-# Or build & run locally via Makefile
-make build
-make test
-make lint
+# Or build, test & run locally via Makefile
+make build   # Build microservices (Go API Gateway, Frontend)
+make test    # Run full Pytest & Go test suites
+make lint    # Run linters across Go 1.26, Python 3.13, and Frontend
+make demo    # Synthesize 4 demo piano WAV clips into temp/demo_audio/
+make help    # Display all available developer commands
 ```
 
 ---

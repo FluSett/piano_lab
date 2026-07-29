@@ -1,6 +1,11 @@
 [tool.pyrefly]
+search_path = [
+  "services/ai-engine",
+  "services/ai-engine/src"
+]
 search-path = [
-  "services/ai-engine"
+  "services/ai-engine",
+  "services/ai-engine/src"
 ]
 exclude = [
   "*__pyrefly_virtual__*",
@@ -9,5 +14,3 @@ exclude = [
   "**/*inmemory*",
   "**/*.md"
 ]
-
-

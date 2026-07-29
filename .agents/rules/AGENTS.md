@@ -22,7 +22,7 @@ This document serves as the single source of truth for engineering standards, qu
 
 To guarantee 100% reproducible builds and eliminate breaking changes:
 
-- **Docker Images**: Never use `:latest` or unpinned distro tags. Always specify exact releases (`golang:1.26.5-alpine`, `python:3.13-slim`, `node:22.5-alpine`, `alpine:3.20`).
+- **Docker Images**: Never use `:latest` or unpinned distro tags. Always specify exact releases (`golang:1.26.5-alpine`, `python:3.13-slim`, `node:22.14-alpine`, `alpine:3.20`).
 - **Go Gateway (`go.mod`)**: Specify `go 1.26` and pin explicit module versions. Run `go mod tidy` after dependency updates to maintain `go.sum`.
 - **Python AI Engine (`requirements.txt` / `pyproject.toml`)**: Pin exact releases using `==` (e.g. `fastapi==0.115.0`, `pydantic==2.9.2`, `torch==2.5.1`, `google-genai==0.8.0`). Never use `>=` or `~=`.
 - **Frontend (`package.json`)**: Remove all `^` (caret) and `~` (tilde) range specifiers. Pin exact semver strings (`"next": "16.2.11"`, `"react": "19.0.0"`, `"typescript": "5.6.3"`).
@@ -100,5 +100,20 @@ When analyzing audio/MIDI pipeline issues, AMT (Automatic Music Transcription) p
 3. **Concrete Architectural Fixes**:
    - Point directly to modified file paths and line ranges ([filename](file:///path/to/file#L10-L20)). Never output full file contents, long code blocks, or diff blocks in chat responses.
    - Enforce target-normalized formulas to eliminate false-positive score floors.
+
+---
+
+## 11. Utility Scripts & Make Targets
+
+- **UTILITY SCRIPTS & MAKE TARGETS**: Any repetitive helper, audio synthesis, dataset conversion, or build utility script MUST be placed in `scripts/` (e.g. `scripts/generate_demo_suite.py`) with a corresponding `Makefile` target (`make demo`), fully parameterized without hardcoded paths or absolute paths.
+
+---
+
+## 12. Proactive Performance Optimization & Zero-Clutter Hygiene Mandate
+
+- **PROACTIVE COMPUTATIONAL OPTIMIZATION**: Whenever computationally expensive mathematical operations (kernel synthesis, Fourier transforms, CQT filterbank generation, matrix multiplications, model weights loading) are implemented, they MUST be proactively cached (e.g. `@functools.lru_cache`, module-level singletons, memoization) and vectorized (NumPy/PyTorch vectorization) to eliminate redundant per-request recalculation.
+- **PROACTIVE TRANSIENT CLEANUP**: AI agents MUST proactively identify and clean up obsolete experimental scratch files, transient debug scripts, and temporary data dumps from `temp/` or `scratch/` prior to completing any task. The user must NEVER have to remind the agent to clean up obsolete code or optimize execution loops.
+
+
 
 

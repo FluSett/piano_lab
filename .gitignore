@@ -11,26 +11,37 @@ dist/
 bin/
 out/
 build/
+coverage/
 
-# Models & Caches
-*.onnx
-*.pt
-*.pth
-.cache/
+# Test & Linter Caches
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.cache/
 
-# Audio & Temporary Uploads
+# Models & Machine Learning Weights
+*.onnx
+*.pt
+*.pth
+
+# Media & Transient Data Files
 uploads/
 temp/
+scratch/
 *.wav
 *.mp3
 *.m4a
+*.mid
+*.midi
+*.png
+*.jpg
+*.jpeg
+*.log
 
 # Environment & IDE
 .env
 .env.local
+.env.*.local
 .vscode/
 .idea/
 *.swp

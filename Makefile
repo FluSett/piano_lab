@@ -1,4 +1,4 @@
-.PHONY: help build run test lint clean docker-up docker-down
+.PHONY: help build run test lint demo clean docker-up docker-down
 
 help:
 	@echo "Piano Lab Development Commands:"
@@ -6,6 +6,7 @@ help:
 	@echo "  make run         - Run microservices locally"
 	@echo "  make test        - Run test suites across services"
 	@echo "  make lint        - Run linters across Go 1.26, Python 3.13, and Frontend"
+	@echo "  make demo        - Synthesize 4 demo WAV audio clips in temp/demo_audio/"
 	@echo "  make docker-up   - Start services via Docker Compose"
 	@echo "  make docker-down - Stop Docker Compose containers"
 	@echo "  make clean       - Clean temporary build artifacts"
@@ -24,8 +25,9 @@ lint:
 	@echo "Linting Frontend..."
 	@cd services/frontend && npm run lint
 
-
-
+demo:
+	@echo "Synthesizing demo piano audio suite..."
+	@python scripts/generate_demo_suite.py
 
 test:
 	@echo "Testing Go API Gateway..."
@@ -43,3 +45,5 @@ clean:
 	rm -rf services/api-gateway/bin
 	rm -rf services/frontend/.next
 	rm -rf services/ai-engine/__pycache__
+	rm -rf temp/demo_audio
+

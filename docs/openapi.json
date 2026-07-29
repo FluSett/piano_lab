@@ -200,6 +200,7 @@
           "firstNoteTimestamp",
           "lastNoteTimestamp",
           "isPartialPerformance",
+          "firstDetectedAudioOnset",
           "evaluatedNotes",
           "coachSummary"
         ],
@@ -213,6 +214,7 @@
           "firstNoteTimestamp": { "type": "number", "example": 2.1 },
           "lastNoteTimestamp": { "type": "number", "example": 28.4 },
           "isPartialPerformance": { "type": "boolean", "example": true },
+          "firstDetectedAudioOnset": { "type": "number", "example": 0.45 },
           "evaluatedNotes": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/NoteEvent" }
