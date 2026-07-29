@@ -23,7 +23,7 @@ type Config struct {
 
 func LoadConfig() *Config {
 	port := getEnv("PORT", "8080")
-	aiEngineURL := getEnv("AI_ENGINE_URL", "http://localhost:8000")
+	aiEngineURL := getEnv("AI_ENGINE_URL", "http://127.0.0.1:8000")
 	workerPoolSize := getEnvAsInt("WORKER_POOL_SIZE", 10)
 	workerQueueCap := getEnvAsInt("WORKER_POOL_QUEUE_CAPACITY", 100)
 	rateLimitRPS := getEnvAsFloat("RATE_LIMIT_RPS", 100.0)

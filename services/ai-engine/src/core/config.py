@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 class Settings(BaseModel):
     app_name: str = "Piano Lab AI Engine"
-    port: int = int(os.getenv("AI_PORT", "8000"))
+    port: int = int(os.getenv("PORT", os.getenv("AI_PORT", "8000")))
     process_pool_workers: int = int(os.getenv("PROCESS_POOL_WORKERS", "4"))
     device: str = os.getenv("DEVICE", "cpu")
     gemini_api_key: str = os.getenv("GEMINI_API_KEY", "")
