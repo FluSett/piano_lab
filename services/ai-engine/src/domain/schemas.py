@@ -47,6 +47,7 @@ class AnalysisResult(BaseSchema):
     first_note_timestamp: float
     last_note_timestamp: float
     is_partial_performance: bool
+    first_detected_audio_onset: float = 0.0
     evaluated_notes: list[NoteEvent]
     coach_summary: str
 

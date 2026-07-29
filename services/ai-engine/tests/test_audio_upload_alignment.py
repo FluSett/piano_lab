@@ -81,8 +81,8 @@ def test_audio_upload_alignment_with_synthesized_reference_wav(ref_id: str) -> N
     assert response.status_code == 200
     data = response.json()
 
-    assert data["pitchAccuracy"] >= 35.0
-    assert data["overallScore"] >= 25.0
+    assert data["pitchAccuracy"] >= 40.0
+    assert data["overallScore"] >= 40.0
     assert data["totalNotesPlayed"] > 0
     assert len(data["evaluatedNotes"]) > 0
 
@@ -107,8 +107,8 @@ def test_partial_excerpt_window_alignment_exclusion() -> None:
     assert len(excluded_notes) > 0, "Unplayed notes outside [t_first, t_last] MUST be EXCLUDED"
 
     # Verify score is not penalized by excluded notes in partial mode
-    assert data_partial["pitchAccuracy"] >= 35.0
-    assert data_partial["overallScore"] >= 25.0
+    assert data_partial["pitchAccuracy"] >= 40.0
+    assert data_partial["overallScore"] >= 40.0
 
     # 2. Full Performance Mode (isPartialPerformance = False)
     resp_full = client.post(
@@ -160,3 +160,31 @@ def test_transcription_worker_with_pcm_wav() -> None:
     assert onset >= 0.0
     assert offset > onset
     assert velocity > 0
+
+
+def test_rubato_tempo_fluctuation_dtw_alignment() -> None:
+    """Tests non-linear Subsequence Dynamic Time Warping (DTW) alignment on rubato audio."""
+    from src.services.synth import synthesize_realistic_piano_wav
+
+    repo = ReferenceRepository()
+    ref_id = "je-te-laisserai-des-mots"
+    notes = repo.get_reference_target_notes(ref_id)
+    # Synthesize excerpt with timing fluctuation jitter (rubato)
+    rubato_wav = synthesize_realistic_piano_wav(
+        notes, slice_start=10.0, slice_end=35.0, timing_jitter_sec=0.12
+    )
+
+    client = TestClient(app)
+    response = client.post(
+        "/api/v1/ai/analyze",
+        data={"referenceId": ref_id, "isPartialPerformance": "true"},
+        files={"audioFile": ("rubato_test.wav", rubato_wav, "audio/wav")},
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+
+    assert data["isPartialPerformance"] is True
+    assert data["pitchAccuracy"] >= 50.0
+    assert data["overallScore"] >= 50.0
+

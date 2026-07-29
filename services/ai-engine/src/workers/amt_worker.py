@@ -1,6 +1,7 @@
+import functools
 import io
-import math
 import wave
+from dataclasses import dataclass
 
 import numpy as np
 from scipy import signal
@@ -10,22 +11,55 @@ from src.core.memory import flush_cuda_and_garbage
 NoteEventTuple = tuple[int, float, float, int]
 
 
-def raw_audio_transcribe_worker(audio_bytes: bytes) -> list[NoteEventTuple]:
+@functools.lru_cache(maxsize=8)
+def _get_cqt_kernels(
+    sample_rate: int, q_factor: float
+) -> list[tuple[int, float, int, np.ndarray]]:
+    """Pre-computes and caches 88-key CQT kernels (A0=21 to C8=108)."""
+    midi_pitches = list(range(21, 109))
+    cqt_kernels = []
+    for k in midi_pitches:
+        f_k = 440.0 * (2.0 ** ((k - 69) / 12.0))
+        N_k = max(32, int(round(q_factor * sample_rate / f_k)))
+        n = np.arange(N_k)
+        win = signal.windows.hann(N_k)
+        kernel = (1.0 / np.sqrt(N_k)) * np.exp(-2j * np.pi * f_k * n / float(sample_rate)) * win
+        cqt_kernels.append((k, f_k, N_k, kernel))
+    return cqt_kernels
+
+
+@dataclass
+class AMTConfig:
+    """Dynamic configuration parameter specification for 88-key CQT Transcription."""
+
+    bins_per_octave: int = 12
+    quality_factor: float = 17.317
+    peak_threshold_ratio: float = 0.20
+    overtone_sub_12: float = 0.50
+    overtone_sub_19: float = 0.30
+    overtone_sub_24: float = 0.20
+    overtone_sub_28: float = 0.15
+    retrigger_energy_ratio: float = 2.5
+    retrigger_min_gap_sec: float = 0.15
+    merge_window_sec: float = 0.12
+    min_note_duration_sec: float = 0.06
+
+
+def raw_audio_transcribe_worker(
+    audio_bytes: bytes, config: AMTConfig | None = None
+) -> list[NoteEventTuple]:
     """
-    Isolated process worker function to extract piano note events (pitch, onset, offset, velocity).
-    Performs DSP Short-Time Fourier Transform (STFT) & spectral peak frequency analysis
-    on raw PCM WAV audio signals to extract real note events.
+    Isolated process worker function to extract 88-key piano note events.
+    Performs 88-key Constant-Q Transform (CQT) filterbank analysis & physics-based piano
+    harmonic overtone subtraction on raw PCM WAV audio signals.
     """
+    cfg = config or AMTConfig()
     try:
         events: list[NoteEventTuple] = []
         samples, sample_rate = _parse_wav_samples(audio_bytes)
 
         if samples is not None and len(samples) > 0 and sample_rate > 0:
-            events = _extract_notes_from_samples(samples, sample_rate)
-
-        # Fallback for synthetic/non-WAV bytes if audio could not be parsed
-        if not events:
-            events = _generate_synthetic_fallback(audio_bytes)
+            events = _extract_notes_from_samples(samples, sample_rate, cfg)
 
         return events
     finally:
@@ -62,117 +96,106 @@ def _parse_wav_samples(audio_bytes: bytes) -> tuple[np.ndarray | None, int]:
 
 
 def _extract_notes_from_samples(
-    samples: np.ndarray, sample_rate: int
+    samples: np.ndarray, sample_rate: int, cfg: AMTConfig
 ) -> list[NoteEventTuple]:
-    """Extracts MIDI pitch note events from audio samples using vectorized STFT peak detection."""
+    """Extracts MIDI pitch note events using 88-Key CQT Filterbank & Harmonic Subtraction."""
     events: list[NoteEventTuple] = []
-
-    nperseg = min(1024, len(samples))
-    if nperseg < 256:
+    if len(samples) < 512:
         return events
 
-    noverlap = nperseg // 2
-    hop_length = nperseg - noverlap
+    hop_samples = int(0.016 * sample_rate)  # 16ms frame step
+    midi_pitches = list(range(21, 109))
 
-    freqs, times, stft_matrix = signal.stft(
-        samples, fs=sample_rate, window="hann", nperseg=nperseg, noverlap=noverlap
-    )
-    magnitudes = np.abs(stft_matrix)
-    n_freqs, n_frames = magnitudes.shape
+    # Fetch cached energy-normalized CQT kernels for all 88 piano keys (A0=21 to C8=108)
+    cqt_kernels = _get_cqt_kernels(sample_rate, cfg.quality_factor)
 
-    midi_pitches = np.full(n_freqs, -1, dtype=np.int16)
-    valid_freq_mask = (freqs >= 27.5) & (freqs <= 4186.0)
-    for idx in np.where(valid_freq_mask)[0]:
-        f = float(freqs[idx])
-        if f > 0:
-            pitch = round(69.0 + 12.0 * math.log2(f / 440.0))
-            if 21 <= pitch <= 108:
-                midi_pitches[idx] = pitch
+    num_frames = (len(samples) - 512) // hop_samples
+    if num_frames <= 0:
+        return events
 
-    max_mags = np.max(magnitudes, axis=0, keepdims=True)
-    threshold = np.maximum(max_mags * 0.20, 1e-4)
+    X_cqt = np.zeros((88, num_frames), dtype=np.float32)
 
-    is_peak = np.zeros_like(magnitudes, dtype=bool)
-    is_peak[1:-1, :] = (
-        (magnitudes[1:-1, :] > magnitudes[:-2, :])
-        & (magnitudes[1:-1, :] > magnitudes[2:, :])
-        & (magnitudes[1:-1, :] > threshold)
-        & (midi_pitches[1:-1, None] >= 21)
-    )
+    for frame_idx in range(num_frames):
+        start_sample = frame_idx * hop_samples
+        for key_idx, (_, _, N_k, kernel) in enumerate(cqt_kernels):
+            if start_sample + N_k <= len(samples):
+                segment = samples[start_sample : start_sample + N_k]
+                X_cqt[key_idx, frame_idx] = float(np.abs(np.vdot(kernel, segment)))
 
-    frame_pitches: list[list[tuple[int, float]]] = [[] for _ in range(n_frames)]
+    # Physics-Based Piano Harmonic Subtraction per frame
+    X_cqt_sub = X_cqt.copy()
+    for t_idx in range(num_frames):
+        col = X_cqt_sub[:, t_idx]
+        sorted_indices = np.argsort(col)[::-1]
+        for idx in sorted_indices:
+            p = midi_pitches[idx]
+            e_p = float(col[idx])
+            if e_p <= 1e-4:
+                continue
 
-    peak_freq_indices, peak_frame_indices = np.where(is_peak)
-    if len(peak_freq_indices) > 0:
-        peak_mags = magnitudes[peak_freq_indices, peak_frame_indices]
-        peak_pitches = midi_pitches[peak_freq_indices]
+            # Subtract modeled overtone energy fractions
+            for over_pitch, factor in [
+                (p + 12, cfg.overtone_sub_12),
+                (p + 19, cfg.overtone_sub_19),
+                (p + 24, cfg.overtone_sub_24),
+                (p + 28, cfg.overtone_sub_28),
+            ]:
+                if over_pitch in midi_pitches:
+                    over_idx = over_pitch - 21
+                    col[over_idx] = max(0.0, col[over_idx] - factor * e_p)
 
-        for f_idx, pitch, mag in zip(peak_frame_indices, peak_pitches, peak_mags, strict=True):
-            frame_pitches[f_idx].append((int(pitch), float(mag)))
+    # Local spectral peak picking across keys per frame
+    max_mags = np.max(X_cqt_sub, axis=0, keepdims=True)
+    threshold = np.maximum(max_mags * cfg.peak_threshold_ratio, 1e-3)
 
-        for f_idx in range(n_frames):
-            if frame_pitches[f_idx]:
-                frame_pitches[f_idx].sort(key=lambda x: x[1], reverse=True)
-                frame_pitches[f_idx] = frame_pitches[f_idx][:4]
+    frame_pitches: list[list[int]] = [[] for _ in range(num_frames)]
+    for t_idx in range(num_frames):
+        col = X_cqt_sub[:, t_idx]
+        peaks = []
+        for k_idx in range(1, 87):
+            is_pk = col[k_idx] > col[k_idx - 1] and col[k_idx] > col[k_idx + 1]
+            if is_pk and col[k_idx] > threshold[0, t_idx]:
+                peaks.append((midi_pitches[k_idx], float(col[k_idx])))
+        if peaks:
+            peaks.sort(key=lambda x: x[1], reverse=True)
+            frame_pitches[t_idx] = [p for p, mag in peaks[:5]]
 
-    active_notes: dict[int, dict[str, float]] = {}
+    active_notes: dict[int, float] = {}
 
-    for t_idx, pitch_list in enumerate(frame_pitches):
-        if t_idx < len(times):
-            current_time = float(times[t_idx])
-        else:
-            current_time = t_idx * (hop_length / sample_rate)
-        present_pitches = {p: mag for p, mag in pitch_list}
+    for t_idx, pitches in enumerate(frame_pitches):
+        cur_time = t_idx * (hop_samples / float(sample_rate))
+        p_set = set(pitches)
 
         for p in list(active_notes.keys()):
-            if p not in present_pitches:
-                note_data = active_notes.pop(p)
-                onset = note_data["onset"]
-                offset = current_time
-                if offset - onset >= 0.06:
-                    vel = int(min(127, max(40, note_data["max_mag"] * 100)))
-                    events.append((p, round(onset, 3), round(offset, 3), vel))
+            if p not in p_set:
+                onset = active_notes.pop(p)
+                if cur_time - onset >= cfg.min_note_duration_sec:
+                    events.append((p, round(onset, 3), round(cur_time, 3), 80))
 
-        for p, mag in present_pitches.items():
+        for p in p_set:
             if p not in active_notes:
-                active_notes[p] = {"onset": current_time, "max_mag": mag, "last_mag": mag}
-            else:
-                last_mag = active_notes[p]["last_mag"]
-                onset = active_notes[p]["onset"]
-                if mag > last_mag * 1.5 and (current_time - onset >= 0.10):
-                    old_data = active_notes[p]
-                    offset = current_time
-                    if offset - onset >= 0.06:
-                        vel = int(min(127, max(40, old_data["max_mag"] * 100)))
-                        events.append((p, round(onset, 3), round(offset, 3), vel))
-                    active_notes[p] = {"onset": current_time, "max_mag": mag, "last_mag": mag}
-                else:
-                    active_notes[p]["max_mag"] = max(active_notes[p]["max_mag"], mag)
-                    active_notes[p]["last_mag"] = mag
+                active_notes[p] = cur_time
 
-    final_time = len(samples) / sample_rate
-    for p, note_data in active_notes.items():
-        onset = note_data["onset"]
-        offset = final_time
-        if offset - onset >= 0.06:
-            vel = int(min(127, max(40, note_data["max_mag"] * 100)))
-            events.append((p, round(onset, 3), round(offset, 3), vel))
+    fin_time = len(samples) / float(sample_rate)
+    for p, onset in active_notes.items():
+        if fin_time - onset >= cfg.min_note_duration_sec:
+            events.append((p, round(onset, 3), round(fin_time, 3), 80))
 
     events.sort(key=lambda x: (x[1], x[0]))
-    return events
 
+    # Merge temporal duplicate detections for the same pitch within merge_window_sec
+    merged_events: list[NoteEventTuple] = []
+    for evt in events:
+        if not merged_events:
+            merged_events.append(evt)
+        else:
+            prev_p, prev_on, prev_off, prev_v = merged_events[-1]
+            curr_p, curr_on, curr_off, curr_v = evt
+            if curr_p == prev_p and (curr_on - prev_on) <= cfg.merge_window_sec:
+                new_off = max(prev_off, curr_off)
+                new_v = max(prev_v, curr_v)
+                merged_events[-1] = (prev_p, prev_on, new_off, new_v)
+            else:
+                merged_events.append(evt)
 
-def _generate_synthetic_fallback(audio_bytes: bytes) -> list[NoteEventTuple]:
-    """Generates synthetic scale events if non-WAV bytes are passed."""
-    events: list[NoteEventTuple] = []
-    duration = min(max(len(audio_bytes) / 8000.0, 15.0), 45.0)
-    num_notes = int(duration * 6)
-
-    scale = [60, 62, 64, 65, 67, 69, 71, 72, 74, 76]
-    for i in range(num_notes):
-        onset = round(i * 0.35 + 0.1, 3)
-        offset = round(onset + 0.3, 3)
-        pitch = scale[i % len(scale)]
-        velocity = 75 + (i % 25)
-        events.append((pitch, onset, offset, velocity))
-    return events
+    return merged_events

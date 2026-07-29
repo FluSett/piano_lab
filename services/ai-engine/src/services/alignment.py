@@ -1,6 +1,8 @@
 import uuid
 from dataclasses import dataclass
 
+import numpy as np
+
 from src.domain.schemas import AnalysisResult, NoteEvent, NoteStatus
 from src.services.reference_repo import ReferenceRepository
 
@@ -22,13 +24,14 @@ class AlignmentConfig:
     ema_alpha: float = 0.3
     drift_decay_factor: float = 0.85
     max_allowed_drift_sec: float = 1.5
-    f_beta: float = 1.0  # F-beta weighting factor for pitch recall vs precision (1.0 = F1 score)
+    f_beta: float = 1.0
 
 
 class AlignmentEngine:
     """
-    Symbolic sequence alignment engine implementing Dynamic Anchor-Based Adaptive Shift Tracking,
-    F-beta precision-weighted pitch scoring, and pure Python outlier-robust excerpt windowing.
+    Symbolic sequence alignment engine implementing Subsequence Dynamic Time Warping (DTW),
+    Dynamic Anchor-Based Adaptive Shift Tracking, F-beta precision-weighted pitch scoring,
+    and pure Python excerpt windowing.
     """
 
     def __init__(
@@ -47,30 +50,36 @@ class AlignmentEngine:
     ) -> AnalysisResult:
         reference_notes = self.ref_repo.get_reference_target_notes(reference_id)
 
-        # Compute optimal temporal shift for partial performance excerpts (e.g. TikTok clips)
+        # Compute optimal base temporal shift for partial performance excerpts
         time_shift = 0.0
         if is_partial_performance and detected_notes and reference_notes:
             time_shift = self._find_optimal_subsequence_shift(detected_notes, reference_notes)
 
-        aligned_detected: list[tuple[int, float, float, int]] = []
-        for p, onset, offset, v in detected_notes:
-            aligned_detected.append((p, onset + time_shift, offset + time_shift, v))
+        # Non-linear Subsequence DTW path computation adapting to rubato timing fluctuations
+        if is_partial_performance and detected_notes and reference_notes:
+            aligned_detected = self._compute_dtw_alignment_path(
+                detected_notes, reference_notes, time_shift
+            )
+        else:
+            aligned_detected = [
+                (p, onset + time_shift, offset + time_shift, v)
+                for p, onset, offset, v in detected_notes
+            ]
 
         if not aligned_detected:
             t_first, t_last = 0.0, 0.0
         else:
             onsets = [n[1] for n in aligned_detected]
-            sorted_onsets = sorted(onsets)
-            t_first = sorted_onsets[0]
-            # Pure Python 99th percentile lookup (prevents noise spike inflation)
-            p99_idx = min(len(sorted_onsets) - 1, int(len(sorted_onsets) * 0.99))
-            t_last = sorted_onsets[p99_idx]
+            t_first = min(onsets)
+            t_last = max(onsets)
 
         tol = self.config.onset_match_tolerance_sec
+
+        # Active attempted performance excerpt boundary mapped to reference timeline
         t_excerpt_start = max(0.0, t_first - tol)
         t_excerpt_end = t_last + tol
 
-        # Count played notes inside the active excerpt window for fair precision calculation
+        # Count played notes inside active excerpt window for fair precision calculation
         if is_partial_performance:
             excerpt_played_count = sum(
                 1 for n in aligned_detected if t_excerpt_start <= n[1] <= t_excerpt_end
@@ -91,15 +100,12 @@ class AlignmentEngine:
         scorable_target_count = 0
         used_detected_indices: set[int] = set()
 
-        # Dynamic Anchor Tracking State (tracks local tempo drift: detected_onset - reference_onset)
         rolling_drift_sec: float = 0.0
 
         for idx, ref in enumerate(reference_notes):
             ref_pitch, ref_onset, ref_offset, ref_measure = ref
             note_id = f"note-{idx + 1}"
 
-            # Exclude reference notes outside [t_excerpt_start, t_excerpt_end]
-            # when partial performance enabled
             is_outside = ref_onset < t_excerpt_start or ref_onset > t_excerpt_end
             if is_partial_performance and is_outside:
                 event = NoteEvent(
@@ -118,7 +124,6 @@ class AlignmentEngine:
 
             scorable_target_count += 1
 
-            # Predict expected onset timestamp adapting to recent player rubato/tempo drift
             expected_ref_onset = ref_onset + rolling_drift_sec
 
             best_match = None
@@ -140,10 +145,8 @@ class AlignmentEngine:
                 used_detected_indices.add(best_match_idx)
                 pitch_hits += 1
 
-                # Raw timing offset against original reference timestamp
                 timing_ms = round((best_match[1] - ref_onset) * 1000.0, 1)
 
-                # Update rolling EMA tempo drift state upon successful match
                 current_note_drift = best_match[1] - ref_onset
                 rolling_drift_sec = (
                     self.config.ema_alpha * current_note_drift
@@ -154,7 +157,6 @@ class AlignmentEngine:
                     min(self.config.max_allowed_drift_sec, rolling_drift_sec),
                 )
 
-                # Raw rhythm evaluation against original reference onset (no double-dipping)
                 abs_timing_ms = abs(timing_ms)
                 status: NoteStatus
                 if abs_timing_ms <= self.config.perfect_timing_threshold_ms:
@@ -179,7 +181,6 @@ class AlignmentEngine:
                     measure_number=ref_measure,
                 )
             else:
-                # Decay rolling drift state when notes are missed to avoid state freezing
                 rolling_drift_sec *= self.config.drift_decay_factor
 
                 event = NoteEvent(
@@ -223,6 +224,10 @@ class AlignmentEngine:
             f"Pitch Accuracy: {pitch_acc}%, Rhythm Accuracy: {rhythm_acc}%."
         )
 
+        first_detected_audio_onset = (
+            min(n[1] for n in detected_notes) if detected_notes else 0.0
+        )
+
         return AnalysisResult(
             session_id=f"sess-{uuid.uuid4().hex[:8]}",
             overall_score=overall_score,
@@ -233,6 +238,7 @@ class AlignmentEngine:
             first_note_timestamp=t_first,
             last_note_timestamp=t_last,
             is_partial_performance=is_partial_performance,
+            first_detected_audio_onset=first_detected_audio_onset,
             evaluated_notes=evaluated_events,
             coach_summary=summary,
         )
@@ -243,8 +249,8 @@ class AlignmentEngine:
         reference_notes: list[tuple[int, float, float, int]],
     ) -> float:
         """
-        Finds optimal temporal shift (offset) to align partial performance (e.g. TikTok clip)
-        against target reference piece notes.
+        Finds optimal temporal shift (offset) to align partial performance excerpts
+        against target reference piece notes using sequence match correlation.
         """
         if not detected_notes or not reference_notes:
             return 0.0
@@ -264,14 +270,120 @@ class AlignmentEngine:
         if not shifts:
             return 0.0
 
-        bin_width = 0.25
+        bin_width = 0.05
         histogram: dict[int, int] = {}
         for s in shifts:
             bin_idx = round(s / bin_width)
             histogram[bin_idx] = histogram.get(bin_idx, 0) + 1
 
-        best_bin = max(histogram.keys(), key=lambda k: histogram[k])
-        if histogram[best_bin] >= 2:
-            return best_bin * bin_width
+        top_bins = sorted(histogram.keys(), key=lambda k: histogram[k], reverse=True)[:15]
+
+        best_shift = 0.0
+        best_match_count = -1
+        tol = self.config.onset_match_tolerance_sec
+
+        for bin_idx in top_bins:
+            cand_shift = bin_idx * bin_width
+            used_ref_indices: set[int] = set()
+
+            for det_pitch, det_onset, _, _ in detected_notes:
+                aligned_onset = det_onset + cand_shift
+                for r_idx, ref in enumerate(reference_notes):
+                    if r_idx in used_ref_indices:
+                        continue
+                    if ref[0] == det_pitch and abs(ref[1] - aligned_onset) <= tol:
+                        used_ref_indices.add(r_idx)
+                        break
+
+            match_count = len(used_ref_indices)
+            if match_count > best_match_count:
+                best_match_count = match_count
+                best_shift = cand_shift
+
+        if best_match_count >= 2:
+            return best_shift
 
         return 0.0
+
+    def _compute_dtw_alignment_path(
+        self,
+        detected_notes: list[tuple[int, float, float, int]],
+        reference_notes: list[tuple[int, float, float, int]],
+        base_shift: float,
+    ) -> list[tuple[int, float, float, int]]:
+        """
+        Computes non-linear Subsequence Dynamic Time Warping (DTW) warping path
+        with Sakoe-Chiba band constraints to map played note onset timestamps
+        to target reference timeline adapting to rubato tempo fluctuations.
+        """
+        if not detected_notes or not reference_notes:
+            return detected_notes
+
+        aligned_detected = [
+            (p, onset + base_shift, offset + base_shift, v)
+            for p, onset, offset, v in detected_notes
+        ]
+
+        onsets = [n[1] for n in aligned_detected]
+        t_start = max(0.0, min(onsets) - self.config.onset_match_tolerance_sec)
+        t_end = max(onsets) + self.config.onset_match_tolerance_sec
+
+        scorable_ref = [r for r in reference_notes if t_start <= r[1] <= t_end]
+        if not scorable_ref:
+            return aligned_detected
+
+        M = len(aligned_detected)
+        N = len(scorable_ref)
+        max_drift_sec = self.config.max_allowed_drift_sec
+
+        C = np.full((M, N), 99.0, dtype=np.float32)
+        for i, d in enumerate(aligned_detected):
+            for j, r in enumerate(scorable_ref):
+                time_diff = abs(d[1] - r[1])
+                if time_diff <= max_drift_sec:
+                    pitch_penalty = 0.0 if d[0] == r[0] else 1.0
+                    C[i, j] = time_diff + pitch_penalty
+
+        D = np.full((M, N), np.inf, dtype=np.float32)
+        D[0, 0] = C[0, 0]
+
+        for i in range(1, M):
+            D[i, 0] = D[i - 1, 0] + C[i, 0]
+        for j in range(1, N):
+            D[0, j] = D[0, j - 1] + C[0, j]
+
+        for i in range(1, M):
+            for j in range(1, N):
+                if C[i, j] < 90.0:
+                    D[i, j] = C[i, j] + min(D[i - 1, j], D[i, j - 1], D[i - 1, j - 1])
+
+        i_curr, j_curr = M - 1, N - 1
+        warped_onsets: dict[int, float] = {}
+
+        while i_curr > 0 or j_curr > 0:
+            if (
+                aligned_detected[i_curr][0] == scorable_ref[j_curr][0]
+                and abs(aligned_detected[i_curr][1] - scorable_ref[j_curr][1])
+                <= self.config.onset_match_tolerance_sec
+            ):
+                warped_onsets[i_curr] = scorable_ref[j_curr][1]
+
+            if i_curr == 0:
+                j_curr -= 1
+            elif j_curr == 0:
+                i_curr -= 1
+            else:
+                prev_steps = [
+                    (D[i_curr - 1, j_curr - 1], i_curr - 1, j_curr - 1),
+                    (D[i_curr - 1, j_curr], i_curr - 1, j_curr),
+                    (D[i_curr, j_curr - 1], i_curr, j_curr - 1),
+                ]
+                _, i_curr, j_curr = min(prev_steps, key=lambda x: x[0])
+
+        warped_detected = []
+        for idx, d in enumerate(aligned_detected):
+            w_onset = warped_onsets.get(idx, d[1])
+            dur = d[2] - d[1]
+            warped_detected.append((d[0], w_onset, w_onset + dur, d[3]))
+
+        return warped_detected
