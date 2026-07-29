@@ -189,6 +189,42 @@ export default function WorkspacePage() {
     return `${m}:${s < 10 ? '0' : ''}${s}`;
   };
 
+  const firstActiveNote = analysis?.evaluatedNotes.find((n) => n.status !== 'EXCLUDED');
+  const firstAudioOnset = analysis?.firstDetectedAudioOnset || 0;
+  const excerptOffset = (analysis?.isPartialPerformance && firstActiveNote)
+    ? Math.max(0, firstActiveNote.onset - firstAudioOnset)
+    : 0;
+  const effectiveCanvasTime = currentTime + excerptOffset;
+
+  // Progressive Live Evaluation Stats Computation
+  const evaluatedNotes = analysis?.evaluatedNotes || [];
+  const isLiveStreaming = isPlaying && currentTime > 0.1 && currentTime < (duration - 0.5);
+
+  const activeNotesUntilNow = evaluatedNotes.filter(
+    (n) => n.onset <= effectiveCanvasTime && n.status !== 'EXCLUDED'
+  );
+
+  const liveEvaluatedCount = isLiveStreaming ? activeNotesUntilNow.length : evaluatedNotes.length;
+
+  let livePitchAccuracy = analysis?.pitchAccuracy || 0;
+  let liveRhythmAccuracy = analysis?.rhythmAccuracy || 0;
+  let liveOverallScore = analysis?.overallScore || 0;
+
+  if (isLiveStreaming && activeNotesUntilNow.length > 0) {
+    const perfectOrGood = activeNotesUntilNow.filter(
+      (n) => n.status === 'PERFECT' || n.status === 'GOOD'
+    ).length;
+    const okayCount = activeNotesUntilNow.filter((n) => n.status === 'OKAY').length;
+
+    livePitchAccuracy = Math.min(100, Math.round(((perfectOrGood + okayCount * 0.5) / activeNotesUntilNow.length) * 100));
+
+    const totalOffset = activeNotesUntilNow.reduce((sum, n) => sum + Math.abs(n.timingOffsetMs), 0);
+    const avgOffset = totalOffset / activeNotesUntilNow.length;
+    liveRhythmAccuracy = Math.max(0, Math.round(100 - avgOffset * 0.8));
+
+    liveOverallScore = Math.round(livePitchAccuracy * 0.7 + liveRhythmAccuracy * 0.3);
+  }
+
   return (
     <div className="space-y-6 pb-12">
       {/* Studio Header Configuration Drawer */}
@@ -246,7 +282,7 @@ export default function WorkspacePage() {
             </div>
             <div>
               <div className="text-[10px] font-mono font-bold uppercase text-[#8C887B]">OVERALL SCORE</div>
-              <div className="text-2xl font-extrabold text-[#111113] font-mono tracking-tight">{analysis.overallScore}%</div>
+              <div className="text-2xl font-extrabold text-[#111113] font-mono tracking-tight">{liveOverallScore}%</div>
             </div>
           </div>
 
@@ -256,7 +292,7 @@ export default function WorkspacePage() {
             </div>
             <div>
               <div className="text-[10px] font-mono font-bold uppercase text-[#8C887B]">PITCH ACCURACY</div>
-              <div className="text-2xl font-extrabold text-[#111113] font-mono tracking-tight">{analysis.pitchAccuracy}%</div>
+              <div className="text-2xl font-extrabold text-[#111113] font-mono tracking-tight">{livePitchAccuracy}%</div>
             </div>
           </div>
 
@@ -266,7 +302,7 @@ export default function WorkspacePage() {
             </div>
             <div>
               <div className="text-[10px] font-mono font-bold uppercase text-[#8C887B]">RHYTHM ACCURACY</div>
-              <div className="text-2xl font-extrabold text-[#111113] font-mono tracking-tight">{analysis.rhythmAccuracy}%</div>
+              <div className="text-2xl font-extrabold text-[#111113] font-mono tracking-tight">{liveRhythmAccuracy}%</div>
             </div>
           </div>
 
@@ -277,7 +313,7 @@ export default function WorkspacePage() {
             <div>
               <div className="text-[10px] font-mono font-bold uppercase text-[#8C887B]">EVALUATED EVENTS</div>
               <div className="text-2xl font-extrabold text-[#111113] font-mono tracking-tight">
-                {analysis.evaluatedNotes.length}
+                {liveEvaluatedCount}
               </div>
             </div>
           </div>
@@ -347,10 +383,21 @@ export default function WorkspacePage() {
           </div>
 
           {/* 60fps Waterfall & Keyboard */}
-          <WaterfallPianoContainer
-            notes={analysis?.evaluatedNotes || []}
-            currentTime={currentTime}
-          />
+          {(() => {
+            const firstActiveNote = analysis?.evaluatedNotes.find((n) => n.status !== 'EXCLUDED');
+            const firstAudioOnset = analysis?.firstDetectedAudioOnset || 0;
+            const excerptOffset = (analysis?.isPartialPerformance && firstActiveNote)
+              ? Math.max(0, firstActiveNote.onset - firstAudioOnset)
+              : 0;
+            const effectiveCanvasTime = currentTime + excerptOffset;
+
+            return (
+              <WaterfallPianoContainer
+                notes={analysis?.evaluatedNotes || []}
+                currentTime={effectiveCanvasTime}
+              />
+            );
+          })()}
 
           {/* Studio Playback Controls Strip */}
           <div className="bg-white p-4 border-t border-[#E2DFD7] flex flex-wrap items-center justify-between gap-4 text-[#111113]">
@@ -415,20 +462,30 @@ export default function WorkspacePage() {
       )}
 
       {/* Split Grid: Timeline Event History + AI Coach Panel (Only rendered on successful analysis with data) */}
-      {analysis && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <TimelineHistory
-            evaluatedNotes={analysis.evaluatedNotes}
-            currentTime={currentTime}
-            isPlaying={isPlaying}
-            onSelectNote={(onset) => {
-              pauseAudio();
-              seek(onset);
-            }}
-          />
-          <AICoachPanel performanceData={analysis} />
-        </div>
-      )}
+      {analysis && (() => {
+        const firstActiveNote = analysis.evaluatedNotes.find((n) => n.status !== 'EXCLUDED');
+        const firstAudioOnset = analysis.firstDetectedAudioOnset || 0;
+        const excerptOffset = (analysis.isPartialPerformance && firstActiveNote)
+          ? Math.max(0, firstActiveNote.onset - firstAudioOnset)
+          : 0;
+        const effectiveCanvasTime = (isPlaying || currentTime > 0.01) ? (currentTime + excerptOffset) : 0;
+
+        return (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <TimelineHistory
+              evaluatedNotes={analysis.evaluatedNotes}
+              currentTime={effectiveCanvasTime}
+              isPlaying={isPlaying}
+              onSelectNote={(refOnset) => {
+                pauseAudio();
+                const seekTarget = Math.max(0, refOnset - excerptOffset);
+                seek(seekTarget);
+              }}
+            />
+            <AICoachPanel performanceData={analysis} />
+          </div>
+        );
+      })()}
     </div>
   );
 }

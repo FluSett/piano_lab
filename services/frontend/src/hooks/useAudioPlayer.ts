@@ -6,6 +6,7 @@ export function useAudioPlayer(
   targetDuration: number = appConfig.defaultDurationSec
 ) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(targetDuration);
   const [volume, setVolumeState] = useState(1);
@@ -66,8 +67,10 @@ export function useAudioPlayer(
   useEffect(() => {
     if (!audioUrl) return;
     const audio = new Audio(audioUrl);
+    audio.preload = 'auto';
     audio.volume = isMutedRef.current ? 0 : volumeRef.current;
     audioRef.current = audio;
+    audio.load();
 
     const handleLoaded = () => {
       if (audio.duration && audio.duration > 0 && !isNaN(audio.duration) && isFinite(audio.duration)) {
@@ -78,9 +81,20 @@ export function useAudioPlayer(
       setIsPlaying(false);
       setCurrentTime(0);
     };
+    const handleWaiting = () => setIsBuffering(true);
+    const handlePlaying = () => {
+      setIsBuffering(false);
+      setIsPlaying(true);
+    };
+    const handlePause = () => {
+      setIsPlaying(false);
+    };
 
     audio.addEventListener('loadedmetadata', handleLoaded);
     audio.addEventListener('ended', handleEnded);
+    audio.addEventListener('waiting', handleWaiting);
+    audio.addEventListener('playing', handlePlaying);
+    audio.addEventListener('pause', handlePause);
 
     if (audio.readyState >= 1 && audio.duration && !isNaN(audio.duration) && isFinite(audio.duration)) {
       setDuration(audio.duration);
@@ -90,6 +104,9 @@ export function useAudioPlayer(
       audio.pause();
       audio.removeEventListener('loadedmetadata', handleLoaded);
       audio.removeEventListener('ended', handleEnded);
+      audio.removeEventListener('waiting', handleWaiting);
+      audio.removeEventListener('playing', handlePlaying);
+      audio.removeEventListener('pause', handlePause);
       audioRef.current = null;
     };
   }, [audioUrl]);
@@ -105,8 +122,10 @@ export function useAudioPlayer(
     }
 
     const tick = (now: number) => {
-      if (audioRef.current && !audioRef.current.paused) {
-        setCurrentTime(audioRef.current.currentTime);
+      if (audioRef.current) {
+        if (!audioRef.current.paused) {
+          setCurrentTime(audioRef.current.currentTime);
+        }
       } else {
         if (lastTickRef.current !== null) {
           const deltaSec = (now - lastTickRef.current) / 1000;
@@ -138,17 +157,16 @@ export function useAudioPlayer(
     if (isPlaying) {
       if (audioRef.current) {
         audioRef.current.pause();
+      } else {
+        setIsPlaying(false);
       }
-      setIsPlaying(false);
     } else {
       if (currentTime >= duration) {
         setCurrentTime(0);
       }
       if (audioRef.current) {
-        audioRef.current.play().then(() => {
-          setIsPlaying(true);
-        }).catch(() => {
-          setIsPlaying(true);
+        audioRef.current.play().catch(() => {
+          setIsPlaying(false);
         });
       } else {
         setIsPlaying(true);
@@ -173,6 +191,7 @@ export function useAudioPlayer(
 
   return {
     isPlaying,
+    isBuffering,
     currentTime,
     duration: duration || 30,
     volume: isMuted ? 0 : volume,

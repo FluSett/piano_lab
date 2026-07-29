@@ -19,17 +19,23 @@ interface GridTileProps {
   idx: number;
   isActive: boolean;
   isExpanded: boolean;
+  isPending?: boolean;
+  isSounding?: boolean;
   onTileClick: (note: NoteEvent, e: React.MouseEvent) => void;
 }
 
 const GridTile = React.memo(
   React.forwardRef<HTMLDivElement, GridTileProps>(
-    ({ note, idx, isActive, isExpanded, onTileClick }, ref) => {
+    ({ note, idx, isActive, isExpanded, isPending = false, isSounding = false, onTileClick }, ref) => {
       let statusBorder = 'border-[#E2DFD7]';
       let statusBg = 'bg-[#F6F4F0] hover:bg-[#EFECE6]';
       let badgeColor = 'text-[#111113]';
 
-      if (note.status === 'PERFECT' || note.status === 'GOOD') {
+      if (isPending) {
+        statusBorder = 'border-dashed border-zinc-300';
+        statusBg = 'bg-[#F6F4F0] opacity-45';
+        badgeColor = 'text-zinc-400';
+      } else if (note.status === 'PERFECT' || note.status === 'GOOD') {
         statusBorder = 'border-emerald-500/40';
         statusBg = 'bg-emerald-500/10 hover:bg-emerald-500/20';
         badgeColor = 'text-emerald-800';
@@ -52,7 +58,9 @@ const GridTile = React.memo(
           <div
             ref={ref}
             onClick={(e) => onTileClick(note, e)}
-            className={`col-span-2 row-span-2 p-3 rounded-lg border transition-all flex flex-col justify-between cursor-pointer select-none shadow-md ${statusBg} ${statusBorder} ring-2 ring-[#C84B31] z-20`}
+            className={`col-span-2 row-span-2 p-3 rounded-lg border transition-all flex flex-col justify-between cursor-pointer select-none shadow-md ${statusBg} ${statusBorder} ring-2 ring-[#C84B31] z-20 ${
+              isSounding ? 'animate-pulse' : ''
+            }`}
           >
             <div className="flex items-center justify-between border-b border-black/10 pb-1.5">
               <div className="flex items-center gap-2">
@@ -104,35 +112,41 @@ const GridTile = React.memo(
         );
       }
 
+      const activeRing = isSounding
+        ? 'ring-2 ring-[#C84B31] animate-pulse z-10'
+        : isActive
+        ? 'ring-2 ring-[#C84B31] z-10'
+        : '';
+
       return (
         <div
           ref={ref}
           onClick={(e) => onTileClick(note, e)}
-          className={`aspect-square min-h-[64px] p-2 rounded-lg border transition-all flex flex-col justify-between items-center cursor-pointer select-none text-center relative overflow-hidden group ${
-            isActive
-              ? 'bg-[#111113] text-[#F6F4F0] border-[#111113] shadow-lg ring-2 ring-[#C84B31] z-10'
+          className={`aspect-square min-h-[64px] p-2 rounded-lg border transition-all flex flex-col justify-between items-center cursor-pointer select-none text-center relative overflow-hidden group ${activeRing} ${
+            isActive && !isPending
+              ? 'bg-[#111113] text-[#F6F4F0] border-[#111113] shadow-lg'
               : `${statusBg} ${statusBorder} text-[#111113]`
           }`}
         >
           <div className="w-full flex items-center justify-between text-[9px] font-mono">
-            <span className={isActive ? 'text-[#C84B31] font-bold' : 'text-[#8C887B]'}>
+            <span className={isActive && !isPending ? 'text-[#C84B31] font-bold' : 'text-[#8C887B]'}>
               #{idx + 1}
             </span>
-            <span className={isActive ? 'text-gray-400' : 'text-[#8C887B]'}>
+            <span className={isActive && !isPending ? 'text-gray-400' : 'text-[#8C887B]'}>
               M{note.measureNumber}
             </span>
           </div>
 
           <div
             className={`text-sm sm:text-base font-extrabold font-mono tracking-tight ${
-              isActive ? 'text-white' : 'text-[#111113]'
+              isActive && !isPending ? 'text-white' : 'text-[#111113]'
             }`}
           >
             {note.noteName}
           </div>
 
           <div className="w-full flex items-center justify-center text-[9px] font-mono font-bold">
-            <span className={isActive ? 'text-amber-300' : badgeColor}>
+            <span className={isActive && !isPending ? 'text-amber-300' : badgeColor}>
               {note.timingOffsetMs > 0 ? `+${note.timingOffsetMs}ms` : `${note.timingOffsetMs}ms`}
             </span>
           </div>
@@ -143,6 +157,8 @@ const GridTile = React.memo(
   (prevProps, nextProps) =>
     prevProps.isActive === nextProps.isActive &&
     prevProps.isExpanded === nextProps.isExpanded &&
+    prevProps.isPending === nextProps.isPending &&
+    prevProps.isSounding === nextProps.isSounding &&
     prevProps.note.id === nextProps.note.id &&
     prevProps.idx === nextProps.idx
 );
@@ -160,32 +176,31 @@ export const TimelineHistory: React.FC<TimelineHistoryProps> = ({
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null);
 
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const activeNoteRef = useRef<HTMLDivElement | null>(null);
-  const lastScrolledIdRef = useRef<string | null>(null);
-
   const perfectCount = evaluatedNotes.filter((n) => n.status === 'PERFECT' || n.status === 'GOOD').length;
   const missedCount = evaluatedNotes.filter((n) => n.status === 'MISSED' || n.status === 'WRONG_PITCH').length;
   const excludedCount = evaluatedNotes.filter((n) => n.status === 'EXCLUDED').length;
 
+  const [hideExcluded, setHideExcluded] = useState<boolean>(excludedCount > 0);
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const activeNoteRef = useRef<HTMLDivElement | null>(null);
+  const lastScrolledIdRef = useRef<string | null>(null);
+
   const filteredNotes = evaluatedNotes.filter((note) => {
+    if (hideExcluded && note.status === 'EXCLUDED') return false;
     if (filter === 'ACCURATE') return note.status === 'PERFECT' || note.status === 'GOOD';
     if (filter === 'MISSED') return note.status === 'MISSED' || note.status === 'WRONG_PITCH';
     if (filter === 'EXCLUDED') return note.status === 'EXCLUDED';
     return true;
   });
 
-  // Calculate active note index: defaults to 0 if at start, or previous played note
+  // Calculate active note index during playback
   let activeIndex = -1;
-  if (evaluatedNotes.length > 0) {
-    if (currentTime <= 0.05) {
-      activeIndex = 0;
-    } else {
-      for (let i = evaluatedNotes.length - 1; i >= 0; i--) {
-        if (currentTime >= evaluatedNotes[i].onset - 0.05) {
-          activeIndex = i;
-          break;
-        }
+  if (evaluatedNotes.length > 0 && (isPlaying || currentTime > 0.05)) {
+    for (let i = evaluatedNotes.length - 1; i >= 0; i--) {
+      if (currentTime >= evaluatedNotes[i].onset - 0.05) {
+        activeIndex = i;
+        break;
       }
     }
   }
@@ -249,7 +264,7 @@ export const TimelineHistory: React.FC<TimelineHistoryProps> = ({
               <Clock className="w-4 h-4 text-[#C84B31]" /> TIMELINE EVENT HISTORY
             </h3>
             <p className="text-xs text-[#8C887B] font-mono mt-0.5">
-              Grid view • {evaluatedNotes.length} total events evaluated
+              Grid view • {filteredNotes.length} visible ({evaluatedNotes.length} total)
             </p>
           </div>
 
@@ -299,15 +314,29 @@ export const TimelineHistory: React.FC<TimelineHistoryProps> = ({
             })}
           </div>
 
-          <label className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#111113] cursor-pointer select-none bg-[#F6F4F0] px-2.5 py-1 rounded border border-[#E2DFD7] hover:border-[#C84B31] transition-colors shrink-0">
-            <input
-              type="checkbox"
-              checked={autoFollow}
-              onChange={(e) => setAutoFollow(e.target.checked)}
-              className="w-3.5 h-3.5 accent-[#C84B31] rounded"
-            />
-            <span>AUTO-FOLLOW</span>
-          </label>
+          <div className="flex items-center gap-3 shrink-0">
+            {excludedCount > 0 && (
+              <label className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#111113] cursor-pointer select-none bg-[#F6F4F0] px-2.5 py-1 rounded border border-[#E2DFD7] hover:border-[#C84B31] transition-colors">
+                <input
+                  type="checkbox"
+                  checked={hideExcluded}
+                  onChange={(e) => setHideExcluded(e.target.checked)}
+                  className="w-3.5 h-3.5 accent-[#C84B31] rounded"
+                />
+                <span>HIDE EXCLUDED</span>
+              </label>
+            )}
+
+            <label className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#111113] cursor-pointer select-none bg-[#F6F4F0] px-2.5 py-1 rounded border border-[#E2DFD7] hover:border-[#C84B31] transition-colors">
+              <input
+                type="checkbox"
+                checked={autoFollow}
+                onChange={(e) => setAutoFollow(e.target.checked)}
+                className="w-3.5 h-3.5 accent-[#C84B31] rounded"
+              />
+              <span>AUTO-FOLLOW</span>
+            </label>
+          </div>
         </div>
       </div>
 
@@ -329,6 +358,9 @@ export const TimelineHistory: React.FC<TimelineHistoryProps> = ({
               ? isExpanded
               : activeIndex !== -1 && evaluatedNotes[activeIndex]?.id === note.id;
 
+            const isPending = currentTime <= 0.05 || note.onset > currentTime;
+            const isSounding = currentTime >= note.onset && (currentTime <= note.offset || (isActive && currentTime > 0));
+
             return (
               <GridTile
                 key={note.id}
@@ -337,6 +369,8 @@ export const TimelineHistory: React.FC<TimelineHistoryProps> = ({
                 idx={idx}
                 isActive={isActive}
                 isExpanded={isExpanded}
+                isPending={isPending}
+                isSounding={isSounding}
                 onTileClick={handleTileClick}
               />
             );

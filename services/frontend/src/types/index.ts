@@ -37,6 +37,7 @@ export interface AnalysisResult {
   firstNoteTimestamp: number;
   lastNoteTimestamp: number;
   isPartialPerformance: boolean;
+  firstDetectedAudioOnset: number;
   evaluatedNotes: NoteEvent[];
   coachSummary: string;
 }
