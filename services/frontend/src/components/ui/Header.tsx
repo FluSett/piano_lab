@@ -61,6 +61,12 @@ export const Header: React.FC = () => {
           PRESETS
         </Link>
         <Link
+          href="/live"
+          className="text-[#6B6B70] hover:text-[#111113] transition-colors py-1 border-b border-transparent hover:border-[#111113]"
+        >
+          LIVE USB STUDIO
+        </Link>
+        <Link
           href="/workspace"
           onClick={handleWorkspaceNavigation}
           className="text-[#6B6B70] hover:text-[#111113] transition-colors py-1 border-b border-transparent hover:border-[#111113]"
