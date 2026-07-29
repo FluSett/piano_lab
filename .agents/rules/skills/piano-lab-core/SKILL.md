@@ -16,8 +16,8 @@ This document details the specialized domain capabilities and feature modules im
 - **Synthesia Visuals**: Descending reference target note bars mapped to an 88-key piano keyboard (`src/components/features/piano/VirtualPiano.tsx`). Incoming falling notes (`currentTime < note.onset`) descend as electric blue gradient bars (`#2563eb`/`#60a5fa`) and transition to evaluation status colors as they reach the strike line (`currentTime >= note.onset`).
 - **Dynamic Key Pressing Physics & Lighting**: Real-time key displacement animations (`translate-y-1.5` / `translate-y-1` scale transforms) with active cap indicators, strike line flares, and status highlights (🟢 Green `PERFECT`/`GOOD`, 🟡 Amber `OKAY`, 🔴 Red `MISSED`/`WRONG_PITCH`, 🔵 Blue active, ⚪ Slate `EXCLUDED`).
 - **Full-Surface Audio Dropzone**: Hidden `<input type="file" id="audio-file-input" accept="audio/wav, audio/mpeg, audio/mp3, audio/x-m4a, audio/m4a, .wav, .mp3, .m4a" />` wrapped with `<label htmlFor="audio-file-input">` across all dropzone children for 100% click-to-browse activation, complete with instant clear/reset controls (`X` icon).
-- **SSR Hydration Protection**: Deferred `sessionStorage` initialization in `useEffect` and static timestamp labels (`"Studio AI"`) preventing SSR/client rendering divergence.
 - **Web Worker Processing**: `src/workers/audioParser.worker.ts` handles off-main-thread audio array buffer decoding and duration calculations to prevent UI thread stuttering.
+- **Live USB MIDI & QWERTY Studio (`/live`)**: USB MIDI hardware auto-detection (`useWebMidi`), computer QWERTY keyboard playability with octave shift controls (`useKeyboardPiano`), zero-latency polyphonic acoustic piano synthesizer (`useWebAudioSynth`), 60fps live canvas waterfall note stream (`LiveWaterfallCanvas`), and interactive 88-key virtual piano keyboard (`InteractiveVirtualPiano`).
 
 ---
 

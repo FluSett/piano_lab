@@ -86,6 +86,17 @@ An all-in-one studio layout featuring synchronous audio playback, visual feedbac
 
 ---
 
+### Page 3: Live USB MIDI & QWERTY Keyboard Interactive Studio (`/live`)
+A dedicated live interactive performance studio enabling musicians to connect USB digital pianos or play via computer QWERTY keyboard with zero latency:
+
+* **Web MIDI Hardware Auto-Detection Hook (`src/hooks/useWebMidi.ts`):** Uses `navigator.requestMIDIAccess()` to auto-detect connected USB digital pianos/keyboards (Roland, Yamaha, Korg, Casio, Nord, etc.). Listens to `midiAccess.onstatechange` for dynamic USB hot-plugging. Parses `NoteOn` (`0x90`) and `NoteOff` (`0x80`) MIDI commands into pitch, velocity, and timestamp callbacks with graceful fallback if Web MIDI API is restricted or unsupported (`isMidiSupported = false`).
+* **Computer QWERTY Keyboard Playability Hook (`src/hooks/useKeyboardPiano.ts`):** Maps computer QWERTY keyboard keys to MIDI pitches (White keys: `A` (60/C4), `S` (62/D4), `D` (64/E4), `F` (65/F4), `G` (67/G4), `H` (69/A4), `J` (71/B4), `K` (72/C5), `L` (74/D5), `;` (76/E5); Black keys: `W` (61/C#4), `E` (63/D#4), `T` (66/F#4), `Y` (68/G#4), `U` (70/A#4), `O` (73/C#5), `P` (75/D#5); Octave controls: `Z` octave down min -2, `X` octave up max +2). Suppresses key auto-repeats (`e.repeat`) and prevents default browser key actions when not typing inside text input elements.
+* **Real-Time Web Audio Polyphonic Synthesizer Hook (`src/hooks/useWebAudioSynth.ts`):** Builds a zero-latency polyphonic acoustic piano synthesizer using Web Audio API (`AudioContext`). Generates rich multi-harmonic piano tones (fundamental + 2nd & 3rd harmonics) with exponential ADSR volume envelopes for key press (`triggerAttack`/`playNote`) and key release (`triggerRelease`/`stopNote`), complete with mute/unmute control.
+* **Interactive 88-Key Virtual Piano Component (`src/components/features/piano/InteractiveVirtualPiano.tsx`):** Renders a full 88-key interactive virtual piano supporting mouse click/touch, USB MIDI inputs, and QWERTY key presses. Renders key binding labels (`A`, `S`, `D`...) on keys when in QWERTY mode and displays 60fps glowing active key press highlights (`bg-[#16A34A] animate-pulse` & shadow glow).
+* **Live Waterfall Canvas Component (`src/components/features/waterfall/LiveWaterfallCanvas.tsx`):** Renders a 60fps HTML5 Canvas with real-time rising/falling note streams as keys are played on USB MIDI or QWERTY keyboard with Studio Crimson strike line (`#C84B31`) and key grid alignment matching 88-key piano bounds.
+
+---
+
 ## ⚡ High-Throughput Vertical Scaling Architecture
 
 ```text
