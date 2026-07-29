@@ -24,16 +24,8 @@ export const WaterfallPianoContainer: React.FC<WaterfallPianoContainerProps> = (
     let animFrameId: number;
 
     const updateWidth = () => {
-      const measured = el.clientWidth;
-      if (measured > 0) {
-        setContainerWidth((prev) => {
-          // Threshold check to eliminate ResizeObserver width feedback loop and layout jumping
-          if (Math.abs(measured - prev) >= 8) {
-            return measured;
-          }
-          return prev;
-        });
-      }
+      const measured = Math.max(600, el.clientWidth);
+      setContainerWidth(measured);
     };
 
     updateWidth();

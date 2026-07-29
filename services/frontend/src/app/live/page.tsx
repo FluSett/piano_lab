@@ -1,12 +1,10 @@
 'use client';
 
 import { useState, useCallback, useMemo } from 'react';
-import { Header } from '@/components/ui/Header';
 import { useWebMidi } from '@/hooks/useWebMidi';
 import { useKeyboardPiano } from '@/hooks/useKeyboardPiano';
 import { useWebAudioSynth } from '@/hooks/useWebAudioSynth';
-import { InteractiveVirtualPiano } from '@/components/features/piano/InteractiveVirtualPiano';
-import { LiveWaterfallCanvas } from '@/components/features/waterfall/LiveWaterfallCanvas';
+import { LiveWaterfallPianoContainer } from '@/components/features/waterfall/LiveWaterfallPianoContainer';
 import {
   Keyboard,
   Volume2,
@@ -126,11 +124,8 @@ export default function LiveStudioPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#111113] text-[#F6F4F0] flex flex-col font-sans selection:bg-[#C84B31] selection:text-white">
-      <Header />
-
-      <main className="flex-1 flex flex-col items-center max-w-7xl w-full mx-auto px-4 py-6 gap-6">
-        {/* Top Status & Info Card */}
+    <div className="space-y-6 pb-12">
+      {/* Top Status & Info Card */}
         <section className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* USB MIDI Connection Status Card */}
           <div className="bg-[#1c1c1f] border border-[#2a2a2e] rounded-xl p-5 flex items-center justify-between shadow-lg">
@@ -289,20 +284,15 @@ export default function LiveStudioPage() {
             </div>
           </div>
 
-          {/* 60fps HTML5 Live Waterfall Canvas */}
-          <LiveWaterfallCanvas activePitches={combinedActivePitches} width={1100} height={360} />
-
-          {/* Interactive Virtual 88-Key Piano */}
-          <InteractiveVirtualPiano
+          {/* 60fps Live Waterfall Canvas & Interactive Virtual 88-Key Piano */}
+          <LiveWaterfallPianoContainer
             activePitches={combinedActivePitches}
             keyBindings={keyBindings}
             onNoteOn={handleInteractiveNoteOn}
             onNoteOff={handleInteractiveNoteOff}
-            width={1100}
             showLabels={true}
           />
         </section>
-      </main>
     </div>
   );
 }

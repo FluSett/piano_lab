@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useToast } from '@/components/ui/ToastProvider';
 
 import { Logo } from '@/components/ui/Logo';
@@ -10,6 +10,7 @@ import { MvpBadge } from '@/components/ui/MvpBadge';
 
 export const Header: React.FC = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const { showToast } = useToast();
 
   const handleWorkspaceNavigation = (e: React.MouseEvent) => {
@@ -39,8 +40,8 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="w-full bg-[#F6F4F0]/90 backdrop-blur-md sticky top-0 z-50 px-8 py-5 flex items-center justify-between border-b border-[#E2DFD7]">
-      <Link href="/" className="flex items-center gap-3 group">
+    <header className="w-full bg-[#F6F4F0]/90 backdrop-blur-md sticky top-0 z-50 px-4 sm:px-8 py-4 sm:py-5 flex flex-wrap items-center justify-between gap-4 border-b border-[#E2DFD7]">
+      <Link href="/" className="flex items-center gap-3 group shrink-0">
         <Logo size={34} />
         <div className="flex items-center gap-2">
           <span className="text-lg font-extrabold tracking-wider uppercase text-[#111113]">
@@ -53,27 +54,39 @@ export const Header: React.FC = () => {
         </div>
       </Link>
 
-      <nav className="flex items-center gap-8 text-xs font-mono font-bold tracking-widest uppercase">
+      <nav className="flex items-center gap-4 sm:gap-8 text-xs font-mono font-bold tracking-widest uppercase flex-wrap">
         <Link
           href="/"
-          className="text-[#6B6B70] hover:text-[#111113] transition-colors py-1 border-b border-transparent hover:border-[#111113]"
+          className={`py-1 transition-colors ${
+            pathname === '/'
+              ? 'text-[#111113] border-b-2 border-[#C84B31] font-extrabold'
+              : 'text-[#6B6B70] hover:text-[#111113] border-b-2 border-transparent hover:border-[#111113]'
+          }`}
         >
           PRESETS
         </Link>
         <Link
           href="/live"
-          className="text-[#6B6B70] hover:text-[#111113] transition-colors py-1 border-b border-transparent hover:border-[#111113]"
+          className={`py-1 transition-colors ${
+            pathname === '/live'
+              ? 'text-[#111113] border-b-2 border-[#C84B31] font-extrabold'
+              : 'text-[#6B6B70] hover:text-[#111113] border-b-2 border-transparent hover:border-[#111113]'
+          }`}
         >
-          LIVE USB STUDIO
+          LIVE
         </Link>
         <Link
           href="/workspace"
           onClick={handleWorkspaceNavigation}
-          className="text-[#6B6B70] hover:text-[#111113] transition-colors py-1 border-b border-transparent hover:border-[#111113]"
+          className={`py-1 transition-colors ${
+            pathname === '/workspace'
+              ? 'text-[#111113] border-b-2 border-[#C84B31] font-extrabold'
+              : 'text-[#6B6B70] hover:text-[#111113] border-b-2 border-transparent hover:border-[#111113]'
+          }`}
         >
-          STUDIO WORKSPACE
+          WORKSPACE
         </Link>
-        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFECE6] border border-[#E2DFD7] text-[#111113] text-[11px]">
+        <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFECE6] border border-[#E2DFD7] text-[#111113] text-[11px]">
           <span className="w-2 h-2 rounded-full bg-[#C84B31] animate-crimson-pulse" />
           <span className="font-semibold tracking-wider">GATEWAY ACTIVE</span>
         </div>
