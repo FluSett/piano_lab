@@ -40,6 +40,16 @@ export const AICoachPanel: React.FC<AICoachPanelProps> = ({ performanceData }) =
     },
   ]);
 
+  const messagesEndRef = React.useRef<HTMLDivElement | null>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  React.useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   React.useEffect(() => {
     if (performanceData) {
       const text = getInitialText(performanceData);
@@ -61,6 +71,10 @@ export const AICoachPanel: React.FC<AICoachPanelProps> = ({ performanceData }) =
 
   const [inputMessage, setInputMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
+
+  React.useEffect(() => {
+    scrollToBottom();
+  }, [isSending]);
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -190,6 +204,12 @@ export const AICoachPanel: React.FC<AICoachPanelProps> = ({ performanceData }) =
             </div>
           </div>
         ))}
+        {isSending && (
+          <div className="flex items-center gap-2 text-xs font-mono text-[#8C887B] animate-pulse p-2">
+            <Bot className="w-3.5 h-3.5 text-[#C84B31]" /> AI Advisor is typing practice guidance...
+          </div>
+        )}
+        <div ref={messagesEndRef} />
       </div>
 
       <form onSubmit={handleSend} className="pt-3 border-t border-[#E2DFD7] flex items-center gap-2">

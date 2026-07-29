@@ -65,6 +65,13 @@ class AICoachService:
                 logger.warning(f"Failed to initialize Google GenAI SDK: {e}")
 
     def generate_coach_response(self, request: CoachRequest) -> CoachResponse:
+        if self._genai_client is None or self._genai_types is None:
+            return CoachResponse(
+                reply_message=self.missing_key_message,
+                is_off_topic=False,
+                suggested_measures=[],
+            )
+
         user_text = request.user_message.strip()
 
         has_history = len(request.chat_history) > 0
@@ -107,29 +114,37 @@ class AICoachService:
             ]
             history_str = "Recent Conversation Context:\n" + "\n".join(history_lines) + "\n\n"
 
-        if self._genai_client is not None and self._genai_types is not None:
-            try:
-                prompt = f"{context_str}{history_str}Student Question: {user_text}"
-                gen_config = self._genai_types.GenerateContentConfig(
-                    system_instruction=self.system_instruction,
-                    temperature=settings.gemini_temperature,
-                    max_output_tokens=settings.gemini_max_tokens,
+        try:
+            prompt = f"{context_str}{history_str}Student Question: {user_text}"
+            gen_config = self._genai_types.GenerateContentConfig(
+                system_instruction=self.system_instruction,
+                temperature=settings.gemini_temperature,
+                max_output_tokens=settings.gemini_max_tokens,
+            )
+            response = self._genai_client.models.generate_content(
+                model=self.model_name,
+                contents=prompt,
+                config=gen_config,
+            )
+            if response and response.text:
+                reply = response.text.strip()
+                is_off_topic_reply = self.off_topic_message in reply
+                return CoachResponse(
+                    reply_message=reply,
+                    is_off_topic=is_off_topic_reply,
+                    suggested_measures=suggested_measures,
                 )
-                response = self._genai_client.models.generate_content(
-                    model=self.model_name,
-                    contents=prompt,
-                    config=gen_config,
-                )
-                if response and response.text:
-                    reply = response.text.strip()
-                    is_off_topic_reply = self.off_topic_message in reply
-                    return CoachResponse(
-                        reply_message=reply,
-                        is_off_topic=is_off_topic_reply,
-                        suggested_measures=suggested_measures,
-                    )
-            except Exception as e:
-                logger.error(f"GenAI SDK execution error: {e}")
+        except Exception as e:
+            logger.error(f"GenAI SDK execution error: {e}")
+            err_msg = (
+                f"Gemini AI Coach API error: {str(e)}. "
+                "Please verify your GEMINI_API_KEY in .env."
+            )
+            return CoachResponse(
+                reply_message=err_msg,
+                is_off_topic=False,
+                suggested_measures=suggested_measures,
+            )
 
         return CoachResponse(
             reply_message=self.missing_key_message,
